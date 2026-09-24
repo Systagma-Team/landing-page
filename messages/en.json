@@ -1,0 +1,297 @@
+{
+  "meta": {
+    "title": "Systagma — Custom software, integrations and data",
+    "description": "Software house that designs, builds and integrates web platforms, mobile apps and data solutions. From first sketch to measured impact."
+  },
+  "common": {
+    "skip": "Skip to content",
+    "symbol": "Systagma symbol",
+    "home": "Systagma, home",
+    "newTab": "(opens in a new tab)"
+  },
+  "nav": {
+    "label": "Main",
+    "services": "Services",
+    "howWeWork": "How we work",
+    "faq": "FAQ",
+    "cta": "Start a project",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "language": "Language",
+    "pt": "Português (Brasil)",
+    "en": "English"
+  },
+  "hero": {
+    "h1": "Ideas, put in order.",
+    "lead": "Systagma designs, builds and integrates custom software, and measures what it delivers. From the first sketch to impact you can see in the data.",
+    "cta": "Start a project",
+    "whatsapp": "Chat on WhatsApp",
+    "seeServices": "See what we do",
+    "note": "We reply within one business day."
+  },
+  "about": {
+    "h2": "About Systagma",
+    "statement": "Systagma comes from Greek: <g>systēma</g>, a whole made of parts, and <g>tagma</g>, something set in order.",
+    "followUp": "That's our job. We arrange people, processes and data into software that works as a single system, and we show in numbers what changed.",
+    "diagramTitle": "From idea to impact, through the system",
+    "diagram": [
+      "Idea",
+      "System",
+      "Impact"
+    ]
+  },
+  "services": {
+    "h2": "From code to outcome, in four moves.",
+    "lead": "Every project moves through the same four stages. Bring us in for one, a few, or the whole way.",
+    "pillars": {
+      "build": {
+        "title": "Build",
+        "description": "Custom web and mobile software, with architecture that's ready to grow.",
+        "items": [
+          "Web platforms and SaaS",
+          "iOS and Android apps",
+          "Internal tools and back-offices",
+          "Product design (UX/UI)"
+        ]
+      },
+      "connect": {
+        "title": "Connect",
+        "description": "We plug the new into what you already run, so data moves without rework.",
+        "items": [
+          "APIs and integrations (ERP, CRM, payments)",
+          "Workflow automation",
+          "Cloud and DevOps",
+          "Legacy system migration"
+        ]
+      },
+      "analyze": {
+        "title": "Analyze",
+        "description": "We turn scattered data into trustworthy metrics and faster decisions.",
+        "items": [
+          "Data engineering and pipelines",
+          "Dashboards and BI",
+          "Applied AI and machine learning",
+          "Product analytics"
+        ]
+      },
+      "transform": {
+        "title": "Transform",
+        "description": "We use what the data shows to evolve the product and the business.",
+        "items": [
+          "Product discovery and strategy",
+          "System modernization",
+          "AI agents and intelligent automation",
+          "Continuous improvement and support"
+        ]
+      }
+    }
+  },
+  "how": {
+    "h2": "How we work together",
+    "lead": "Three ways to start, with the same rules in each.",
+    "models": {
+      "discovery": {
+        "title": "Discovery sprint",
+        "body": "Two weeks to understand the problem, test the solution with the people who'll use it, and leave with a scope, a plan and an estimate. Fixed price.",
+        "bestFor": "When the idea is still open."
+      },
+      "fixed": {
+        "title": "Fixed-scope project",
+        "body": "Scope, timeline and budget agreed before we start, with deliveries every two weeks.",
+        "bestFor": "MVPs and systems with a clear goal."
+      },
+      "team": {
+        "title": "Dedicated team",
+        "body": "A cross-functional team that works as an extension of yours, in two-week cycles, on the priorities you set.",
+        "bestFor": "Products that keep evolving."
+      }
+    },
+    "commitmentsTitle": "What holds in every format",
+    "commitments": {
+      "code": {
+        "title": "You own the code.",
+        "body": "Repositories, cloud accounts and documentation are in your company's name from day one."
+      },
+      "demos": {
+        "title": "Working software every two weeks.",
+        "body": "You see demos, not status reports."
+      },
+      "metrics": {
+        "title": "Metrics before features.",
+        "body": "We agree on how success is measured before the first line of code."
+      },
+      "writing": {
+        "title": "Price and timeline in writing.",
+        "body": "Scope changes are estimated and approved before they enter a cycle."
+      }
+    }
+  },
+  "faq": {
+    "h2": "Common questions",
+    "lead": "What people usually ask before we start.",
+    "fallback": "Didn't find yours? Write to <mail>{email}</mail>.",
+    "items": {
+      "faq-custo": {
+        "q": "How much does a project cost?",
+        "a": "It depends on scope and format. After a first conversation we send a written proposal with scope, timeline and budget. When the scope is still open, we start with a two-week, fixed-price discovery sprint."
+      },
+      "faq-prazo": {
+        "q": "How long does it take?",
+        "a": "An MVP usually takes 8 to 16 weeks. The exact timeline is in the proposal, with deliveries every two weeks so you can follow along."
+      },
+      "faq-codigo": {
+        "q": "Who owns the code?",
+        "a": "Your company. Repositories, cloud accounts, domains and documentation are in your name from the start, and we hand everything over in order when the contract ends."
+      },
+      "faq-sistema": {
+        "q": "Can you take over a system that's already running?",
+        "a": "Yes. We start with a technical audit of the code, infrastructure and risks, and only then propose a plan."
+      },
+      "faq-ideia": {
+        "q": "Do I need everything figured out?",
+        "a": "No. An idea or a clearly described problem is enough for a first conversation. The discovery sprint exists to turn that into scope."
+      },
+      "faq-comunicacao": {
+        "q": "How does communication work?",
+        "a": "A direct channel with the team (email, Slack or WhatsApp), a short weekly meeting and a demo every two-week cycle."
+      },
+      "faq-suporte": {
+        "q": "What happens after launch?",
+        "a": "We offer support plans with monitoring, fixes and ongoing improvement. We can also train your team to take the system over."
+      },
+      "faq-dados": {
+        "q": "How do you handle personal data?",
+        "a": "We follow Brazil's LGPD: we collect the minimum needed, document how data is processed, and apply access control and encryption in the systems we build. When needed, we sign a data processing agreement."
+      },
+      "faq-idioma": {
+        "q": "Do you work with companies outside Brazil?",
+        "a": "Yes, in Portuguese and English, with meetings in a time zone that works for both sides."
+      }
+    }
+  },
+  "contact": {
+    "h2": "Tell us what you want to build.",
+    "lead": "We reply by email within one business day with next steps.",
+    "channels": "Direct channels",
+    "email": "Email",
+    "copy": "Copy email",
+    "copied": "Email copied",
+    "whatsapp": "WhatsApp",
+    "whatsappCta": "Chat on WhatsApp",
+    "whatsappNote": "For quick questions during business hours.",
+    "hours": "Hours",
+    "hoursValue": "{hours} (Brasília time, UTC−3)",
+    "nextTitle": "What happens next",
+    "next": [
+      "We read your message and reply within one business day.",
+      "We book a 30-minute call to understand the context.",
+      "We send a proposal or a discovery plan."
+    ],
+    "form": {
+      "label": "Contact form",
+      "required": "* required",
+      "name": "Name",
+      "email": "Email",
+      "company": "Company",
+      "needs": "What do you need?",
+      "needsOptions": {
+        "new-product": "New product",
+        "integration": "Integration",
+        "data": "Data & BI",
+        "ai": "AI & automation",
+        "modernization": "Modernization",
+        "other": "Other"
+      },
+      "budget": "Expected budget",
+      "budgetOptions": {
+        "b1": "Under US$ 10k",
+        "b2": "US$ 10–25k",
+        "b3": "US$ 25–60k",
+        "b4": "Over US$ 60k",
+        "unknown": "Not sure yet"
+      },
+      "message": "Tell us a bit about the project",
+      "messageHint": "What problem are you solving, and by when?",
+      "counter": "{count} of 2000 characters",
+      "lgpd": "We use your details only to reply to this message. Read our <link>Privacy Policy</link>.",
+      "submit": "Send message",
+      "sending": "Sending…",
+      "summary": "Please review the highlighted fields:"
+    },
+    "errors": {
+      "nameShort": "Enter your name.",
+      "emailInvalid": "Enter a valid email, like name@company.com.",
+      "needsEmpty": "Choose at least one option.",
+      "messageShort": "Write at least 20 characters so we can understand the project.",
+      "messageLong": "Use 2000 characters or fewer."
+    },
+    "success": {
+      "title": "Message sent",
+      "body": "We'll reply to {email} within one business day.",
+      "again": "Send another message"
+    },
+    "sendError": "Your message couldn't be sent. Try again or write to {email}.",
+    "rateLimited": "We've received several messages from this address in a short time. Try again in a few minutes or write to {email}."
+  },
+  "footer": {
+    "tagline": "Ideas to impact through data.",
+    "site": "Site",
+    "contact": "Contact",
+    "social": "Social",
+    "privacy": "Privacy Policy"
+  },
+  "privacy": {
+    "description": "How Systagma handles personal data sent through this site, under Brazil’s LGPD.",
+    "title": "Privacy Policy",
+    "toc": "On this page",
+    "updated": "Last updated: {date}",
+    "sections": {
+      "quem-somos": {
+        "title": "Who we are",
+        "body": "The data controller is {legalName}, CNPJ {cnpj}, {cityUf}. Contact: {email}."
+      },
+      "dados": {
+        "title": "Data we collect",
+        "body": "The contact form fields (name, email, company, needs, expected budget and message); technical logs kept by the hosting provider; and aggregated, cookieless visit statistics."
+      },
+      "finalidade": {
+        "title": "Why we use it",
+        "body": "To reply to your request and prepare proposals."
+      },
+      "base-legal": {
+        "title": "Legal basis",
+        "body": "Preliminary procedures for a contract at the data subject's request (LGPD Art. 7, V), and legitimate interest where applicable."
+      },
+      "compartilhamento": {
+        "title": "Who we share it with",
+        "body": "Our email provider, hosting provider and Cloudflare Turnstile (bot protection). These providers may process data outside Brazil."
+      },
+      "retencao": {
+        "title": "How long",
+        "body": "For {retention} or until you ask us to delete it."
+      },
+      "direitos": {
+        "title": "Your rights",
+        "body": "You can exercise your rights under LGPD Art. 18, such as access, correction and deletion, by writing to {email}."
+      },
+      "encarregado": {
+        "title": "Data protection contact",
+        "body": "{dpo}, {email}."
+      },
+      "cookies": {
+        "title": "Cookies",
+        "body": "This site sets no cookies."
+      },
+      "atualizacoes": {
+        "title": "Updates",
+        "body": "This policy may change; the date of the last update is shown at the top of the page."
+      }
+    }
+  },
+  "notFound": {
+    "h1": "This part of the system doesn't exist.",
+    "body": "The address may have changed, or it never existed.",
+    "home": "Back to home",
+    "cta": "Start a project"
+  }
+}

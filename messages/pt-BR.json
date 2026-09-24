@@ -1,0 +1,297 @@
+{
+  "meta": {
+    "title": "Systagma — Software sob medida, integrações e dados",
+    "description": "Software house que projeta, desenvolve e integra plataformas web, aplicativos e soluções de dados. Do primeiro rascunho ao impacto medido."
+  },
+  "common": {
+    "skip": "Pular para o conteúdo",
+    "symbol": "Símbolo da Systagma",
+    "home": "Systagma, início",
+    "newTab": "(abre em nova aba)"
+  },
+  "nav": {
+    "label": "Principal",
+    "services": "Serviços",
+    "howWeWork": "Como trabalhamos",
+    "faq": "FAQ",
+    "cta": "Iniciar um projeto",
+    "openMenu": "Abrir menu",
+    "closeMenu": "Fechar menu",
+    "language": "Idioma",
+    "pt": "Português (Brasil)",
+    "en": "English"
+  },
+  "hero": {
+    "h1": "Ideias, postas em ordem.",
+    "lead": "A Systagma projeta, desenvolve e integra software sob medida, e mede o que ele entrega. Do primeiro rascunho ao impacto que aparece nos dados.",
+    "cta": "Iniciar um projeto",
+    "whatsapp": "Conversar no WhatsApp",
+    "seeServices": "Ver o que fazemos",
+    "note": "Respondemos em até 1 dia útil."
+  },
+  "about": {
+    "h2": "Sobre a Systagma",
+    "statement": "Systagma vem do grego: <g>systēma</g>, um todo feito de partes, e <g>tagma</g>, o que foi posto em ordem.",
+    "followUp": "É o nosso trabalho. Organizamos pessoas, processos e dados em software que funciona como um só sistema, e mostramos em números o que mudou.",
+    "diagramTitle": "Da ideia ao impacto, passando pelo sistema",
+    "diagram": [
+      "Ideia",
+      "Sistema",
+      "Impacto"
+    ]
+  },
+  "services": {
+    "h2": "Do código ao resultado, em quatro movimentos.",
+    "lead": "Todo projeto passa pelas mesmas quatro etapas. Você pode contratar uma, algumas ou o caminho inteiro.",
+    "pillars": {
+      "build": {
+        "title": "Construir",
+        "description": "Software sob medida, web e mobile, com arquitetura pronta para crescer.",
+        "items": [
+          "Plataformas web e SaaS",
+          "Aplicativos iOS e Android",
+          "Sistemas internos e painéis administrativos",
+          "Design de produto (UX/UI)"
+        ]
+      },
+      "connect": {
+        "title": "Conectar",
+        "description": "Integramos o novo ao que você já usa, para que os dados circulem sem retrabalho.",
+        "items": [
+          "APIs e integrações (ERP, CRM, pagamentos)",
+          "Automação de processos",
+          "Nuvem e DevOps",
+          "Migração de sistemas legados"
+        ]
+      },
+      "analyze": {
+        "title": "Analisar",
+        "description": "Transformamos dados dispersos em indicadores confiáveis e decisões mais rápidas.",
+        "items": [
+          "Engenharia de dados e pipelines",
+          "Dashboards e BI",
+          "IA e machine learning aplicados",
+          "Métricas de produto"
+        ]
+      },
+      "transform": {
+        "title": "Transformar",
+        "description": "Usamos o que os dados mostram para evoluir o produto e o negócio.",
+        "items": [
+          "Discovery e estratégia de produto",
+          "Modernização de sistemas",
+          "Agentes de IA e automação inteligente",
+          "Evolução contínua e sustentação"
+        ]
+      }
+    }
+  },
+  "how": {
+    "h2": "Como trabalhamos juntos",
+    "lead": "Três formas de começar, com as mesmas regras em todas.",
+    "models": {
+      "discovery": {
+        "title": "Diagnóstico",
+        "body": "Duas semanas para entender o problema, validar a solução com quem vai usar e sair com escopo, plano e estimativa. Preço fixo.",
+        "bestFor": "Quando a ideia ainda está aberta."
+      },
+      "fixed": {
+        "title": "Projeto fechado",
+        "body": "Escopo, prazo e investimento acordados antes de começar, com entregas a cada duas semanas.",
+        "bestFor": "MVPs e sistemas com objetivo claro."
+      },
+      "team": {
+        "title": "Time dedicado",
+        "body": "Um time multidisciplinar que trabalha como extensão do seu, em ciclos quinzenais e com as prioridades que você define.",
+        "bestFor": "Produtos em evolução contínua."
+      }
+    },
+    "commitmentsTitle": "O que vale em qualquer formato",
+    "commitments": {
+      "code": {
+        "title": "O código é seu.",
+        "body": "Repositórios, contas de nuvem e documentação ficam em nome da sua empresa desde o primeiro dia."
+      },
+      "demos": {
+        "title": "Software funcionando a cada duas semanas.",
+        "body": "Você acompanha demonstrações, não relatórios de status."
+      },
+      "metrics": {
+        "title": "Métrica antes da funcionalidade.",
+        "body": "Combinamos como medir o sucesso antes da primeira linha de código."
+      },
+      "writing": {
+        "title": "Preço e prazo por escrito.",
+        "body": "Mudanças de escopo são estimadas e aprovadas antes de entrar no ciclo."
+      }
+    }
+  },
+  "faq": {
+    "h2": "Perguntas frequentes",
+    "lead": "O que costumam nos perguntar antes de começar.",
+    "fallback": "Não achou sua pergunta? Escreva para <mail>{email}</mail>.",
+    "items": {
+      "faq-custo": {
+        "q": "Quanto custa um projeto?",
+        "a": "Depende do escopo e do formato. Depois de uma conversa inicial, enviamos uma proposta com escopo, prazo e investimento por escrito. Quando o escopo ainda está aberto, começamos por um diagnóstico de duas semanas com preço fixo."
+      },
+      "faq-prazo": {
+        "q": "Quanto tempo leva?",
+        "a": "Um MVP costuma levar de 8 a 16 semanas. O prazo exato vem na proposta, com entregas a cada duas semanas para você acompanhar."
+      },
+      "faq-codigo": {
+        "q": "De quem é o código?",
+        "a": "Da sua empresa. Repositórios, contas de nuvem, domínios e documentação ficam no seu nome desde o início, e entregamos tudo organizado no fim do contrato."
+      },
+      "faq-sistema": {
+        "q": "Vocês assumem um sistema que já está rodando?",
+        "a": "Sim. Começamos com uma auditoria técnica do código, da infraestrutura e dos riscos, e só depois propomos o plano de evolução."
+      },
+      "faq-ideia": {
+        "q": "Preciso chegar com tudo definido?",
+        "a": "Não. Uma ideia ou um problema bem descrito basta para a primeira conversa. O diagnóstico existe para transformar isso em escopo."
+      },
+      "faq-comunicacao": {
+        "q": "Como funciona a comunicação?",
+        "a": "Um canal direto com o time (e-mail, Slack ou WhatsApp), uma reunião semanal curta e uma demonstração a cada ciclo de duas semanas."
+      },
+      "faq-suporte": {
+        "q": "E depois do lançamento?",
+        "a": "Oferecemos planos de sustentação com monitoramento, correções e evolução contínua. Também podemos treinar seu time para assumir o sistema."
+      },
+      "faq-dados": {
+        "q": "Como vocês tratam dados pessoais?",
+        "a": "Seguimos a LGPD: coletamos o mínimo necessário, documentamos o tratamento e aplicamos controle de acesso e criptografia nos sistemas que construímos. Quando necessário, assinamos um acordo de tratamento de dados."
+      },
+      "faq-idioma": {
+        "q": "Vocês atendem empresas fora do Brasil?",
+        "a": "Sim, em português e inglês, com reuniões no fuso que funcionar para os dois lados."
+      }
+    }
+  },
+  "contact": {
+    "h2": "Conte o que você quer construir.",
+    "lead": "Respondemos por e-mail em até um dia útil com os próximos passos.",
+    "channels": "Canais diretos",
+    "email": "E-mail",
+    "copy": "Copiar e-mail",
+    "copied": "E-mail copiado",
+    "whatsapp": "WhatsApp",
+    "whatsappCta": "Conversar no WhatsApp",
+    "whatsappNote": "Para conversas rápidas em horário comercial.",
+    "hours": "Horário",
+    "hoursValue": "{hours} (horário de Brasília)",
+    "nextTitle": "O que acontece depois",
+    "next": [
+      "Lemos sua mensagem e respondemos em até um dia útil.",
+      "Marcamos uma conversa de 30 minutos para entender o contexto.",
+      "Enviamos uma proposta ou um plano de diagnóstico."
+    ],
+    "form": {
+      "label": "Formulário de contato",
+      "required": "* obrigatório",
+      "name": "Nome",
+      "email": "E-mail",
+      "company": "Empresa",
+      "needs": "O que você precisa?",
+      "needsOptions": {
+        "new-product": "Novo produto",
+        "integration": "Integração",
+        "data": "Dados e BI",
+        "ai": "IA e automação",
+        "modernization": "Modernização",
+        "other": "Outro"
+      },
+      "budget": "Investimento previsto",
+      "budgetOptions": {
+        "b1": "Até R$ 30 mil",
+        "b2": "R$ 30–80 mil",
+        "b3": "R$ 80–200 mil",
+        "b4": "Acima de R$ 200 mil",
+        "unknown": "Ainda não sei"
+      },
+      "message": "Conte um pouco sobre o projeto",
+      "messageHint": "Qual problema você quer resolver e para quando?",
+      "counter": "{count} de 2000 caracteres",
+      "lgpd": "Usamos seus dados apenas para responder a este contato. Saiba mais na <link>Política de Privacidade</link>.",
+      "submit": "Enviar mensagem",
+      "sending": "Enviando…",
+      "summary": "Revise os campos destacados:"
+    },
+    "errors": {
+      "nameShort": "Escreva seu nome.",
+      "emailInvalid": "Informe um e-mail válido, como nome@empresa.com.",
+      "needsEmpty": "Escolha pelo menos uma opção.",
+      "messageShort": "Escreva pelo menos 20 caracteres para entendermos o projeto.",
+      "messageLong": "Use no máximo 2000 caracteres."
+    },
+    "success": {
+      "title": "Mensagem enviada",
+      "body": "Respondemos em até um dia útil no e-mail {email}.",
+      "again": "Enviar outra mensagem"
+    },
+    "sendError": "Não foi possível enviar sua mensagem. Tente de novo ou escreva para {email}.",
+    "rateLimited": "Recebemos várias mensagens deste endereço em pouco tempo. Tente de novo em alguns minutos ou escreva para {email}."
+  },
+  "footer": {
+    "tagline": "Da ideia ao impacto, com dados.",
+    "site": "Site",
+    "contact": "Contato",
+    "social": "Social",
+    "privacy": "Política de Privacidade"
+  },
+  "privacy": {
+    "description": "Como a Systagma trata os dados pessoais enviados pelo site, conforme a LGPD.",
+    "title": "Política de Privacidade",
+    "toc": "Nesta página",
+    "updated": "Última atualização: {date}",
+    "sections": {
+      "quem-somos": {
+        "title": "Quem somos",
+        "body": "O controlador dos dados é {legalName}, CNPJ {cnpj}, {cityUf}. Contato: {email}."
+      },
+      "dados": {
+        "title": "Dados que coletamos",
+        "body": "Os campos do formulário de contato (nome, e-mail, empresa, necessidades, investimento previsto e mensagem); registros técnicos mantidos pelo provedor de hospedagem; e estatísticas de acesso agregadas, sem cookies."
+      },
+      "finalidade": {
+        "title": "Para que usamos",
+        "body": "Para responder ao seu contato e preparar propostas."
+      },
+      "base-legal": {
+        "title": "Base legal",
+        "body": "Procedimentos preliminares relacionados a contrato, a pedido do titular (LGPD, art. 7º, V), e legítimo interesse quando aplicável."
+      },
+      "compartilhamento": {
+        "title": "Com quem compartilhamos",
+        "body": "Provedor de e-mail, provedor de hospedagem e Cloudflare Turnstile (proteção contra robôs). Esses fornecedores podem tratar dados fora do Brasil."
+      },
+      "retencao": {
+        "title": "Por quanto tempo",
+        "body": "Por {retention} ou até que você peça a exclusão."
+      },
+      "direitos": {
+        "title": "Seus direitos",
+        "body": "Você pode exercer os direitos do art. 18 da LGPD, como acesso, correção e exclusão, escrevendo para {email}."
+      },
+      "encarregado": {
+        "title": "Encarregado",
+        "body": "{dpo}, {email}."
+      },
+      "cookies": {
+        "title": "Cookies",
+        "body": "Este site não usa cookies."
+      },
+      "atualizacoes": {
+        "title": "Atualizações",
+        "body": "Esta política pode mudar; a data da última atualização aparece no topo da página."
+      }
+    }
+  },
+  "notFound": {
+    "h1": "Esta parte do sistema não existe.",
+    "body": "O endereço pode ter mudado ou nunca ter existido.",
+    "home": "Voltar ao início",
+    "cta": "Iniciar um projeto"
+  }
+}

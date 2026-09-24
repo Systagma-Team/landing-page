@@ -1,26 +1,189 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Tokens: Design-system.md §12.1 */
+
+/* ---------- Tier 1: primitives ---------- */
+@theme {
+  --color-*: initial;
+  --color-white: #FFFFFF;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --color-teal-50: #E7FCF9;  --color-teal-100: #CCF7F1; --color-teal-200: #9DEEE5;
+  --color-teal-300: #67E0D6; --color-teal-400: #28CBC6; --color-teal-500: #03B7B7;
+  --color-teal-600: #0C9498; --color-teal-700: #00737A; --color-teal-800: #015660;
+  --color-teal-900: #023E49; --color-teal-950: #022732;
+
+  --color-blue-50: #EEF6FE;  --color-blue-100: #D8ECFF; --color-blue-200: #B8DCFE;
+  --color-blue-300: #86C4FE; --color-blue-400: #51A5F6; --color-blue-500: #1B84E0;
+  --color-blue-600: #0268BB; --color-blue-700: #02549C; --color-blue-800: #02407D;
+  --color-blue-900: #042E5D; --color-blue-950: #041D3E;
+
+  --color-slate-0: #FFFFFF;   --color-slate-25: #F8FAFD;  --color-slate-50: #F1F4F8;
+  --color-slate-100: #E5EAF0; --color-slate-200: #D3DAE2; --color-slate-300: #B6BFC9;
+  --color-slate-400: #8F99A6; --color-slate-450: #7C8795; --color-slate-500: #6A7684;
+  --color-slate-550: #5B6776; --color-slate-600: #4D5B6A; --color-slate-700: #334354;
+  --color-slate-800: #1C2F44; --color-slate-850: #10273D; --color-slate-900: #072036;
+  --color-slate-950: #031227;
+
+  --text-display-lg: clamp(2.75rem, 1.75rem + 4.44vw, 5.75rem);
+  --text-display-lg--line-height: 1.02;
+  --text-display-lg--letter-spacing: -0.03em;
+  --text-display-md: clamp(2.375rem, 1.75rem + 2.78vw, 4.25rem);
+  --text-display-md--line-height: 1.05;
+  --text-display-md--letter-spacing: -0.028em;
+  --text-heading-lg: clamp(1.875rem, 1.5rem + 1.67vw, 3rem);
+  --text-heading-lg--line-height: 1.1;
+  --text-heading-lg--letter-spacing: -0.02em;
+  --text-heading-md: clamp(1.5625rem, 1.375rem + 0.833vw, 2.125rem);
+  --text-heading-md--line-height: 1.18;
+  --text-heading-md--letter-spacing: -0.015em;
+  --text-heading-sm: clamp(1.3125rem, 1.208rem + 0.463vw, 1.625rem);
+  --text-heading-sm--line-height: 1.25;
+  --text-heading-sm--letter-spacing: -0.01em;
+  --text-body-lg: clamp(1.125rem, 1.0625rem + 0.278vw, 1.3125rem);
+  --text-body-lg--line-height: 1.55;
+  --text-body-md: clamp(1rem, 0.979rem + 0.0926vw, 1.0625rem);
+  --text-body-md--line-height: 1.6;
+  --text-body-sm: clamp(0.875rem, 0.854rem + 0.0926vw, 0.9375rem);
+  --text-body-sm--line-height: 1.5;
+  --text-caption: 0.8125rem;
+  --text-caption--line-height: 1.45;
+
+  --radius-xs: 4px; --radius-sm: 6px; --radius-md: 10px; --radius-lg: 16px;
+
+  --shadow-overlay: 0 24px 48px -12px rgb(3 18 39 / 0.35);
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --container-content: 76rem;
+  --container-page: 90rem;
 }
+
+/* ---------- Tier 2: semantic, per theme ---------- */
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+  --sys-surface: var(--color-white);
+  --sys-surface-subtle: var(--color-slate-50);
+  --sys-surface-raised: var(--color-white);
+  --sys-fg: var(--color-slate-900);
+  --sys-fg-muted: var(--color-slate-600);
+  --sys-fg-subtle: var(--color-slate-550);
+  --sys-line: var(--color-slate-200);
+  --sys-line-input: var(--color-slate-450);
+  --sys-accent: var(--color-teal-700);
+  --sys-focus: var(--color-blue-600);
+  --sys-selection: var(--color-teal-100);
+  --sys-success-fg: #137738;
+  --sys-danger-fg: #A03F3C; --sys-danger-bg: #FEF0EE;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --sys-surface: var(--color-slate-950);
+  --sys-surface-subtle: var(--color-slate-900);
+  --sys-surface-raised: var(--color-slate-850);
+  --sys-fg: var(--color-slate-50);
+  --sys-fg-muted: var(--color-slate-300);
+  --sys-fg-subtle: var(--color-slate-400);
+  --sys-line: var(--color-slate-800);
+  --sys-line-input: var(--color-slate-500);
+  --sys-accent: var(--color-teal-300);
+  --sys-focus: var(--color-blue-300);
+  --sys-selection: var(--color-teal-900);
+  --sys-success-fg: #7CD591;
+  --sys-danger-fg: #FFA098; --sys-danger-bg: color-mix(in oklab, #FFA098 12%, transparent);
+}
+
+/* Surfaces are themed per section; "subtle" sections swap the background */
+[data-surface="subtle"] { --sys-surface: var(--sys-surface-subtle); }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-surface: var(--sys-surface);
+  --color-surface-subtle: var(--sys-surface-subtle);
+  --color-surface-raised: var(--sys-surface-raised);
+  --color-fg: var(--sys-fg);
+  --color-fg-muted: var(--sys-fg-muted);
+  --color-fg-subtle: var(--sys-fg-subtle);
+  --color-line: var(--sys-line);
+  --color-line-input: var(--sys-line-input);
+  --color-accent: var(--sys-accent);
+  --color-accent-fill: var(--color-teal-500);
+  --color-accent-fill-hover: var(--color-teal-400);
+  --color-on-accent: var(--color-slate-950);
+  --color-focus: var(--sys-focus);
+  --color-success-fg: var(--sys-success-fg);
+  --color-danger-fg: var(--sys-danger-fg);
+  --color-danger-bg: var(--sys-danger-bg);
+
+  --font-display: var(--font-urbanist), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ---------- Base ---------- */
+@layer base {
+  html {
+    scroll-padding-top: 88px;
+    -webkit-text-size-adjust: 100%;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+  }
+  body {
+    @apply bg-surface text-fg font-sans text-body-md antialiased;
+    hyphens: auto;
+  }
+  [data-theme] { @apply bg-surface text-fg; }
+  h1, h2, h3 { @apply font-display font-semibold; text-wrap: balance; }
+  p { text-wrap: pretty; }
+  ::selection { background: var(--sys-selection); }
+  :focus-visible {
+    outline: 2px solid var(--sys-focus);
+    outline-offset: 2px;
+    border-radius: var(--radius-xs);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ---------- Components ---------- */
+@layer components {
+  .chamfer { border-radius: var(--radius-sm); }
+  @supports (corner-shape: bevel) {
+    .chamfer { border-radius: var(--chamfer, 10px); corner-shape: bevel; }
+  }
+  .container-content,
+  .container-page {
+    width: 100%;
+    max-width: calc(var(--container-content) + 2 * var(--space-gutter));
+    margin-inline: auto;
+    padding-inline: var(--space-gutter);
+  }
+  .container-page { max-width: calc(var(--container-page) + 2 * var(--space-gutter)); }
+  .section { padding-block: var(--space-section); }
+
+  /* Isometric 30° grid behind the hero symbol (Brand Guideline 6.1) */
+  .iso-grid {
+    opacity: 0.06;
+    background:
+      repeating-linear-gradient(30deg, currentColor 0 1px, transparent 1px 32px),
+      repeating-linear-gradient(-30deg, currentColor 0 1px, transparent 1px 32px),
+      repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 55.4px);
+    mask-image: radial-gradient(closest-side, #000, transparent);
+  }
+
+  .link {
+    @apply text-accent underline decoration-1 underline-offset-[0.2em] hover:decoration-2;
+  }
+}
+
+:root {
+  --space-section: clamp(5rem, 3.333rem + 7.41vw, 10rem);
+  --space-gutter: clamp(1.25rem, 0.333rem + 4.07vw, 4rem);
 }
