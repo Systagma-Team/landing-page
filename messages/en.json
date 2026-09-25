@@ -7,7 +7,8 @@
     "skip": "Skip to content",
     "symbol": "Systagma symbol",
     "home": "Systagma, home",
-    "newTab": "(opens in a new tab)"
+    "newTab": "(opens in a new tab)",
+    "skipChapter": "Skip to the next chapter"
   },
   "nav": {
     "label": "Main",
@@ -22,23 +23,19 @@
     "en": "English"
   },
   "hero": {
-    "h1": "Ideas, put in order.",
     "lead": "Systagma designs, builds and integrates custom software, and measures what it delivers. From the first sketch to impact you can see in the data.",
     "cta": "Start a project",
     "whatsapp": "Chat on WhatsApp",
-    "seeServices": "See what we do",
-    "note": "We reply within one business day."
+    "note": "We reply within one business day.",
+    "h1a": "Ideas,",
+    "h1b": "put in order.",
+    "seeMoves": "See the four moves",
+    "scrollCue": "Scroll to put them in order"
   },
   "about": {
     "h2": "About Systagma",
     "statement": "Systagma comes from Greek: <g>systēma</g>, a whole made of parts, and <g>tagma</g>, something set in order.",
-    "followUp": "That's our job. We arrange people, processes and data into software that works as a single system, and we show in numbers what changed.",
-    "diagramTitle": "From idea to impact, through the system",
-    "diagram": [
-      "Idea",
-      "System",
-      "Impact"
-    ]
+    "followUp": "That's our job. We arrange people, processes and data into software that works as a single system, and we show in numbers what changed."
   },
   "services": {
     "h2": "From code to outcome, in four moves.",
@@ -84,7 +81,8 @@
           "Continuous improvement and support"
         ]
       }
-    }
+    },
+    "stepOf": "Step {n} of 4"
   },
   "how": {
     "h2": "How we work together",
@@ -124,7 +122,8 @@
         "title": "Price and timeline in writing.",
         "body": "Scope changes are estimated and approved before they enter a cycle."
       }
-    }
+    },
+    "bestForLabel": "Best for"
   },
   "faq": {
     "h2": "Common questions",
@@ -231,14 +230,26 @@
       "again": "Send another message"
     },
     "sendError": "Your message couldn't be sent. Try again or write to {email}.",
-    "rateLimited": "We've received several messages from this address in a short time. Try again in a few minutes or write to {email}."
+    "rateLimited": "We've received several messages from this address in a short time. Try again in a few minutes or write to {email}.",
+    "steps": [
+      "Who are you?",
+      "The project",
+      "Details"
+    ],
+    "back": "Back",
+    "stepAnnounce": "Step {n} of 3: {name}",
+    "sendErrorPlain": "Your message couldn't be sent. Try again in a moment.",
+    "rateLimitedPlain": "We've received several messages from this address in a short time. Try again in a few minutes.",
+    "continue": "Continue"
   },
   "footer": {
-    "tagline": "Ideas to impact through data.",
+    "tagline": "Ideas to impact, through data.",
     "site": "Site",
     "contact": "Contact",
     "social": "Social",
-    "privacy": "Privacy Policy"
+    "privacy": "Privacy Policy",
+    "calm": "Reduce motion",
+    "top": "Back to top"
   },
   "privacy": {
     "description": "How Systagma handles personal data sent through this site, under Brazil’s LGPD.",
@@ -293,5 +304,24 @@
     "body": "The address may have changed, or it never existed.",
     "home": "Back to home",
     "cta": "Start a project"
+  },
+  "hud": {
+    "order": "ORDER",
+    "chapters": {
+      "hero": "Start",
+      "about": "Name",
+      "services": "Moves",
+      "how": "Formats",
+      "faq": "Questions",
+      "contact": "Contact",
+      "lost": "Error 404"
+    },
+    "meta": {
+      "symbol": "ORDER {order}%",
+      "build": "PLANES {planes}",
+      "connect": "NODES {nodes} · LINKS {edges}",
+      "analyze": "SERIES {series}",
+      "transform": "SYSTEM {system}"
+    }
   }
 }

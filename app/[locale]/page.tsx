@@ -2,15 +2,15 @@ import type { Metadata } from "next";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import { alternates, jsonLd, ldScript } from "@/lib/seo";
-import { SiteHeader } from "@/components/shell";
-import { About, Contact, Faq, Hero, HowWeWork, Services } from "@/components/sections";
+import { SiteHeader } from "@/components/layout/chrome";
+import { Contact, Faq, Hero, HowWeWork, Manifesto, Pillars } from "@/components/chapters";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]">): Promise<Metadata> {
   const locale = (await params).locale as Locale;
   return { alternates: alternates("/", locale) };
 }
 
-// S4 Portfolio and S6 Testimonials render only once real content exists (SPEC 11.1); none yet.
+// C4 Work and C6 Testimonials render only once real content exists (SPEC 11.1 of the design system); none yet.
 export default async function Home({ params }: PageProps<"/[locale]">) {
   const locale = (await params).locale as Locale;
   setRequestLocale(locale);
@@ -22,10 +22,10 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: ldScript(ld) }} />
       <SiteHeader page="/" />
-      <main id="main" tabIndex={-1}>
+      <main id="main" tabIndex={-1} className="relative z-10">
         <Hero />
-        <About />
-        <Services />
+        <Manifesto />
+        <Pillars />
         <HowWeWork />
         <Faq />
         <Contact />

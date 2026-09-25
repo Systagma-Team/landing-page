@@ -7,7 +7,8 @@
     "skip": "Pular para o conteúdo",
     "symbol": "Símbolo da Systagma",
     "home": "Systagma, início",
-    "newTab": "(abre em nova aba)"
+    "newTab": "(abre em nova aba)",
+    "skipChapter": "Pular para o próximo capítulo"
   },
   "nav": {
     "label": "Principal",
@@ -22,23 +23,19 @@
     "en": "English"
   },
   "hero": {
-    "h1": "Ideias, postas em ordem.",
     "lead": "A Systagma projeta, desenvolve e integra software sob medida, e mede o que ele entrega. Do primeiro rascunho ao impacto que aparece nos dados.",
     "cta": "Iniciar um projeto",
     "whatsapp": "Conversar no WhatsApp",
-    "seeServices": "Ver o que fazemos",
-    "note": "Respondemos em até 1 dia útil."
+    "note": "Respondemos em até 1 dia útil.",
+    "h1a": "Ideias,",
+    "h1b": "postas em ordem.",
+    "seeMoves": "Ver os quatro movimentos",
+    "scrollCue": "Role para pôr em ordem"
   },
   "about": {
     "h2": "Sobre a Systagma",
     "statement": "Systagma vem do grego: <g>systēma</g>, um todo feito de partes, e <g>tagma</g>, o que foi posto em ordem.",
-    "followUp": "É o nosso trabalho. Organizamos pessoas, processos e dados em software que funciona como um só sistema, e mostramos em números o que mudou.",
-    "diagramTitle": "Da ideia ao impacto, passando pelo sistema",
-    "diagram": [
-      "Ideia",
-      "Sistema",
-      "Impacto"
-    ]
+    "followUp": "É o nosso trabalho. Organizamos pessoas, processos e dados em software que funciona como um só sistema, e mostramos em números o que mudou."
   },
   "services": {
     "h2": "Do código ao resultado, em quatro movimentos.",
@@ -84,7 +81,8 @@
           "Evolução contínua e sustentação"
         ]
       }
-    }
+    },
+    "stepOf": "Etapa {n} de 4"
   },
   "how": {
     "h2": "Como trabalhamos juntos",
@@ -124,7 +122,8 @@
         "title": "Preço e prazo por escrito.",
         "body": "Mudanças de escopo são estimadas e aprovadas antes de entrar no ciclo."
       }
-    }
+    },
+    "bestForLabel": "Ideal para"
   },
   "faq": {
     "h2": "Perguntas frequentes",
@@ -231,14 +230,26 @@
       "again": "Enviar outra mensagem"
     },
     "sendError": "Não foi possível enviar sua mensagem. Tente de novo ou escreva para {email}.",
-    "rateLimited": "Recebemos várias mensagens deste endereço em pouco tempo. Tente de novo em alguns minutos ou escreva para {email}."
+    "rateLimited": "Recebemos várias mensagens deste endereço em pouco tempo. Tente de novo em alguns minutos ou escreva para {email}.",
+    "steps": [
+      "Quem é você?",
+      "O projeto",
+      "Detalhes"
+    ],
+    "back": "Voltar",
+    "stepAnnounce": "Etapa {n} de 3: {name}",
+    "sendErrorPlain": "Não foi possível enviar sua mensagem. Tente de novo em instantes.",
+    "rateLimitedPlain": "Recebemos várias mensagens deste endereço em pouco tempo. Tente de novo em alguns minutos.",
+    "continue": "Continuar"
   },
   "footer": {
     "tagline": "Da ideia ao impacto, com dados.",
     "site": "Site",
     "contact": "Contato",
     "social": "Social",
-    "privacy": "Política de Privacidade"
+    "privacy": "Política de Privacidade",
+    "calm": "Reduzir movimento",
+    "top": "Voltar ao topo"
   },
   "privacy": {
     "description": "Como a Systagma trata os dados pessoais enviados pelo site, conforme a LGPD.",
@@ -293,5 +304,24 @@
     "body": "O endereço pode ter mudado ou nunca ter existido.",
     "home": "Voltar ao início",
     "cta": "Iniciar um projeto"
+  },
+  "hud": {
+    "order": "ORDEM",
+    "chapters": {
+      "hero": "Início",
+      "about": "Nome",
+      "services": "Movimentos",
+      "how": "Formatos",
+      "faq": "Perguntas",
+      "contact": "Contato",
+      "lost": "Erro 404"
+    },
+    "meta": {
+      "symbol": "ORDEM {order}%",
+      "build": "PLANOS {planes}",
+      "connect": "NÓS {nodes} · CONEXÕES {edges}",
+      "analyze": "SÉRIES {series}",
+      "transform": "SISTEMA {system}"
+    }
   }
 }

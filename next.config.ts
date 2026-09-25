@@ -19,6 +19,8 @@ const csp = [
 ].join("; ");
 
 const nextConfig: NextConfig = {
+  // Dev server reachable through the calderaro.dev tunnel (e.g. systagma.calderaro.dev)
+  allowedDevOrigins: ["*.calderaro.dev"],
   async headers() {
     return [
       {
