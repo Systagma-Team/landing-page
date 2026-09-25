@@ -137,7 +137,7 @@ export function SiteFooter() {
             {legal.map((v) => <span key={v}>{v}</span>)}
             <a href={getPathname({ href: "/privacidade", locale })} className="link">{t("footer.privacy")}</a>
           </p>
-          <div className="flex items-center gap-6">
+          <div className="flex w-full flex-wrap items-center justify-between gap-x-6 gap-y-3 sm:w-auto">
             <Clock />
             <CalmToggle label={t("footer.calm")} />
             <a href={`${getPathname({ href: "/", locale })}#top`} aria-label={t("footer.top")} className="grid size-12 place-items-center rounded-full border border-line-strong hover:bg-fg/8">

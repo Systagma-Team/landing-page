@@ -39,8 +39,8 @@ export function Hero() {
     <section id="top" data-chapter="hero" data-pin style={pin("--pin-hero")} aria-labelledby="hero-title">
       <SkipChapter to="about" />
       {/* Phones: text on top, symbol assembles in the lower part of the stage (SPEC 7.2) */}
-      <div data-stage className="flex items-start md:items-center">
-        <div className="container-page relative z-10 pt-[calc(var(--header-h)+1.5rem)] md:pt-(--header-h) md:pb-20">
+      <div data-stage className="flex flex-col lg:flex-row lg:items-center">
+        <div className="container-page relative z-10 pt-[calc(var(--header-h)+1.5rem)] lg:pt-(--header-h) lg:pb-20">
           <div data-field-safe className="max-w-4xl">
             {/* ponytail: display-xl capped at 8.2vw so the serif line stays on one line beside the field zone */}
             <h1 id="hero-title" tabIndex={-1} className="text-[min(var(--text-display-xl),max(3.25rem,8.2vw))] leading-[0.9]">
@@ -64,13 +64,13 @@ export function Hero() {
           </div>
         </div>
         {/* The crisp vector symbol, laid over the particle one at 60–70% of the pin; always shown without the field */}
-        <Mark label={t.common.symbol} className="hero-symbol pointer-events-none absolute w-auto" />
-        <div className="scroll-cue absolute bottom-8 left-(--space-gutter) lg:bottom-16 flex items-center gap-4 text-body-sm text-fg-muted [html[data-calm]_&]:hidden">
+        <Mark label={t.common.symbol} className="hero-symbol pointer-events-none w-auto" />
+        <div className="scroll-cue absolute bottom-8 left-(--space-gutter) lg:bottom-16 flex items-center gap-4 text-body-sm text-fg-muted [html[data-calm]_&]:hidden [html[data-static]_&]:hidden">
           <span aria-hidden className="scroll-line relative h-10 w-px overflow-clip bg-line-strong" />
           {t.hero.scrollCue}
         </div>
         {/* On desktop the HUD shows ORDEM bottom-right; this copy serves smaller screens */}
-        <p data-order aria-hidden className="hud absolute right-(--space-gutter) bottom-8 text-accent lg:hidden [html[data-calm]_&]:hidden">
+        <p data-order aria-hidden className="hud absolute right-(--space-gutter) bottom-8 text-accent lg:hidden [html[data-calm]_&]:hidden [html[data-static]_&]:hidden">
           {t.hud.order} 000%
         </p>
       </div>
@@ -136,7 +136,7 @@ export function Pillars() {
             <Title id="services-title" className="text-heading-lg">{t.h2}</Title>
             {/* Odometer: the second digit is a 0–9 column moved by --d */}
             {/* ponytail: numeral-xl capped at 22lvh so title, numeral and pillar text fit one 100lvh stage */}
-            <div aria-hidden className="odometer mt-4 flex h-[1em] items-start overflow-clip font-serif text-[min(var(--text-numeral-xl),22lvh)] leading-none font-extralight tabular-nums max-md:hidden [html[data-calm]_&]:hidden [html:not(.js)_&]:hidden">
+            <div aria-hidden className="odometer mt-4 flex h-[1em] items-start overflow-clip font-serif text-[min(var(--text-numeral-xl),22lvh)] leading-none font-extralight tabular-nums max-md:hidden [html[data-calm]_&]:hidden [html[data-static]_&]:hidden [html:not(.js)_&]:hidden">
               <span className="h-[1em]">0</span>
               <span className="odometer-col flex shrink-0 flex-col">
                 {Array.from({ length: 10 }, (_, d) => <span key={d} className="h-[1em] shrink-0">{d}</span>)}
@@ -166,7 +166,7 @@ export function Pillars() {
           </div>
         </div>
         {/* Rail: one segment per pillar, filled by --f0…--f3 */}
-        <div aria-hidden className="container-page absolute inset-x-0 bottom-16 z-10 grid grid-cols-4 gap-3 max-md:hidden [html[data-calm]_&]:hidden">
+        <div aria-hidden className="container-page absolute inset-x-0 bottom-16 z-10 grid grid-cols-4 gap-3 max-md:hidden [html[data-calm]_&]:hidden [html[data-static]_&]:hidden">
           {pillars.map((p, i) => (
             <div key={p.title} className="flex flex-col gap-2">
               <span className="relative h-px bg-line-strong">

@@ -119,9 +119,12 @@ export function SceneEngine({ hud }: { hud: HudCopy }) {
 
       // Chapter progress → CSS --p; the chapter holding the viewport centre drives the field
       let activeP = 0;
+      // Short viewports (landscape phones) can't fit a pinned stage: chapters stack and progress is centre-based
+      const unpinned = vh < 640;
+      if (html.hasAttribute("data-static") !== unpinned) html.toggleAttribute("data-static", unpinned);
       for (const c of chapters) {
         const r = c.el.getBoundingClientRect();
-        const p = clamp01(c.pinned ? -r.top / Math.max(1, r.height - vh) : (vh / 2 - r.top) / r.height);
+        const p = clamp01(c.pinned && !unpinned ? -r.top / Math.max(1, r.height - vh) : (vh / 2 - r.top) / r.height);
         c.el.style.setProperty("--p", p.toFixed(4));
         if (r.top <= vh / 2 && r.bottom > vh / 2) {
           active = c.id;
@@ -135,7 +138,9 @@ export function SceneEngine({ hud }: { hud: HudCopy }) {
         if (active === "hero") {
           // ORDEM = rounded assembly progress (AC-HERO-03)
           if (order) order.textContent = `${hud.order} ${pad(activeP >= 0.6 ? 100 : director.mix * 100, 3)}%`;
-          director.dim = 1 - 0.6 * clamp01((activeP - 0.6) / 0.1); // particles dim under the crisp symbol
+          // Particles dim to 40% while the crisp symbol is over them (desktop, pinned only)
+          const overlay = innerWidth >= 1024 && !unpinned ? clamp01((activeP - 0.6) / 0.1) * clamp01((1 - activeP) / 0.1) : 0;
+          director.dim = 1 - 0.6 * overlay;
         }
       }
       html.dataset.chapter = active;

@@ -9,8 +9,8 @@ import { SiteFooter } from "@/components/layout/chrome";
 import { SceneEngine } from "@/components/scene/engine";
 import "../globals.css";
 
-/** Runs before first paint: `js` class plus calm mode from storage or the OS setting (see lib/calm.ts). */
-const headScript = `(function(){var d=document.documentElement;d.classList.add('js');try{var s=localStorage.getItem('sys:calm');var m=matchMedia('(prefers-reduced-motion: reduce)').matches;if(s==='1'||(s===null&&m))d.setAttribute('data-calm','')}catch(e){}})();`;
+/** Runs before first paint: `js` class, calm mode from storage or the OS setting (see lib/calm.ts), static layout on short viewports. */
+const headScript = `(function(){var d=document.documentElement;d.classList.add('js');try{var s=localStorage.getItem('sys:calm');var m=matchMedia('(prefers-reduced-motion: reduce)').matches;if(s==='1'||(s===null&&m))d.setAttribute('data-calm','')}catch(e){}if(innerHeight<640)d.setAttribute('data-static','')})();`;
 
 export const dynamicParams = false;
 export const generateStaticParams = () => routing.locales.map((locale) => ({ locale }));

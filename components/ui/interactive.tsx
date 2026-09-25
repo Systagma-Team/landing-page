@@ -15,7 +15,7 @@ export function CalmToggle({ label }: { label: string }) {
       role="switch"
       aria-checked={calm}
       onClick={() => setCalm(!calm)}
-      className="inline-flex min-h-11 items-center gap-3 text-body-sm text-fg-muted hover:text-fg"
+      className="inline-flex min-h-11 items-center gap-3 text-body-sm whitespace-nowrap text-fg-muted hover:text-fg"
     >
       <span className={`relative h-5 w-9 rounded-full border border-line-strong transition-colors ${calm ? "bg-emit" : ""}`}>
         <span className={`absolute top-0.5 left-0.5 size-3.5 rounded-full bg-fg transition-transform ${calm ? "translate-x-4" : ""}`} />
@@ -35,7 +35,7 @@ const brasilia = () =>
 /** Live Brasília clock (true data, console voice). */
 export function Clock() {
   const time = useSyncExternalStore(tick, brasilia, () => "--:--:--");
-  return <span className="hud">Brasília {time}</span>;
+  return <span className="hud whitespace-nowrap">Brasília {time}</span>;
 }
 
 /** Full-screen menu overlay (< 1024 px) on a native modal <dialog>: focus trap, Esc and focus return built in. */
@@ -68,7 +68,7 @@ export function MobileMenu({ links, cta, labels }: { links: NavLink[]; cta: NavL
           setOpen(false);
           menu(false);
         }}
-        className="m-0 h-dvh max-h-none w-full max-w-none border-0 bg-panel/95 p-0 text-fg backdrop:bg-transparent"
+        className="m-0 h-dvh max-h-none w-full max-w-none border-0 bg-panel p-0 text-fg backdrop:bg-panel"
       >
         <div className="container-page flex h-full flex-col pb-8">
           <div className="flex h-(--header-h) items-center justify-end">
