@@ -23,11 +23,12 @@ function SkipChapter({ to }: { to: string }) {
   );
 }
 
-/** Chapter title with a line-mask entrance (scroll-timeline CSS where supported; static otherwise). */
+/** Chapter title with a line-mask entrance (scroll-timeline CSS where supported; static otherwise).
+ *  Font caps at 18cqi so a ~10-char word (e.g. pt "frequentes") fits its column instead of being clipped. */
 function Title({ id, children, className = "" }: { id: string; children: ReactNode; className?: string }) {
   return (
-    <h2 id={id} tabIndex={-1} className={`mask-in block overflow-clip font-serif font-light ${className}`}>
-      <span className="block">{children}</span>
+    <h2 id={id} tabIndex={-1} className={`@container mask-in block overflow-clip font-serif font-light ${className}`}>
+      <span className="block text-[length:min(1em,18cqi)]">{children}</span>
     </h2>
   );
 }
