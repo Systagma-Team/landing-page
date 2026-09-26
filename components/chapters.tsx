@@ -132,16 +132,19 @@ export function Pillars() {
     <section id="services" data-chapter="services" data-pin style={pin("--pin-pillars")} aria-labelledby="services-title">
       <SkipChapter to="how-we-work" />
       <div data-stage className="pillars-stage flex flex-col" data-pillar="0">
-        <div className="container-page relative z-10 flex flex-1 flex-col pt-[calc(var(--header-h)+2rem)] pb-32 max-md:max-h-[58lvh] max-md:pb-6">
-          <div data-field-safe className="max-w-xl">
+        <div className="container-page relative z-10 flex min-h-0 flex-1 flex-col pt-[calc(var(--header-h)+2rem)] pb-32 max-md:max-h-[58lvh] max-md:pb-6">
+          <div data-field-safe className="flex min-h-0 max-w-xl flex-col">
             <Title id="services-title" className="text-heading-lg">{t.h2}</Title>
             {/* Odometer: the second digit is a 0–9 column moved by --d */}
-            {/* ponytail: numeral-xl capped at 22lvh so title, numeral and pillar text fit one 100lvh stage */}
-            <div aria-hidden className="odometer mt-4 flex h-[1em] items-start overflow-clip font-serif text-[min(var(--text-numeral-xl),22lvh)] leading-none font-extralight tabular-nums max-md:hidden [html[data-calm]_&]:hidden [html[data-static]_&]:hidden [html:not(.js)_&]:hidden">
-              <span className="h-[1em]">0</span>
-              <span className="odometer-col flex shrink-0 flex-col">
-                {Array.from({ length: 10 }, (_, d) => <span key={d} className="h-[1em] shrink-0">{d}</span>)}
-              </span>
+            {/* numeral-xl capped at 22lvh; on short stages (laptops) its box is the one that shrinks, so the pillar text
+                never runs into the rail or past the stage (globals.css .odometer-box) */}
+            <div aria-hidden className="odometer-box mt-4 min-h-0 basis-[min(var(--text-numeral-xl),22lvh)] max-md:hidden [html[data-calm]_&]:hidden [html[data-static]_&]:hidden [html:not(.js)_&]:hidden">
+              <div className="odometer flex h-[1em] items-start overflow-clip font-serif text-[min(var(--text-numeral-xl),100cqh)] leading-none font-extralight tabular-nums">
+                <span className="h-[1em]">0</span>
+                <span className="odometer-col flex shrink-0 flex-col">
+                  {Array.from({ length: 10 }, (_, d) => <span key={d} className="h-[1em] shrink-0">{d}</span>)}
+                </span>
+              </div>
             </div>
             <div className="mt-4 grid gap-16">
               <p className="pillars-lead max-w-[48ch] text-body-lg text-fg-muted">{t.lead}</p>

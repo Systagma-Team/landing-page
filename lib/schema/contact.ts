@@ -19,12 +19,14 @@ export type ContactInput = z.infer<typeof contactSchema>;
 export type ContactField = keyof ContactInput;
 export type ErrorKey = "nameShort" | "emailInvalid" | "needsEmpty" | "messageShort" | "messageLong";
 
+// Every non-success answer returns the submitted values: React resets the form after an action, and they refill it
+type Values = Record<string, unknown>;
 export type ContactState =
   | { status: "idle" }
   | { status: "success"; email?: string }
-  | { status: "invalid"; fieldErrors: Partial<Record<ContactField, string[]>>; values: Record<string, unknown> }
-  | { status: "rate_limited" }
-  | { status: "send_error" };
+  | { status: "invalid"; fieldErrors: Partial<Record<ContactField, string[]>>; values: Values }
+  | { status: "rate_limited"; values: Values }
+  | { status: "send_error"; values: Values };
 
 /** Reads the form's values the same way on client and server. */
 export function readContact(form: FormData) {

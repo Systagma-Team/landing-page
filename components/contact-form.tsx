@@ -46,16 +46,16 @@ function Form({ email, onAgain }: { email: string; onAgain: () => void }) {
   const [seen, setSeen] = useState(state);
   if (seen !== state) {
     setSeen(state);
+    if ("values" in state) setCount(String(state.values.message ?? "").length);
     if (state.status === "invalid") {
       setClientErrors({});
-      setCount(String(state.values.message ?? "").length);
       const first = STEPS.findIndex((fields) => fields.some((f) => state.fieldErrors[f]));
       if (first >= 0) setStep(first);
     }
   }
 
   const errors: Errors = { ...(state.status === "invalid" ? state.fieldErrors : {}), ...clientErrors };
-  const values = state.status === "invalid" ? state.values : {};
+  const values = "values" in state ? state.values : {};
   const err = (f: ContactField) => errors[f]?.[0] as ErrorKey | undefined;
   const invalid = (["name", "email", "needs", "message"] as const).filter((f) => err(f));
 

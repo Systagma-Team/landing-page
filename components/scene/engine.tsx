@@ -70,11 +70,12 @@ export function SceneEngine({ hud }: { hud: HudCopy }) {
       dispatchEvent(new HashChangeEvent("hashchange"));
       const focus = () => {
         const f = target.matches("h1,h2,h3,[tabindex]") ? target : target.querySelector<HTMLElement>("h1,h2,[data-focus]") ?? target;
-        if (!f.hasAttribute("tabindex")) f.setAttribute("tabindex", "-1");
+        // Only non-focusable targets need tabindex; on an input (error summary links) it would drop it from the Tab order
+        if (f.tabIndex < 0 && !f.hasAttribute("tabindex")) f.setAttribute("tabindex", "-1");
         (f as HTMLElement).focus({ preventScroll: true });
       };
-      const offset = -parseFloat(getComputedStyle(html).getPropertyValue("--header-h"));
-      if (lenis) lenis.scrollTo(target, { offset, onComplete: focus });
+      // No offset here: Lenis, like scrollIntoView, already honours html's scroll-padding-top (the header height)
+      if (lenis) lenis.scrollTo(target, { onComplete: focus });
       else {
         target.scrollIntoView();
         focus();

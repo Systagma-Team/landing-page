@@ -207,7 +207,8 @@
               background: radial-gradient(ellipse at 50% 45%, transparent 55%, rgb(2 10 23 / 0.7) 100%); }
 
   /* Pinned chapters (Design System 5.2): tall section + sticky 100lvh stage */
-  [data-pin] { position: relative; height: var(--pin); }
+  /* Stages already clear the header inside, so anchors land where the stage engages, not a header height below */
+  [data-pin] { position: relative; height: var(--pin); scroll-margin-top: calc(-1 * var(--header-h)); }
   [data-stage] { position: sticky; top: 0; height: 100lvh; overflow: clip; }
   /* Phones: the small viewport, so bottom UI never sits under the browser toolbar */
   @media (max-width: 767px) { [data-stage] { height: 100svh; } }
@@ -261,10 +262,18 @@ html[data-field] .hero-symbol { opacity: calc(clamp(0, (var(--p, 0) - 0.6) / 0.1
 }
 html[data-static][data-field] .hero-symbol { display: none; }
 
+/* Pillars odometer: the numeral is sized to its box (100cqh), which shrinks first on short stages (laptops);
+   smaller than the pillar title (display-md), it steps aside. Unlayered so it wins over the `flex` utility. */
+.odometer-box { container-type: size; }
+@container (height < 4.5rem) { .odometer { display: none; } }
+
 .scroll-line::after { content: ""; position: absolute; inset: 0; background: var(--sys-accent); transform: scaleY(0);
                       animation: cue 1.8s var(--ease-in-out-quart) 3; }
 @keyframes cue { 0% { transform: scaleY(0); transform-origin: top; } 50% { transform: scaleY(1); transform-origin: top; }
                  50.1% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
+/* Short screens (360×640 phones, 1366×657 laptops): the hero copy reaches the stage's bottom band, so the scroll
+   cue and the phone ORDEM copy give way instead of overlapping it (the desktop HUD still shows ORDEM) */
+@media (max-height: 680px) { .scroll-cue, [data-order] { display: none; } }
 
 /* Header: transparent over the field; panel over paper; hides on scroll down */
 .site-header { transition: translate 500ms var(--ease-out-expo), background-color 300ms, backdrop-filter 300ms; }

@@ -32,7 +32,7 @@ export function SiteHeader({ page }: { page: Page }) {
   return (
     <header className="site-header fixed inset-x-0 top-0 z-50 text-fg">
       <div className="container-page flex h-(--header-h) items-center gap-8">
-        <a href={`${home}#top`} className="shrink-0">
+        <a href={`${home}#top`} className="flex min-h-11 shrink-0 items-center">
           <Lockup className="h-7.5 w-auto" label={useTranslations("common")("home")} />
         </a>
         <nav aria-label={t("label")} className="ml-auto hidden lg:block">
@@ -92,8 +92,10 @@ export function SiteFooter() {
   const legal = [isSet(site.cnpj) && `CNPJ ${site.cnpj}`, isSet(site.city) && isSet(site.uf) && `${site.city} – ${site.uf}`].filter(
     (v): v is string => !!v,
   );
-  const col = "flex flex-col gap-3 text-body-sm";
+  // Column links are full 44 px touch targets (Design System 13), so the column needs no gap
+  const col = "flex flex-col text-body-sm";
   const heading = "hud mb-2";
+  const link = "inline-flex min-h-11 items-center text-fg-muted hover:text-fg";
 
   return (
     <footer data-theme="dark" className="site-footer border-t border-line bg-panel">
@@ -105,14 +107,14 @@ export function SiteFooter() {
             <nav aria-label={t("footer.site")} className={col}>
               <h2 className={heading}>{t("footer.site")}</h2>
               {links.map((l) => (
-                <a key={l.href} href={l.href} className="text-fg-muted hover:text-fg">{l.label}</a>
+                <a key={l.href} href={l.href} className={link}>{l.label}</a>
               ))}
             </nav>
             {contact.length > 0 && (
               <div className={col}>
                 <h2 className={heading}>{t("footer.contact")}</h2>
                 {contact.map((c) => (
-                  <a key={c.href} href={c.href} {...(c.external ? { target: "_blank", rel: "noopener" } : {})} className="text-fg-muted hover:text-fg">
+                  <a key={c.href} href={c.href} {...(c.external ? { target: "_blank", rel: "noopener" } : {})} className={link}>
                     {c.label}
                     {c.external && <span className="sr-only"> {t("common.newTab")}</span>}
                   </a>
@@ -123,7 +125,7 @@ export function SiteFooter() {
               <div className={col}>
                 <h2 className={heading}>{t("footer.social")}</h2>
                 {socials.map(([name, url]) => (
-                  <a key={name} href={url} target="_blank" rel="noopener" className="text-fg-muted hover:text-fg">
+                  <a key={name} href={url} target="_blank" rel="noopener" className={link}>
                     {name} <span className="sr-only">{t("common.newTab")}</span>
                   </a>
                 ))}

@@ -42,8 +42,12 @@ export function Clock() {
 export function MobileMenu({ links, cta, labels }: { links: NavLink[]; cta: NavLink; labels: { open: string; close: string; nav: string; calm: string } }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const [open, setOpen] = useState(false);
-  const close = () => dialog.current?.close();
   const menu = (on: boolean) => dispatchEvent(new CustomEvent("sys:menu", { detail: on })); // pauses smooth scroll
+  // The dialog's close event is async, so resume scrolling now: a link's in-page scroll runs right after this click
+  const close = () => {
+    dialog.current?.close();
+    menu(false);
+  };
 
   return (
     <>
