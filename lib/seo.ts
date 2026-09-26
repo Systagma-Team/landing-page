@@ -68,5 +68,19 @@ export function jsonLd(locale: Locale, slogan: string, faq: { q: string; a: stri
   };
 }
 
+/** One offer page as a Service provided by the organization, nationwide (Brazil). */
+export function serviceLd(locale: Locale, href: Href, name: string, description: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name,
+    description,
+    url: new URL(getPathname({ href, locale }), site.url).href,
+    inLanguage: locale,
+    areaServed: { "@type": "Country", name: "Brasil" },
+    provider: { "@id": `${site.url}/#organization` },
+  };
+}
+
 /** JSON for a <script type="application/ld+json">: "<" escaped so content can't close the tag. */
 export const ldScript = (data: object) => JSON.stringify(data).replace(/</g, "\u003c");

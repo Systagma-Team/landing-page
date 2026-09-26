@@ -3,7 +3,8 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { contactSchema } from "../lib/schema/contact.ts";
 import { FORMATIONS, resolve } from "../lib/director.ts";
-import { CHAPTERS } from "../content/chapters.ts";
+import { CHAPTERS, HOME } from "../content/chapters.ts";
+import { NEEDS } from "../lib/contact-options.ts";
 
 // Message parity: en.json must have exactly the keys of pt-BR.json (SPEC 4.4)
 const json = (f: string) => JSON.parse(readFileSync(new URL(`../messages/${f}.json`, import.meta.url), "utf8"));
@@ -33,7 +34,15 @@ assert.equal(resolve(pillars, 0.2).to, i("connect"));
 assert.equal(resolve(pillars, 0.2).mix, 0); // morph window is the last 30% before 0.38
 
 // Continuity rule (SPEC 5.1): each chapter starts on the formation the previous one ends on
-const page = CHAPTERS.filter((c) => c.id !== "lost");
-page.slice(1).forEach((c, k) => assert.equal(c.keys[0].formation, page[k].keys.at(-1)!.formation, `${page[k].id} → ${c.id}`));
+const byId = (id: string) => CHAPTERS.find((c) => c.id === id)!;
+const home = HOME.map(byId);
+home.slice(1).forEach((c, k) => assert.equal(c.keys[0].formation, home[k].keys.at(-1)!.formation, `${home[k].id} → ${c.id}`));
+// Offer pages end where their contact chapter starts
+for (const id of ["software", "data", "automation", "web", "consulting", "support"])
+  assert.equal(byId(id).keys.at(-1)!.formation, byId("contact").keys[0].formation, `${id} → contact`);
+
+// Every need has a label in both locales, including "not sure yet"
+for (const f of ["pt-BR", "en"]) for (const n of NEEDS) assert.ok(json(f).contact.form.needsOptions[n], `${f} needs.${n}`);
+assert.ok(NEEDS.includes("unsure"));
 
 console.log("ok");

@@ -3,9 +3,10 @@ import { useActionState, useEffect, useRef, useState, useSyncExternalStore } fro
 import { AlertCircle, Check, Loader2 } from "lucide-react";
 import { useLocale, useMessages, useTranslations } from "next-intl";
 import { submitContact } from "@/app/actions/contact";
-import { BUDGETS, NEEDS, STEPS } from "@/lib/contact-options";
+import { BUDGETS, NEEDS, STEPS, type Need } from "@/lib/contact-options";
 import type { ContactField, ContactState, ErrorKey } from "@/lib/schema/contact";
 import { director } from "@/lib/director";
+import { readSource, track } from "@/lib/analytics";
 import { getPathname } from "@/i18n/navigation";
 import { buttonClass, Roll } from "@/components/ui/button";
 
@@ -19,7 +20,7 @@ const useHydrated = () =>
   );
 
 /** Remounting via key is how "send another message" resets the action state. */
-export function ContactForm(props: { email: string }) {
+export function ContactForm(props: { email: string; preset?: Need }) {
   const [round, setRound] = useState(0);
   return <Form key={round} {...props} onAgain={() => setRound(round + 1)} />;
 }
@@ -28,7 +29,7 @@ export function ContactForm(props: { email: string }) {
  * Three-step form (Design System 11.12, SPEC C8): one <form>, three <fieldset>s. Without JavaScript all steps show
  * and it submits as one page; with JavaScript one step shows at a time and "Continuar" validates only that step.
  */
-function Form({ email, onAgain }: { email: string; onAgain: () => void }) {
+function Form({ email, preset, onAgain }: { email: string; preset?: Need; onAgain: () => void }) {
   const locale = useLocale();
   const t = useMessages().contact;
   const tf = useTranslations("contact");
@@ -41,23 +42,36 @@ function Form({ email, onAgain }: { email: string; onAgain: () => void }) {
   const [count, setCount] = useState(0);
   const [startedAt, setStartedAt] = useState("");
   const [utm, setUtm] = useState("");
+  const [source, setSource] = useState("scroll"); // the CTA that led here, or "scroll"
+  const answers = useRef<{ needs: string; budget: string }>({ needs: "", budget: "" }); // for contact_submit, no personal data
 
   // Server answers: jump back to the first step with an error; keep the message counter in step
   const [seen, setSeen] = useState(state);
   if (seen !== state) {
     setSeen(state);
+    if ("values" in state) setCount(String(state.values.message ?? "").length);
     if (state.status === "invalid") {
       setClientErrors({});
-      setCount(String(state.values.message ?? "").length);
       const first = STEPS.findIndex((fields) => fields.some((f) => state.fieldErrors[f]));
       if (first >= 0) setStep(first);
     }
   }
 
   const errors: Errors = { ...(state.status === "invalid" ? state.fieldErrors : {}), ...clientErrors };
-  const values = state.status === "invalid" ? state.values : {};
+  const values = "values" in state ? state.values : {};
   const err = (f: ContactField) => errors[f]?.[0] as ErrorKey | undefined;
   const invalid = (["name", "email", "needs", "message"] as const).filter((f) => err(f));
+
+  useEffect(() => {
+    // CTAs with data-need ("Conversar sobre o problema" → "Ainda não sei") pre-select that option on the way here
+    const onClick = (e: MouseEvent) => {
+      const need = (e.target as Element).closest<HTMLElement>("a[data-need]")?.dataset.need;
+      const box = need && form.current?.querySelector<HTMLInputElement>(`input[name="needs"][value="${need}"]`);
+      if (box) box.checked = true;
+    };
+    document.addEventListener("click", onClick);
+    return () => document.removeEventListener("click", onClick);
+  }, []);
 
   useEffect(() => {
     // UTM attribution without cookies (SPEC 12)
@@ -69,6 +83,7 @@ function Form({ email, onAgain }: { email: string; onAgain: () => void }) {
   }, []);
 
   useEffect(() => {
+    if (state.status !== "idle") track("contact_submit", { status: state.status, ...answers.current });
     if (state.status === "success") {
       director.emit = 1;
       director.burst = 1; // points fly out and settle into the symbol
@@ -91,6 +106,7 @@ function Form({ email, onAgain }: { email: string; onAgain: () => void }) {
     }
     setClientErrors({});
     director.emit = (step + 1) / 3; // the converge node brightens per completed step
+    track("form_step", { step: step + 2, direction: "next" });
     setStep(step + 1);
   };
 
@@ -134,6 +150,8 @@ function Form({ email, onAgain }: { email: string; onAgain: () => void }) {
       onFocus={() => {
         if (startedAt) return;
         setStartedAt(String(Date.now()));
+        setSource(readSource() || "scroll");
+        track("contact_start");
         try {
           setUtm(sessionStorage.getItem("utm") ?? "");
         } catch {}
@@ -143,7 +161,10 @@ function Form({ email, onAgain }: { email: string; onAgain: () => void }) {
         if (js && step < STEPS.length - 1) {
           e.preventDefault();
           next();
+          return;
         }
+        const data = new FormData(e.currentTarget);
+        answers.current = { needs: data.getAll("needs").join(","), budget: String(data.get("budget") ?? "") };
       }}
     >
       <div className="mb-10">
@@ -194,7 +215,7 @@ function Form({ email, onAgain }: { email: string; onAgain: () => void }) {
           <div className="flex flex-wrap gap-2">
             {NEEDS.map((n, i) => (
               <label key={n} className={pill}>
-                <input id={`needs-${i}`} type="checkbox" name="needs" value={n} className="peer sr-only" defaultChecked={Array.isArray(values.needs) && values.needs.includes(n)} aria-invalid={!!err("needs")} />
+                <input id={`needs-${i}`} type="checkbox" name="needs" value={n} className="peer sr-only" defaultChecked={Array.isArray(values.needs) ? values.needs.includes(n) : preset === n} aria-invalid={!!err("needs")} />
                 <Check size={16} strokeWidth={2} aria-hidden className="hidden peer-checked:block" />
                 {t.form.needsOptions[n]}
               </label>
@@ -230,7 +251,7 @@ function Form({ email, onAgain }: { email: string; onAgain: () => void }) {
         </Field>
         <input type="hidden" name="locale" value={locale} />
         <input type="hidden" name="startedAt" value={startedAt} />
-        <input type="hidden" name="source" value="contact" />
+        <input type="hidden" name="source" value={source} />
         <input type="hidden" name="utm" value={utm} />
         {/* Honeypot: humans never see or reach it */}
         <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden className="sr-only" />
@@ -252,7 +273,14 @@ function Form({ email, onAgain }: { email: string; onAgain: () => void }) {
 
       <div className="mt-10 flex flex-wrap gap-3">
         {js && step > 0 && (
-          <button type="button" className={buttonClass({ variant: "secondary" })} onClick={() => setStep(step - 1)}>
+          <button
+            type="button"
+            className={buttonClass({ variant: "secondary" })}
+            onClick={() => {
+              track("form_step", { step, direction: "back" });
+              setStep(step - 1);
+            }}
+          >
             <Roll>{t.back}</Roll>
           </button>
         )}

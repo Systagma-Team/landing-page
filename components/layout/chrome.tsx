@@ -1,51 +1,69 @@
 import { ArrowUp } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
+import { useLocale, useMessages, useTranslations } from "next-intl";
 import { isSet, site } from "@/content/site";
+import { OFFER_HREF, PILLARS, SERVICES, type OfferKey } from "@/content/offers";
 import { getPathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { whatsappHref } from "@/lib/whatsapp";
 import { Lockup } from "@/components/brand";
 import { ButtonLink } from "@/components/ui/button";
-import { CalmToggle, Clock, MobileMenu } from "@/components/ui/interactive";
+import { CalmToggle, Clock, MobileMenu, SolutionsMenu } from "@/components/ui/interactive";
 
-type Page = "/" | "/privacidade";
+type Page = keyof typeof routing.pathnames;
 
-/** Chapter links; they point at the home page so they also work from the privacy page and the 404. */
+/** Home chapter links; they point at the home page so they also work from every other page. */
 function useSectionLinks() {
   const t = useTranslations("nav");
   const home = getPathname({ href: "/", locale: useLocale() });
   // Portfolio (#work) returns with the first project (SPEC C4)
   return [
-    { href: `${home}#services`, label: t("services"), chapter: "services" },
     { href: `${home}#how-we-work`, label: t("howWeWork"), chapter: "how" },
     { href: `${home}#faq`, label: t("faq"), chapter: "faq" },
   ];
 }
 
+/** The six offers as links, grouped as the commercial architecture: solutions, then services. */
+function useOfferGroups() {
+  const m = useMessages();
+  const locale = useLocale();
+  const link = (k: OfferKey) => ({ href: getPathname({ href: OFFER_HREF[k], locale }), label: m.offers[k].name, summary: m.offers[k].summary });
+  return [
+    { label: m.nav.solutions, links: PILLARS.map(link) },
+    { label: m.nav.services, links: SERVICES.map(link) },
+  ];
+}
+
+const navLink =
+  "nav-link relative inline-flex min-h-11 items-center text-fg-muted transition-colors hover:text-fg after:absolute after:bottom-1.5 after:left-1/2 after:size-1 after:-translate-x-1/2 after:rounded-full after:bg-emit after:opacity-0";
+
 export function SiteHeader({ page }: { page: Page }) {
   const t = useTranslations("nav");
   const locale = useLocale();
   const links = useSectionLinks();
+  const groups = useOfferGroups();
   const home = getPathname({ href: "/", locale });
-  const cta = { href: `${home}#contact`, label: t("cta") };
+  const consulting = getPathname({ href: OFFER_HREF.consulting, locale });
+  // Offer pages carry their own contact chapter; everywhere else the CTA leads to the home page's
+  const onOffer = (Object.values(OFFER_HREF) as string[]).includes(page);
+  const cta = { href: onOffer ? "#contact" : `${home}#contact`, label: t("cta") };
 
   return (
     <header className="site-header fixed inset-x-0 top-0 z-50 text-fg">
       <div className="container-page flex h-(--header-h) items-center gap-8">
-        <a href={`${home}#top`} className="shrink-0">
+        <a href={`${home}#top`} className="flex min-h-11 shrink-0 items-center">
           <Lockup className="h-7.5 w-auto" label={useTranslations("common")("home")} />
         </a>
         <nav aria-label={t("label")} className="ml-auto hidden lg:block">
-          <ul className="flex gap-9 text-body-sm">
+          <ul className="flex items-center gap-9 text-body-sm">
+            <li>
+              <SolutionsMenu label={t("solutions")} groups={groups} className={navLink} />
+            </li>
+            <li>
+              <a href={consulting} aria-current={page === OFFER_HREF.consulting ? "page" : undefined} className={navLink}>{t("consulting")}</a>
+            </li>
             {links.map((l) => (
               <li key={l.href}>
-                <a
-                  href={l.href}
-                  data-nav={l.chapter}
-                  className="nav-link relative inline-flex min-h-11 items-center text-fg-muted transition-colors hover:text-fg after:absolute after:bottom-1.5 after:left-1/2 after:size-1 after:-translate-x-1/2 after:rounded-full after:bg-emit after:opacity-0"
-                >
-                  {l.label}
-                </a>
+                <a href={l.href} data-nav={l.chapter} className={navLink}>{l.label}</a>
               </li>
             ))}
           </ul>
@@ -67,10 +85,14 @@ export function SiteHeader({ page }: { page: Page }) {
               </li>
             ))}
           </ul>
-          <ButtonLink href={cta.href} size="sm" className="max-lg:hidden">
+          <ButtonLink href={cta.href} size="sm" className="max-lg:hidden" data-cta="header">
             {cta.label}
           </ButtonLink>
-          <MobileMenu links={links} cta={cta} labels={{ open: t("openMenu"), close: t("closeMenu"), nav: t("label"), calm: useTranslations("footer")("calm") }} />
+          <MobileMenu
+            groups={[...groups, { label: "", links: links.map(({ href, label }) => ({ href, label, summary: "" })) }]}
+            cta={cta}
+            labels={{ open: t("openMenu"), close: t("closeMenu"), nav: t("label"), calm: useTranslations("footer")("calm") }}
+          />
         </div>
       </div>
       <span aria-hidden className="page-progress absolute inset-x-0 bottom-0 h-px bg-accent" />
@@ -82,6 +104,7 @@ export function SiteFooter() {
   const t = useTranslations();
   const locale = useLocale();
   const links = useSectionLinks();
+  const [solutions, services] = useOfferGroups();
   const wa = whatsappHref(locale);
   const socials = Object.entries(site.socials).filter(([, url]) => isSet(url));
   const contact = [
@@ -92,27 +115,34 @@ export function SiteFooter() {
   const legal = [isSet(site.cnpj) && `CNPJ ${site.cnpj}`, isSet(site.city) && isSet(site.uf) && `${site.city} – ${site.uf}`].filter(
     (v): v is string => !!v,
   );
-  const col = "flex flex-col gap-3 text-body-sm";
+  // Column links are full 44 px touch targets (Design System 13), so the column needs no gap
+  const col = "flex flex-col text-body-sm";
   const heading = "hud mb-2";
+  const link = "inline-flex min-h-11 items-center text-fg-muted hover:text-fg";
+  const column = (title: string, items: { href: string; label: string }[]) => (
+    <nav aria-label={title} className={col}>
+      <h2 className={heading}>{title}</h2>
+      {items.map((l) => (
+        <a key={l.href} href={l.href} className={link}>{l.label}</a>
+      ))}
+    </nav>
+  );
 
   return (
     <footer data-theme="dark" className="site-footer border-t border-line bg-panel">
       <div className="container-content flex flex-col gap-14 py-16">
         <Lockup className="h-auto w-full" />
         <div className="grid gap-12 lg:grid-cols-12">
-          <p className="font-serif text-display-md font-light italic lg:col-span-6">{t("footer.tagline")}</p>
-          <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:col-span-6">
-            <nav aria-label={t("footer.site")} className={col}>
-              <h2 className={heading}>{t("footer.site")}</h2>
-              {links.map((l) => (
-                <a key={l.href} href={l.href} className="text-fg-muted hover:text-fg">{l.label}</a>
-              ))}
-            </nav>
+          <p className="font-serif text-display-md font-light italic lg:col-span-5">{t("footer.tagline")}</p>
+          <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:col-span-7">
+            {column(t("footer.solutions"), solutions.links)}
+            {column(t("footer.services"), services.links)}
+            {column(t("footer.site"), links)}
             {contact.length > 0 && (
               <div className={col}>
                 <h2 className={heading}>{t("footer.contact")}</h2>
                 {contact.map((c) => (
-                  <a key={c.href} href={c.href} {...(c.external ? { target: "_blank", rel: "noopener" } : {})} className="text-fg-muted hover:text-fg">
+                  <a key={c.href} href={c.href} {...(c.external ? { target: "_blank", rel: "noopener" } : {})} className={link}>
                     {c.label}
                     {c.external && <span className="sr-only"> {t("common.newTab")}</span>}
                   </a>
@@ -123,7 +153,7 @@ export function SiteFooter() {
               <div className={col}>
                 <h2 className={heading}>{t("footer.social")}</h2>
                 {socials.map(([name, url]) => (
-                  <a key={name} href={url} target="_blank" rel="noopener" className="text-fg-muted hover:text-fg">
+                  <a key={name} href={url} target="_blank" rel="noopener" className={link}>
                     {name} <span className="sr-only">{t("common.newTab")}</span>
                   </a>
                 ))}
@@ -140,7 +170,8 @@ export function SiteFooter() {
           <div className="flex w-full flex-wrap items-center justify-between gap-x-6 gap-y-3 sm:w-auto">
             <Clock />
             <CalmToggle label={t("footer.calm")} />
-            <a href={`${getPathname({ href: "/", locale })}#top`} aria-label={t("footer.top")} className="grid size-12 place-items-center rounded-full border border-line-strong hover:bg-fg/8">
+            {/* The top of the current page, whichever page it is */}
+            <a href="#main" aria-label={t("footer.top")} className="grid size-12 place-items-center rounded-full border border-line-strong hover:bg-fg/8">
               <ArrowUp size={20} strokeWidth={1.5} aria-hidden />
             </a>
           </div>

@@ -1,10 +1,63 @@
 "use client";
 import { useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
-import { Check, Copy, Menu, Plus, X } from "lucide-react";
+import { Check, ChevronDown, Copy, Menu, Plus, X } from "lucide-react";
 import { setCalm, useCalm } from "@/lib/calm";
+import { track } from "@/lib/analytics";
 import { buttonClass, Roll } from "@/components/ui/button";
 
 type NavLink = { href: string; label: string };
+type NavGroup = { label: string; links: (NavLink & { summary: string })[] };
+
+/** Desktop "Soluções" disclosure (not an ARIA menu: plain links in a list). Esc, outside click or leaving it closes it. */
+export function SolutionsMenu({ label, groups, className }: { label: string; groups: NavGroup[]; className: string }) {
+  const [open, setOpen] = useState(false);
+  const root = useRef<HTMLDivElement>(null);
+  const panel = useId();
+
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: PointerEvent) => !root.current?.contains(e.target as Node) && setOpen(false);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      setOpen(false);
+      root.current?.querySelector("button")?.focus();
+    };
+    document.addEventListener("pointerdown", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("pointerdown", onDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  return (
+    <div ref={root} className="relative" onBlur={(e) => !root.current?.contains(e.relatedTarget as Node) && setOpen(false)}>
+      <button type="button" aria-expanded={open} aria-controls={panel} onClick={() => setOpen(!open)} className={`${className} gap-1`}>
+        {label}
+        <ChevronDown size={16} strokeWidth={1.5} aria-hidden className={`transition-transform ${open ? "rotate-180" : ""}`} />
+      </button>
+      <div id={panel} hidden={!open} className="absolute top-full left-0 mt-2 w-xl rounded-md border border-line-strong bg-panel p-6 shadow-float">
+        <div className="grid grid-cols-2 gap-8">
+          {groups.map((g) => (
+            <div key={g.label}>
+              <p className="hud">{g.label}</p>
+              <ul className="mt-3 flex flex-col">
+                {g.links.map((l) => (
+                  <li key={l.href}>
+                    <a href={l.href} className="flex flex-col gap-0.5 rounded-sm py-2.5 text-fg hover:text-accent">
+                      <span className="text-body-md">{l.label}</span>
+                      <span className="text-caption text-fg-subtle">{l.summary}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 /** Reduce-motion switch (Design System 11.14): overrides the OS setting in either direction, live. */
 export function CalmToggle({ label }: { label: string }) {
@@ -39,11 +92,15 @@ export function Clock() {
 }
 
 /** Full-screen menu overlay (< 1024 px) on a native modal <dialog>: focus trap, Esc and focus return built in. */
-export function MobileMenu({ links, cta, labels }: { links: NavLink[]; cta: NavLink; labels: { open: string; close: string; nav: string; calm: string } }) {
+export function MobileMenu({ groups, cta, labels }: { groups: NavGroup[]; cta: NavLink; labels: { open: string; close: string; nav: string; calm: string } }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const [open, setOpen] = useState(false);
-  const close = () => dialog.current?.close();
   const menu = (on: boolean) => dispatchEvent(new CustomEvent("sys:menu", { detail: on })); // pauses smooth scroll
+  // The dialog's close event is async, so resume scrolling now: a link's in-page scroll runs right after this click
+  const close = () => {
+    dialog.current?.close();
+    menu(false);
+  };
 
   return (
     <>
@@ -68,27 +125,33 @@ export function MobileMenu({ links, cta, labels }: { links: NavLink[]; cta: NavL
           setOpen(false);
           menu(false);
         }}
-        className="m-0 h-dvh max-h-none w-full max-w-none border-0 bg-panel p-0 text-fg backdrop:bg-panel"
+        className="m-0 h-dvh max-h-none w-full max-w-none overflow-y-auto overscroll-contain border-0 bg-panel p-0 text-fg backdrop:bg-panel"
       >
-        <div className="container-page flex h-full flex-col pb-8">
-          <div className="flex h-(--header-h) items-center justify-end">
+        <div className="container-page flex min-h-full flex-col">
+          <div className="flex h-(--header-h) shrink-0 items-center justify-end">
             <button type="button" className="grid size-11 place-items-center" aria-label={labels.close} onClick={close}>
               <X size={24} strokeWidth={1.5} aria-hidden />
             </button>
           </div>
-          <nav aria-label={labels.nav} className="mt-8">
-            <ul>
-              {links.map((l) => (
-                <li key={l.href} className="border-b border-line">
-                  <a href={l.href} onClick={close} className="flex min-h-18 items-center font-serif text-display-md font-light">
-                    {l.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+          <nav aria-label={labels.nav} className="flex flex-col gap-8">
+            {groups.map((g) => (
+              <div key={g.label || "site"}>
+                {g.label && <p className="hud">{g.label}</p>}
+                <ul className={g.label ? "mt-2" : ""}>
+                  {g.links.map((l) => (
+                    <li key={l.href} className="border-b border-line">
+                      <a href={l.href} onClick={close} className="flex min-h-14 items-center font-serif text-heading-md font-light">
+                        {l.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </nav>
-          <div className="mt-auto flex flex-col gap-6">
-            <a href={cta.href} onClick={close} className={`${buttonClass()} w-full`}>
+          {/* Pinned to the bottom, so the primary action stays in view while the links scroll on short phones */}
+          <div className="sticky bottom-0 mt-auto flex flex-col gap-4 bg-panel pt-6 pb-6">
+            <a href={cta.href} onClick={close} data-cta="menu" className={`${buttonClass()} w-full`}>
               <Roll>{cta.label}</Roll>
             </a>
             <div className="flex items-center justify-between">
@@ -122,7 +185,10 @@ export function AccordionItem({ id, question, children }: { id: string; question
           type="button"
           aria-expanded={open}
           aria-controls={`${id}-panel`}
-          onClick={() => setOpen(!open)}
+          onClick={() => {
+            if (!open) track("faq_open", { id });
+            setOpen(!open);
+          }}
           className="flex w-full items-center justify-between gap-6 py-7 text-left font-serif text-heading-md font-light"
         >
           {question}
@@ -149,6 +215,7 @@ export function CopyButton({ text, label, done }: { text: string; label: string;
         onClick={async () => {
           try {
             await navigator.clipboard.writeText(text);
+            track("email_copy", { location: "contact" });
             setCopied(true);
             setTimeout(() => setCopied(false), 1500);
           } catch {
