@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Systagma — Custom software, integrations and data",
-    "description": "Software house that designs, builds and integrates web systems, apps, integrations and dashboards for companies. From first sketch to measured impact."
+    "title": "Systagma — Software, data, automation and AI for companies",
+    "description": "Custom software, data and BI, process automation and applied AI for companies across Brazil. From discovery to continuous evolution."
   },
   "common": {
     "skip": "Skip to content",
@@ -12,7 +12,10 @@
   },
   "nav": {
     "label": "Main",
+    "solutions": "Solutions",
+    "openSolutions": "Solutions and services",
     "services": "Services",
+    "consulting": "Consulting",
     "howWeWork": "How we work",
     "faq": "FAQ",
     "cta": "Start a project",
@@ -23,14 +26,72 @@
     "en": "English"
   },
   "hero": {
-    "lead": "Systagma designs, builds and integrates custom software for companies, and measures what it delivers. From the first sketch to impact you can see in the data.",
+    "lead": "Software, data, automation and AI for companies that have outgrown their spreadsheets. We understand the problem, build the solution and stay with you after delivery.",
     "cta": "Start a project",
     "whatsapp": "Chat on WhatsApp",
     "note": "We reply within one business day.",
-    "h1a": "Ideas,",
+    "h1a": "Your operation,",
     "h1b": "put in order.",
-    "seeServices": "See our services",
+    "seeServices": "See solutions",
     "scrollCue": "Scroll to put them in order"
+  },
+  "problems": {
+    "h2": "Start with the problem.",
+    "lead": "You don't need to know whether it calls for a system, an integration or a dashboard. Knowing what's holding the operation back is enough. These are some of the problems we solve.",
+    "linksLabel": "Solutions",
+    "items": [
+      {
+        "q": "We run everything on spreadsheets.",
+        "a": "We turn critical spreadsheets into a system with rules, permissions and history, and automate what's copied by hand today.",
+        "links": [
+          "software",
+          "automation"
+        ]
+      },
+      {
+        "q": "The team repeats the same tasks every day.",
+        "a": "We map the process and automate the repetitive steps: data entry, checks, reports and moving information between systems.",
+        "links": [
+          "automation"
+        ]
+      },
+      {
+        "q": "Our systems don't talk to each other.",
+        "a": "We connect your ERP, CRM, online store and other platforms through APIs, so each piece of information is entered only once.",
+        "links": [
+          "automation",
+          "software"
+        ]
+      },
+      {
+        "q": "Our numbers are scattered and nobody trusts the reports.",
+        "a": "We bring your systems' data into one organized base, agree on how each indicator is calculated and build dashboards that update themselves.",
+        "links": [
+          "data"
+        ]
+      },
+      {
+        "q": "Our current software doesn't fit how we work.",
+        "a": "We adapt, integrate or replace the system, depending on the case. When it's already in production, we start with a technical audit.",
+        "links": [
+          "software",
+          "support"
+        ]
+      },
+      {
+        "q": "We waste time searching through documents.",
+        "a": "We build assistants that search your company's documents and knowledge base, and automations that pull data out of files and forms.",
+        "links": [
+          "automation"
+        ]
+      }
+    ],
+    "cta": {
+      "title": "Not sure which solution fits your case?",
+      "body": "Tell us the problem. We understand the context in a call and send a proposal or a discovery plan.",
+      "primary": "Talk about the problem",
+      "secondary": "How consulting works"
+    }
   },
   "about": {
     "h2": "About Systagma",
@@ -38,70 +99,577 @@
     "followUp": "That's our job. We arrange people, processes and data into software that works as a single system, and we show in numbers what changed."
   },
   "services": {
-    "h2": "From code to outcome, in four moves.",
-    "lead": "Every project moves through the same four stages. Bring us in for one, a few, or the whole way.",
+    "h2": "Four disciplines, one complete solution.",
+    "lead": "Every problem calls for a different mix of software, data, automation and AI. We design the mix and deliver the whole, so you don't have to coordinate several vendors.",
     "pillars": {
-      "build": {
-        "title": "Build",
-        "description": "Custom web and mobile software, with architecture that's ready to grow.",
+      "software": {
+        "title": "Software",
+        "description": "Custom systems that turn processes and business rules into reliable tools for your team.",
         "items": [
-          "Web platforms and SaaS",
-          "iOS and Android apps",
+          "Web systems and business applications",
           "Internal tools and back-offices",
-          "Product design (UX/UI)"
+          "APIs, back ends and integrations",
+          "Modernization of existing systems"
         ]
       },
-      "connect": {
-        "title": "Connect",
-        "description": "We plug the new into what you already run, so data moves without rework.",
+      "data": {
+        "title": "Data",
+        "description": "Reliable information for decisions: data gathered, organized and turned into indicators, dashboards and forecasts.",
         "items": [
-          "APIs and integrations (ERP, CRM, payments)",
-          "Workflow automation",
-          "Cloud and DevOps",
-          "Legacy system migration"
+          "Management dashboards and KPIs (BI)",
+          "Power BI and automated reporting",
+          "Data engineering and integration",
+          "Forecasting and advanced analytics"
         ]
       },
-      "analyze": {
-        "title": "Analyze",
-        "description": "We turn scattered data into trustworthy metrics and faster decisions.",
+      "automation": {
+        "title": "Automation & AI",
+        "description": "Less manual work and connected systems, with artificial intelligence applied where it solves a real problem.",
         "items": [
-          "Data engineering and pipelines",
-          "Dashboards and BI",
-          "Applied AI and machine learning",
-          "Product analytics"
+          "Process and task automation",
+          "System and API integration",
+          "AI assistants and agents",
+          "Document reading and extraction"
         ]
       },
-      "transform": {
-        "title": "Transform",
-        "description": "We use what the data shows to evolve the product and the business.",
+      "web": {
+        "title": "Web",
+        "description": "Websites and portals that present your company with the same care as its work, and connect to your systems.",
         "items": [
-          "Product discovery and strategy",
-          "System modernization",
-          "AI agents and intelligent automation",
-          "Continuous improvement and support"
+          "Corporate and institutional websites",
+          "Landing pages and portals",
+          "UX/UI and digital experience",
+          "Performance and technical SEO"
         ]
       }
     },
-    "stepOf": "Step {n} of 4"
+    "stepOf": "Solution {n} of 4"
+  },
+  "catalog": {
+    "h2": "Choose where to start.",
+    "lead": "Each one has a page with what we deliver, who it's for and how we run it. If you're not sure which fits, start with consulting.",
+    "solutionsLabel": "Solutions",
+    "servicesLabel": "Services"
+  },
+  "offerCommon": {
+    "solutions": "Solutions",
+    "services": "Services",
+    "secondary": "See what we deliver",
+    "lifecycle": {
+      "h2": "From the first conversation to continuous evolution.",
+      "steps": [
+        {
+          "t": "Conversation and discovery",
+          "d": "We understand the problem and design the solution. When the scope is still open, we start with a two-week discovery sprint."
+        },
+        {
+          "t": "Project",
+          "d": "We build and integrate in two-week cycles, with working software every cycle."
+        },
+        {
+          "t": "Deployment",
+          "d": "We put it into production, with repositories, accounts and documentation in your company's name."
+        },
+        {
+          "t": "Support and evolution",
+          "d": "We keep going with fixes, improvements and new needs, if that makes sense for you."
+        }
+      ],
+      "link": "About support and evolution"
+    }
+  },
+  "offers": {
+    "software": {
+      "name": "Software",
+      "summary": "Custom systems, APIs and modernization of existing systems.",
+      "meta": {
+        "title": "Custom software development",
+        "description": "Web systems, business applications, APIs and modernization of existing systems, built around your company's processes and supported after delivery."
+      },
+      "h1": "Software that fits the way your company works.",
+      "lead": "We turn processes, business rules and spreadsheets into reliable systems, connected to what you already use and ready to grow with the operation.",
+      "cta": "Talk about a system",
+      "sections": {
+        "problems": "Problems we solve",
+        "deliver": "What we deliver",
+        "connects": "How it connects"
+      },
+      "problems": [
+        {
+          "q": "Critical processes live in shared spreadsheets.",
+          "a": "A system with rules, permissions and history replaces the spreadsheet and keeps what already works in the process."
+        },
+        {
+          "q": "Our current system doesn't keep up with the operation.",
+          "a": "We adapt, integrate or replace it, depending on the case. For systems already in production, we start with a technical audit."
+        },
+        {
+          "q": "Each team works in a different tool.",
+          "a": "A central system, or integrations between the systems you already have, keeps information moving without rework."
+        }
+      ],
+      "deliver": [
+        {
+          "title": "Custom systems",
+          "body": "Web applications built around your process, with the rules, access profiles and reports your operation needs.",
+          "items": [
+            "Web systems and business applications",
+            "Internal tools and back-offices",
+            "Digital platforms for customers and partners"
+          ],
+          "tech": ""
+        },
+        {
+          "title": "APIs and integrations",
+          "body": "Back ends and APIs that connect the system to your ERP, CRM, payment providers and other platforms.",
+          "items": [
+            "APIs and back-end services",
+            "ERP, CRM and payment integrations",
+            "Data sync between systems"
+          ],
+          "tech": ""
+        },
+        {
+          "title": "Modernization",
+          "body": "Evolving systems that no longer keep up with the business, with the migration planned in stages.",
+          "items": [
+            "Technical audit of code and infrastructure",
+            "Legacy system migration",
+            "Cloud deployment as part of delivery"
+          ],
+          "tech": ""
+        }
+      ],
+      "principle": "",
+      "connects": [
+        {
+          "to": "data",
+          "text": "The data the system produces becomes indicators and management dashboards."
+        },
+        {
+          "to": "automation",
+          "text": "Repetitive tasks inside and around the system can be automated, with AI where it makes sense."
+        },
+        {
+          "to": "support",
+          "text": "After delivery, the system keeps evolving with the operation."
+        }
+      ]
+    },
+    "data": {
+      "name": "Data",
+      "summary": "Management dashboards, Power BI, data engineering and data science.",
+      "meta": {
+        "title": "Data, BI and data engineering",
+        "description": "Management dashboards, Power BI, data engineering and data science: data brought together and organized so you can track reliable indicators and decide."
+      },
+      "h1": "Numbers you can trust.",
+      "lead": "We bring together the data scattered across your systems and spreadsheets, agree on how each indicator is calculated, and deliver dashboards that update without manual work.",
+      "cta": "Talk about your data",
+      "sections": {
+        "problems": "Problems we solve",
+        "deliver": "What we deliver",
+        "connects": "How it connects"
+      },
+      "problems": [
+        {
+          "q": "Reports take days to put together.",
+          "a": "We automate data collection and updates, so the report is ready when you need it."
+        },
+        {
+          "q": "Each team has a different number for the same indicator.",
+          "a": "We define one calculation rule per indicator and a single reference data source."
+        },
+        {
+          "q": "There's no visibility into what's happening in the operation.",
+          "a": "Management dashboards show the indicators that matter, with the detail at hand when you need to dig in."
+        }
+      ],
+      "deliver": [
+        {
+          "title": "Business intelligence (BI) and analytics",
+          "body": "Dashboards and reports to follow the operation and make decisions based on data.",
+          "items": [
+            "Management dashboards and KPIs",
+            "Power BI and automated reporting",
+            "Data analysis and visualization"
+          ],
+          "tech": ""
+        },
+        {
+          "title": "Data engineering",
+          "body": "The foundation behind the dashboards: we connect data from systems, databases and APIs and organize it into reliable flows, for analysis and for day-to-day operation.",
+          "items": [
+            "Data integration across systems and APIs",
+            "Automated data flows",
+            "Data warehouse and data architecture"
+          ],
+          "tech": "Technical terms: extract, transform and load (ETL/ELT) pipelines, data modeling and data warehousing."
+        },
+        {
+          "title": "Data science",
+          "body": "Statistical and machine learning models for business questions: how much will we sell, which customers are alike, where is something out of the ordinary.",
+          "items": [
+            "Demand and sales forecasting",
+            "Customer and product segmentation",
+            "Pattern and anomaly detection"
+          ],
+          "tech": "Technical terms: statistical analysis, predictive models and machine learning."
+        }
+      ],
+      "principle": "",
+      "connects": [
+        {
+          "to": "software",
+          "text": "When the data doesn't exist or lives in a spreadsheet, a system starts recording it properly."
+        },
+        {
+          "to": "automation",
+          "text": "The same organized data feeds automations and AI assistants."
+        },
+        {
+          "to": "support",
+          "text": "Indicators change with the business; we keep adjusting dashboards and data flows."
+        }
+      ]
+    },
+    "automation": {
+      "name": "Automation & AI",
+      "summary": "Process automation, system integration and applied AI.",
+      "meta": {
+        "title": "Process automation, integrations and applied AI",
+        "description": "Process automation, system and API integration, and artificial intelligence applied to documents, requests and your company's everyday tasks."
+      },
+      "h1": "Less manual work. Systems that talk.",
+      "lead": "We automate repetitive tasks, connect the systems that don't talk today and apply artificial intelligence where it solves a concrete problem, inside the processes you already have.",
+      "cta": "Evaluate an automation",
+      "sections": {
+        "problems": "Problems we solve",
+        "deliver": "What we deliver",
+        "connects": "How it connects"
+      },
+      "problems": [
+        {
+          "q": "The team copies data from one system to another.",
+          "a": "We connect the systems through APIs, and information moves on its own, with no double entry."
+        },
+        {
+          "q": "Simple tasks eat up hours every day.",
+          "a": "We automate the repetitive steps and leave people the decisions that need them."
+        },
+        {
+          "q": "Important information is stuck in documents and emails.",
+          "a": "We use AI to read, search and extract what matters, and get it to whoever needs it."
+        }
+      ],
+      "deliver": [
+        {
+          "title": "Process automation",
+          "body": "We map the process and automate the repetitive steps, with a log of what was done and alerts when something needs a person.",
+          "items": [
+            "Workflow and task automation",
+            "Automated reports and admin routines",
+            "Triggers and webhooks between platforms"
+          ],
+          "tech": ""
+        },
+        {
+          "title": "System integration",
+          "body": "We connect your ERP, CRM, online store, spreadsheets and other platforms, so each piece of information is entered only once.",
+          "items": [
+            "API integration between systems",
+            "Data integration across platforms",
+            "ERP, CRM and payment sync"
+          ],
+          "tech": ""
+        },
+        {
+          "title": "Applied artificial intelligence",
+          "body": "AI built into your processes and systems, for the tasks it's good at: reading, searching, classifying and summarizing information.",
+          "items": [
+            "Assistants that search your company's documents",
+            "Data extraction from documents and forms",
+            "Request classification and triage",
+            "AI agents connected to systems and automations"
+          ],
+          "tech": "Technical terms: large language models (LLMs), retrieval over your company's knowledge base (RAG) and API integration."
+        }
+      ],
+      "principle": "We start from the problem, not the technology. When a simple rule solves it, we recommend the simple rule. When the case calls for AI, it comes built into the process and your systems, not as a separate tool.",
+      "connects": [
+        {
+          "to": "software",
+          "text": "When the process needs a tool of its own, the automation becomes a system."
+        },
+        {
+          "to": "data",
+          "text": "Automations and integrations organize the data that feeds your dashboards."
+        },
+        {
+          "to": "support",
+          "text": "Integrations need care when systems change; we keep looking after them."
+        }
+      ]
+    },
+    "web": {
+      "name": "Web",
+      "summary": "Corporate websites, landing pages and portals.",
+      "meta": {
+        "title": "Websites, landing pages and portals",
+        "description": "Custom corporate websites, landing pages and portals, with UX/UI, performance and technical SEO, connected to your company's systems when needed."
+      },
+      "h1": "A website that matches your company.",
+      "lead": "We design and build custom websites, landing pages and portals: fast, accessible, easy to find and connected to your systems when that matters.",
+      "cta": "Talk about your website",
+      "sections": {
+        "problems": "Problems we solve",
+        "deliver": "What we deliver",
+        "connects": "How it connects"
+      },
+      "problems": [
+        {
+          "q": "Our website doesn't reflect how serious the company is.",
+          "a": "We design from what the company does and who it wants to reach, with the same care we give a system."
+        },
+        {
+          "q": "The website is slow and rarely shows up in search.",
+          "a": "Performance, accessibility and technical SEO are part of the project from the start."
+        },
+        {
+          "q": "Leads from the website get lost.",
+          "a": "Forms and integrations send each contact straight to your team's inbox or CRM."
+        }
+      ],
+      "deliver": [
+        {
+          "title": "Websites and landing pages",
+          "body": "Websites that clearly explain what the company does, for whom, and how to reach it.",
+          "items": [
+            "Corporate and institutional websites",
+            "Landing pages for products and campaigns",
+            "Multilingual websites"
+          ],
+          "tech": ""
+        },
+        {
+          "title": "Portals and web experiences",
+          "body": "Customer areas, portals and custom experiences, connected to your systems.",
+          "items": [
+            "Portals and customer areas",
+            "Custom web experiences",
+            "CRM and internal system integration"
+          ],
+          "tech": ""
+        },
+        {
+          "title": "Technical quality",
+          "body": "What isn't visible at first glance but decides how the site works for visitors.",
+          "items": [
+            "UX/UI and interface design",
+            "Performance and accessibility",
+            "Technical SEO"
+          ],
+          "tech": ""
+        }
+      ],
+      "principle": "",
+      "connects": [
+        {
+          "to": "software",
+          "text": "When the website needs its own rules and data, it becomes a system."
+        },
+        {
+          "to": "data",
+          "text": "Visit and lead data can feed your management dashboards."
+        },
+        {
+          "to": "support",
+          "text": "Websites need updates and improvements too; we keep looking after them after launch."
+        }
+      ]
+    },
+    "consulting": {
+      "name": "Consulting",
+      "summary": "For when you know the problem but not yet the solution.",
+      "meta": {
+        "title": "Technology consulting and discovery",
+        "description": "For companies that know the problem but not the solution: we understand the operation, assess systems, data and automation, and recommend a path."
+      },
+      "h1": "Know the problem but not the solution?",
+      "lead": "That's what consulting is for. We understand the operation, assess what you already have and recommend a path, whether that's a system, an integration, a dashboard, an automation or none of these.",
+      "cta": "Talk about the problem",
+      "sections": {
+        "problems": "When consulting helps",
+        "deliver": "How it works",
+        "connects": "Where discovery can lead"
+      },
+      "problems": [
+        {
+          "q": "The process has bottlenecks, but it's not clear where to start.",
+          "a": "We map the process and the systems involved, and show where the problem is and what to solve first."
+        },
+        {
+          "q": "We need to decide whether to adapt, integrate or build.",
+          "a": "We assess the possible paths and recommend one, with scope and an estimate."
+        },
+        {
+          "q": "We want to use AI but don't know where it helps.",
+          "a": "We identify the tasks where AI actually makes a difference, and the ones where a simple automation is enough."
+        },
+        {
+          "q": "We need a technical second opinion.",
+          "a": "We review existing systems, architecture and data, with a technical audit when needed."
+        }
+      ],
+      "deliver": [
+        {
+          "title": "First conversation",
+          "body": "A 30-minute call to understand the context and tell you whether, and how, we can help.",
+          "items": [],
+          "tech": ""
+        },
+        {
+          "title": "Discovery sprint",
+          "body": "Two weeks to understand the problem, test the solution with the people who'll use it, and leave with a scope, a plan and an estimate. Fixed price.",
+          "items": [
+            "Mapping of the process and systems involved",
+            "Assessment of data, integrations and automation and AI opportunities",
+            "A recommended solution, with scope, plan and estimate"
+          ],
+          "tech": ""
+        },
+        {
+          "title": "Technical consulting",
+          "body": "Support for technology decisions that don't need a full project.",
+          "items": [
+            "Software and data architecture",
+            "Technical audit of existing systems",
+            "Review of tools, integrations and AI opportunities"
+          ],
+          "tech": ""
+        }
+      ],
+      "principle": "",
+      "connects": [
+        {
+          "to": "software",
+          "text": "When the process needs a system of its own."
+        },
+        {
+          "to": "data",
+          "text": "When the problem is visibility and trust in the numbers."
+        },
+        {
+          "to": "automation",
+          "text": "When the problem is manual work or disconnected systems."
+        },
+        {
+          "to": "web",
+          "text": "When the problem is the company's online presence."
+        }
+      ]
+    },
+    "support": {
+      "name": "Support and evolution",
+      "summary": "Maintenance, support and evolution after delivery.",
+      "meta": {
+        "title": "Software support and evolution",
+        "description": "After delivery we stay with the solution: maintenance, technical support, improvements, new features and integrations, including systems we didn't build."
+      },
+      "h1": "Delivery is the start, not the end.",
+      "lead": "Software has to keep up with the company. After delivery we keep going with fixes, improvements, new features and integrations as your operation changes.",
+      "cta": "Talk about support",
+      "sections": {
+        "problems": "When it makes sense",
+        "deliver": "What it includes",
+        "connects": "How the system grows"
+      },
+      "problems": [
+        {
+          "q": "The system was delivered, but nobody looks after it.",
+          "a": "We take over maintenance: fixes, updates and support for your team."
+        },
+        {
+          "q": "The operation changed and the software fell behind.",
+          "a": "We plan its evolution in cycles, with new features and integrations in order of business priority."
+        },
+        {
+          "q": "The previous vendor left and nobody knows the code.",
+          "a": "We take over systems in production after a technical audit of the code, infrastructure and risks."
+        }
+      ],
+      "deliver": [
+        {
+          "title": "Maintenance and support",
+          "body": "The day-to-day of a system in production.",
+          "items": [
+            "Fixes and corrective maintenance",
+            "Technical support for your team",
+            "Dependency and security updates",
+            "Monitoring, where it applies"
+          ],
+          "tech": ""
+        },
+        {
+          "title": "Continuous evolution",
+          "body": "The system keeps up with the business, in cycles, on the priorities you set.",
+          "items": [
+            "Improvements and new features",
+            "New integrations",
+            "Adapting to process changes"
+          ],
+          "tech": ""
+        },
+        {
+          "title": "Handover, if you prefer",
+          "body": "If the plan is to bring it in-house, we prepare your team to take the system over.",
+          "items": [
+            "Documentation and an organized handover",
+            "Training for your in-house team"
+          ],
+          "tech": ""
+        }
+      ],
+      "principle": "As in every format, scope and budget are agreed in writing before we start.",
+      "connects": [
+        {
+          "to": "automation",
+          "text": "New automations and integrations join the same evolution cycle."
+        },
+        {
+          "to": "data",
+          "text": "Once the system is stable, the data it produces becomes indicators."
+        },
+        {
+          "to": "consulting",
+          "text": "When a new need appears and the path isn't obvious, we start with a discovery sprint."
+        }
+      ]
+    }
   },
   "how": {
     "h2": "How we work together",
-    "lead": "Three ways to start, with the same rules in each.",
+    "lead": "Three ways to start and one way to keep going, with the same rules in each.",
     "models": {
       "discovery": {
         "title": "Discovery sprint",
         "body": "Two weeks to understand the problem, test the solution with the people who'll use it, and leave with a scope, a plan and an estimate. Fixed price.",
-        "bestFor": "When the idea is still open."
+        "bestFor": "When you know the problem but not yet the solution."
       },
       "fixed": {
         "title": "Fixed-scope project",
         "body": "Scope, timeline and budget agreed before we start, with deliveries every two weeks.",
-        "bestFor": "MVPs and systems with a clear goal."
+        "bestFor": "Systems, automations and dashboards with a clear goal."
       },
       "team": {
         "title": "Dedicated team",
         "body": "A cross-functional team that works as an extension of yours, in two-week cycles, on the priorities you set.",
         "bestFor": "Products that keep evolving."
+      },
+      "support": {
+        "title": "Support and evolution",
+        "body": "After delivery we keep going: fixes, improvements, new features and integrations as your operation changes. We also take over systems we didn't build, after a technical audit.",
+        "bestFor": "Systems in production that need to keep evolving."
       }
     },
     "commitmentsTitle": "What holds in every format",
@@ -142,6 +710,10 @@
         "q": "How long does it take?",
         "a": "An MVP usually takes 8 to 16 weeks. The exact timeline is in the proposal, with deliveries every two weeks so you can follow along."
       },
+      "faq-ideia": {
+        "q": "Do I need to know which solution to buy?",
+        "a": "No. An idea or a clearly described problem is enough for a first conversation. The discovery sprint exists to turn that into scope."
+      },
       "faq-codigo": {
         "q": "Who owns the code?",
         "a": "Your company. Repositories, cloud accounts, domains and documentation are in your name from the start, and we hand everything over in order when the contract ends."
@@ -150,21 +722,25 @@
         "q": "Can you take over a system that's already running?",
         "a": "Yes. We start with a technical audit of the code, infrastructure and risks, and only then propose a plan."
       },
-      "faq-ideia": {
-        "q": "Do I need everything figured out?",
-        "a": "No. An idea or a clearly described problem is enough for a first conversation. The discovery sprint exists to turn that into scope."
+      "faq-suporte": {
+        "q": "What happens after delivery?",
+        "a": "We stay with you if it makes sense: support with fixes, monitoring where it applies, improvements, new features and integrations. If you prefer, we train your team to take the system over."
+      },
+      "faq-ia": {
+        "q": "Where does AI make sense in my company?",
+        "a": "Usually where there's a lot of text, many documents or repetitive reading and triage: assistants that search your knowledge base, data extraction from documents, request classification. We start from the problem, and when a simple automation solves it, that's what we recommend."
       },
       "faq-comunicacao": {
         "q": "How does communication work?",
         "a": "A direct channel with the team (email, Slack or WhatsApp), a short weekly meeting and a demo every two-week cycle."
       },
-      "faq-suporte": {
-        "q": "What happens after launch?",
-        "a": "We offer support plans with monitoring, fixes and ongoing improvement. We can also train your team to take the system over."
-      },
       "faq-dados": {
         "q": "How do you handle personal data?",
         "a": "We follow Brazil's LGPD: we collect the minimum needed, document how data is processed, and apply access control and encryption in the systems we build. When needed, we sign a data processing agreement."
+      },
+      "faq-brasil": {
+        "q": "Do you work with companies all over Brazil?",
+        "a": "Yes. We work with companies across the country, and the team has people in different regions, including the Northeast and Belém (Pará)."
       },
       "faq-idioma": {
         "q": "Do you work with companies outside Brazil?",
@@ -173,7 +749,7 @@
     }
   },
   "contact": {
-    "h2": "Tell us what you want to build.",
+    "h2": "Tell us what you need to solve.",
     "lead": "We reply by email within one business day with next steps.",
     "channels": "Direct channels",
     "email": "Email",
@@ -196,14 +772,17 @@
       "name": "Name",
       "email": "Email",
       "company": "Company",
-      "needs": "What do you need?",
+      "needs": "What can we help with?",
       "needsOptions": {
-        "new-product": "New product",
-        "integration": "Integration",
+        "system": "Custom system",
+        "website": "Website",
         "data": "Data & BI",
-        "ai": "AI & automation",
-        "modernization": "Modernization",
-        "other": "Other"
+        "automation": "Automation",
+        "integration": "Integration",
+        "ai": "Artificial intelligence",
+        "consulting": "Consulting",
+        "support": "Maintenance & evolution",
+        "unsure": "Not sure yet"
       },
       "budget": "Expected budget",
       "budgetOptions": {
@@ -224,7 +803,7 @@
     "errors": {
       "nameShort": "Enter your name.",
       "emailInvalid": "Enter a valid email, like name@company.com.",
-      "needsEmpty": "Choose at least one option.",
+      "needsEmpty": "Choose at least one option. If you're not sure, pick “Not sure yet”.",
       "messageShort": "Write at least 20 characters so we can understand the project.",
       "messageLong": "Use 2000 characters or fewer."
     },
@@ -248,6 +827,8 @@
   },
   "footer": {
     "tagline": "Ideas to impact, through data.",
+    "solutions": "Solutions",
+    "services": "Services",
     "site": "Site",
     "contact": "Contact",
     "social": "Social",
@@ -313,11 +894,19 @@
     "order": "ORDER",
     "chapters": {
       "hero": "Start",
+      "problems": "Problems",
       "about": "Name",
-      "services": "Moves",
+      "services": "Solutions",
+      "catalog": "Where to start",
       "how": "Formats",
       "faq": "Questions",
       "contact": "Contact",
+      "software": "Software",
+      "data": "Data",
+      "automation": "Automation & AI",
+      "web": "Web",
+      "consulting": "Consulting",
+      "support": "Support",
       "lost": "Error 404"
     },
     "meta": {

@@ -1,7 +1,10 @@
 import type { CSSProperties, ReactNode } from "react";
-import { MessageCircle } from "lucide-react";
+import { ArrowUpRight, MessageCircle } from "lucide-react";
 import { useLocale, useMessages, useTranslations } from "next-intl";
 import { isSet, site } from "@/content/site";
+import { OFFER_HREF, PILLARS, SERVICES, type OfferKey } from "@/content/offers";
+import type { Need } from "@/lib/contact-options";
+import { getPathname } from "@/i18n/navigation";
 import { whatsappHref } from "@/lib/whatsapp";
 import { Mark } from "@/components/brand";
 import { ButtonLink } from "@/components/ui/button";
@@ -25,7 +28,7 @@ function SkipChapter({ to }: { to: string }) {
 
 /** Chapter title with a line-mask entrance (scroll-timeline CSS where supported; static otherwise).
  *  Font caps at 18cqi so a ~10-char word (e.g. pt "frequentes") fits its column instead of being clipped. */
-function Title({ id, children, className = "" }: { id: string; children: ReactNode; className?: string }) {
+export function Title({ id, children, className = "" }: { id: string; children: ReactNode; className?: string }) {
   return (
     <h2 id={id} tabIndex={-1} className={`@container mask-in block overflow-clip font-serif font-light ${className}`}>
       <span className="block text-[length:min(1em,18cqi)]">{children}</span>
@@ -38,13 +41,14 @@ export function Hero() {
   const wa = whatsappHref(useLocale());
   return (
     <section id="top" data-chapter="hero" data-pin style={pin("--pin-hero")} aria-labelledby="hero-title">
-      <SkipChapter to="about" />
+      <SkipChapter to="problems" />
       {/* Phones: text on top, symbol assembles in the lower part of the stage (SPEC 7.2) */}
       <div data-stage className="flex flex-col lg:flex-row lg:items-center">
         <div className="container-page relative z-10 pt-[calc(var(--header-h)+1.5rem)] lg:pt-(--header-h) lg:pb-20">
-          <div data-field-safe className="max-w-4xl">
-            {/* ponytail: display-xl capped at 8.2vw so the serif line stays on one line beside the field zone */}
-            <h1 id="hero-title" tabIndex={-1} className="text-[min(var(--text-display-xl),max(3.25rem,8.2vw))] leading-[0.9]">
+          <div data-field-safe className="@container max-w-4xl">
+            {/* display-xl capped at 8.2vw so the serif line stays beside the field zone, and at 13cqi so the caps line
+                ("Sua operação," / "Your operation,") holds one line on phones instead of pushing the hero past its stage */}
+            <h1 id="hero-title" tabIndex={-1} className="text-[length:min(var(--text-display-xl),max(3.25rem,8.2vw),13cqi)] leading-[0.9]">
               <span className="hero-line-1 block font-sans font-light tracking-[-0.04em] uppercase">{t.hero.h1a}</span>{" "}
               <span className="hero-line-2 block font-serif font-light tracking-[-0.02em] italic">{t.hero.h1b}</span>
             </h1>
@@ -74,6 +78,59 @@ export function Hero() {
         <p data-order aria-hidden className="hud absolute right-(--space-gutter) bottom-8 text-accent lg:hidden [html[data-calm]_&]:hidden [html[data-static]_&]:hidden">
           {t.hud.order} 000%
         </p>
+      </div>
+    </section>
+  );
+}
+
+/** A decision point: title on the left, the reason and the action on the right (spec-row rhythm). */
+export function CtaRow({ title, body, children }: { title: string; body: string; children: ReactNode }) {
+  return (
+    <div data-field-safe className="mt-16 grid gap-6 border-t border-line-strong pt-12 lg:grid-cols-12 lg:gap-8">
+      <h3 className="font-serif text-heading-md font-light lg:col-span-5">{title}</h3>
+      <div className="lg:col-span-6 lg:col-start-7">
+        <p className="text-body-lg text-fg-muted">{body}</p>
+        <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row">{children}</div>
+      </div>
+    </div>
+  );
+}
+
+const useOfferHref = () => {
+  const locale = useLocale();
+  return (k: OfferKey) => getPathname({ href: OFFER_HREF[k], locale });
+};
+
+/** Problem-aware entry: the customer's own words, each pointing to the solutions that answer it. */
+export function Problems() {
+  const m = useMessages();
+  const t = m.problems;
+  const href = useOfferHref();
+  return (
+    <section id="problems" data-chapter="problems" aria-labelledby="problems-title" className="section relative z-10">
+      <div className="container-content">
+        <div data-field-safe className="max-w-4xl">
+          <Title id="problems-title" className="text-display-lg">{t.h2}</Title>
+          <p className="mt-6 max-w-[56ch] text-body-lg text-fg-muted">{t.lead}</p>
+        </div>
+        <ul className="mt-16 grid gap-x-8 md:grid-cols-2">
+          {t.items.map((p) => (
+            <li key={p.q} data-field-safe className="flex flex-col gap-3 border-t border-line pt-8 pb-6">
+              <h3 className="font-serif text-heading-md font-light">“{p.q}”</h3>
+              <p className="text-fg-muted">{p.a}</p>
+              <p className="mt-auto flex flex-wrap items-center gap-x-5 text-body-sm">
+                <span className="hud">{t.linksLabel}</span>
+                {(p.links as OfferKey[]).map((k) => (
+                  <a key={k} href={href(k)} className="link inline-flex min-h-11 items-center">{m.offers[k].name}</a>
+                ))}
+              </p>
+            </li>
+          ))}
+        </ul>
+        <CtaRow title={t.cta.title} body={t.cta.body}>
+          <ButtonLink href="#contact" data-cta="problems" data-need="unsure">{t.cta.primary}</ButtonLink>
+          <ButtonLink href={href("consulting")} variant="secondary" data-cta="problems">{t.cta.secondary}</ButtonLink>
+        </CtaRow>
       </div>
     </section>
   );
@@ -130,7 +187,7 @@ export function Pillars() {
   const pillars = Object.values(t.pillars);
   return (
     <section id="services" data-chapter="services" data-pin style={pin("--pin-pillars")} aria-labelledby="services-title">
-      <SkipChapter to="how-we-work" />
+      <SkipChapter to="catalog" />
       <div data-stage className="pillars-stage flex flex-col" data-pillar="0">
         <div className="container-page relative z-10 flex min-h-0 flex-1 flex-col pt-[calc(var(--header-h)+2rem)] pb-32 max-md:max-h-[58lvh] max-md:pb-6">
           <div data-field-safe className="flex min-h-0 max-w-xl flex-col">
@@ -185,6 +242,38 @@ export function Pillars() {
   );
 }
 
+/** Solution-aware entry: every offer one click away, pillars first, then the two services. */
+export function Catalog() {
+  const m = useMessages();
+  const t = m.catalog;
+  const href = useOfferHref();
+  const card = (k: OfferKey) => (
+    <li key={k} className="bg-surface">
+      <a href={href(k)} data-cta="catalog" className="group flex h-full min-h-44 flex-col justify-between gap-8 p-8 transition-colors hover:bg-fg/4">
+        <span className="font-serif text-heading-md font-light">{m.offers[k].name}</span>
+        <span className="flex items-end justify-between gap-4 text-body-sm text-fg-muted">
+          {m.offers[k].summary}
+          <ArrowUpRight size={20} strokeWidth={1.5} aria-hidden className="shrink-0 text-accent transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        </span>
+      </a>
+    </li>
+  );
+  return (
+    <section id="catalog" data-chapter="catalog" aria-labelledby="catalog-title" className="section relative z-10">
+      <div className="container-content">
+        <div data-field-safe className="max-w-4xl">
+          <Title id="catalog-title" className="text-display-lg">{t.h2}</Title>
+          <p className="mt-6 max-w-[56ch] text-body-lg text-fg-muted">{t.lead}</p>
+        </div>
+        <h3 className="hud mt-16">{t.solutionsLabel}</h3>
+        <ul className="mt-4 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">{PILLARS.map(card)}</ul>
+        <h3 className="hud mt-12">{t.servicesLabel}</h3>
+        <ul className="mt-4 grid gap-px border border-line bg-line sm:grid-cols-2">{SERVICES.map(card)}</ul>
+      </div>
+    </section>
+  );
+}
+
 export function HowWeWork() {
   const m = useMessages();
   const t = m.how;
@@ -226,13 +315,9 @@ export function HowWeWork() {
           ))}
         </div>
         {/* The decision point after the formats and rules: a low-commitment way in, restating the FAQ's own answers */}
-        <div data-field-safe className="mt-16 grid gap-6 border-t border-line-strong pt-12 lg:grid-cols-12 lg:gap-8">
-          <h3 className="font-serif text-heading-md font-light lg:col-span-5">{t.cta.title}</h3>
-          <div className="lg:col-span-6 lg:col-start-7">
-            <p className="text-body-lg text-fg-muted">{t.cta.body}</p>
-            <ButtonLink href="#contact" data-cta="how" className="mt-8">{m.nav.cta}</ButtonLink>
-          </div>
-        </div>
+        <CtaRow title={t.cta.title} body={t.cta.body}>
+          <ButtonLink href="#contact" data-cta="how">{m.nav.cta}</ButtonLink>
+        </CtaRow>
       </div>
     </section>
   );
@@ -268,7 +353,7 @@ export function Faq() {
   );
 }
 
-export function Contact() {
+export function Contact({ need }: { need?: Need }) {
   const m = useMessages();
   const t = m.contact;
   const tf = useTranslations("contact");
@@ -326,7 +411,7 @@ export function Contact() {
         </div>
 
         <div data-converge className="glass self-start p-8 sm:p-12 lg:col-span-6 lg:col-start-7">
-          <ContactForm email={isSet(site.email) ? site.email : ""} />
+          <ContactForm email={isSet(site.email) ? site.email : ""} preset={need} />
         </div>
       </div>
     </section>

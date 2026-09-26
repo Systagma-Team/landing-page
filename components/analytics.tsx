@@ -15,7 +15,8 @@ export function Analytics() {
       const href = a.getAttribute("href")!;
       const location = locationOf(a);
       if (a.dataset.cta) {
-        const target = href.endsWith("#contact") ? "contact" : href.includes("wa.me") ? "whatsapp" : href.split("#")[1] || "page";
+        // contact, whatsapp, an in-page anchor, or the page it opens (catalog and consulting links)
+        const target = href.endsWith("#contact") ? "contact" : href.includes("wa.me") ? "whatsapp" : href.includes("#") ? href.split("#")[1] : href;
         track("cta_click", { location, target });
         if (target === "contact") rememberSource(location);
       }

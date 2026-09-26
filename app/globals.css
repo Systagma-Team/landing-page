@@ -280,8 +280,8 @@ html[data-static][data-field] .hero-symbol { display: none; }
 html[data-over-paper] .site-header { background: rgb(255 255 255 / 0.8); backdrop-filter: blur(16px); }
 html[data-header-hidden] .site-header:not(:focus-within) { translate: 0 -100%; }
 .page-progress { transform-origin: left; transform: scaleX(var(--page-p, 0)); }
-.nav-link[aria-current="true"] { color: var(--sys-fg); }
-.nav-link[aria-current="true"]::after { opacity: 1; }
+.nav-link[aria-current] { color: var(--sys-fg); }
+.nav-link[aria-current]::after { opacity: 1; }
 
 /* Footer reveal: the fixed footer is uncovered by the space the page leaves at its end */
 html.js .site-footer { position: fixed; inset: auto 0 0; z-index: 5; clip-path: inset(calc(100% - var(--reveal, 0px)) 0 0 0); }

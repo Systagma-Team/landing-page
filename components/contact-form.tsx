@@ -3,7 +3,7 @@ import { useActionState, useEffect, useRef, useState, useSyncExternalStore } fro
 import { AlertCircle, Check, Loader2 } from "lucide-react";
 import { useLocale, useMessages, useTranslations } from "next-intl";
 import { submitContact } from "@/app/actions/contact";
-import { BUDGETS, NEEDS, STEPS } from "@/lib/contact-options";
+import { BUDGETS, NEEDS, STEPS, type Need } from "@/lib/contact-options";
 import type { ContactField, ContactState, ErrorKey } from "@/lib/schema/contact";
 import { director } from "@/lib/director";
 import { readSource, track } from "@/lib/analytics";
@@ -20,7 +20,7 @@ const useHydrated = () =>
   );
 
 /** Remounting via key is how "send another message" resets the action state. */
-export function ContactForm(props: { email: string }) {
+export function ContactForm(props: { email: string; preset?: Need }) {
   const [round, setRound] = useState(0);
   return <Form key={round} {...props} onAgain={() => setRound(round + 1)} />;
 }
@@ -29,7 +29,7 @@ export function ContactForm(props: { email: string }) {
  * Three-step form (Design System 11.12, SPEC C8): one <form>, three <fieldset>s. Without JavaScript all steps show
  * and it submits as one page; with JavaScript one step shows at a time and "Continuar" validates only that step.
  */
-function Form({ email, onAgain }: { email: string; onAgain: () => void }) {
+function Form({ email, preset, onAgain }: { email: string; preset?: Need; onAgain: () => void }) {
   const locale = useLocale();
   const t = useMessages().contact;
   const tf = useTranslations("contact");
@@ -61,6 +61,17 @@ function Form({ email, onAgain }: { email: string; onAgain: () => void }) {
   const values = "values" in state ? state.values : {};
   const err = (f: ContactField) => errors[f]?.[0] as ErrorKey | undefined;
   const invalid = (["name", "email", "needs", "message"] as const).filter((f) => err(f));
+
+  useEffect(() => {
+    // CTAs with data-need ("Conversar sobre o problema" → "Ainda não sei") pre-select that option on the way here
+    const onClick = (e: MouseEvent) => {
+      const need = (e.target as Element).closest<HTMLElement>("a[data-need]")?.dataset.need;
+      const box = need && form.current?.querySelector<HTMLInputElement>(`input[name="needs"][value="${need}"]`);
+      if (box) box.checked = true;
+    };
+    document.addEventListener("click", onClick);
+    return () => document.removeEventListener("click", onClick);
+  }, []);
 
   useEffect(() => {
     // UTM attribution without cookies (SPEC 12)
@@ -204,7 +215,7 @@ function Form({ email, onAgain }: { email: string; onAgain: () => void }) {
           <div className="flex flex-wrap gap-2">
             {NEEDS.map((n, i) => (
               <label key={n} className={pill}>
-                <input id={`needs-${i}`} type="checkbox" name="needs" value={n} className="peer sr-only" defaultChecked={Array.isArray(values.needs) && values.needs.includes(n)} aria-invalid={!!err("needs")} />
+                <input id={`needs-${i}`} type="checkbox" name="needs" value={n} className="peer sr-only" defaultChecked={Array.isArray(values.needs) ? values.needs.includes(n) : preset === n} aria-invalid={!!err("needs")} />
                 <Check size={16} strokeWidth={2} aria-hidden className="hidden peer-checked:block" />
                 {t.form.needsOptions[n]}
               </label>
