@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Systagma — Software sob medida, integrações e dados",
-    "description": "Software house que projeta, desenvolve e integra plataformas web, aplicativos e soluções de dados. Do primeiro rascunho ao impacto medido."
+    "description": "Software house que projeta, desenvolve e integra sistemas web, aplicativos, integrações e dashboards para empresas. Do primeiro rascunho ao impacto medido."
   },
   "common": {
     "skip": "Pular para o conteúdo",
@@ -23,13 +23,13 @@
     "en": "English"
   },
   "hero": {
-    "lead": "A Systagma projeta, desenvolve e integra software sob medida, e mede o que ele entrega. Do primeiro rascunho ao impacto que aparece nos dados.",
+    "lead": "A Systagma projeta, desenvolve e integra software sob medida para empresas, e mede o que ele entrega. Do primeiro rascunho ao impacto que aparece nos dados.",
     "cta": "Iniciar um projeto",
     "whatsapp": "Conversar no WhatsApp",
     "note": "Respondemos em até 1 dia útil.",
     "h1a": "Ideias,",
     "h1b": "postas em ordem.",
-    "seeMoves": "Ver os quatro movimentos",
+    "seeServices": "Ver os serviços",
     "scrollCue": "Role para pôr em ordem"
   },
   "about": {
@@ -122,6 +122,10 @@
         "title": "Preço e prazo por escrito.",
         "body": "Mudanças de escopo são estimadas e aprovadas antes de entrar no ciclo."
       }
+    },
+    "cta": {
+      "title": "Não precisa chegar com tudo definido.",
+      "body": "Uma ideia ou um problema bem descrito basta para a primeira conversa. Quando o escopo ainda está aberto, começamos por um diagnóstico de duas semanas com preço fixo."
     },
     "bestForLabel": "Ideal para"
   },

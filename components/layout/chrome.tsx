@@ -67,7 +67,7 @@ export function SiteHeader({ page }: { page: Page }) {
               </li>
             ))}
           </ul>
-          <ButtonLink href={cta.href} size="sm" className="max-lg:hidden">
+          <ButtonLink href={cta.href} size="sm" className="max-lg:hidden" data-cta="header">
             {cta.label}
           </ButtonLink>
           <MobileMenu links={links} cta={cta} labels={{ open: t("openMenu"), close: t("closeMenu"), nav: t("label"), calm: useTranslations("footer")("calm") }} />

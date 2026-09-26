@@ -17,7 +17,7 @@ export default function NotFound() {
           <p className="mt-8 max-w-[48ch] text-body-lg text-fg-muted">{t("body")}</p>
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">
             <ButtonLink href={home} variant="secondary">{t("home")}</ButtonLink>
-            <ButtonLink href={`${home}#contact`}>{t("cta")}</ButtonLink>
+            <ButtonLink href={`${home}#contact`} data-cta="404">{t("cta")}</ButtonLink>
           </div>
         </div>
       </main>

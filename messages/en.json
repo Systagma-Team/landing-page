@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Systagma — Custom software, integrations and data",
-    "description": "Software house that designs, builds and integrates web platforms, mobile apps and data solutions. From first sketch to measured impact."
+    "description": "Software house that designs, builds and integrates web systems, apps, integrations and dashboards for companies. From first sketch to measured impact."
   },
   "common": {
     "skip": "Skip to content",
@@ -23,13 +23,13 @@
     "en": "English"
   },
   "hero": {
-    "lead": "Systagma designs, builds and integrates custom software, and measures what it delivers. From the first sketch to impact you can see in the data.",
+    "lead": "Systagma designs, builds and integrates custom software for companies, and measures what it delivers. From the first sketch to impact you can see in the data.",
     "cta": "Start a project",
     "whatsapp": "Chat on WhatsApp",
     "note": "We reply within one business day.",
     "h1a": "Ideas,",
     "h1b": "put in order.",
-    "seeMoves": "See the four moves",
+    "seeServices": "See our services",
     "scrollCue": "Scroll to put them in order"
   },
   "about": {
@@ -122,6 +122,10 @@
         "title": "Price and timeline in writing.",
         "body": "Scope changes are estimated and approved before they enter a cycle."
       }
+    },
+    "cta": {
+      "title": "You don't need everything figured out.",
+      "body": "An idea or a clearly described problem is enough for a first conversation. When the scope is still open, we start with a two-week, fixed-price discovery sprint."
     },
     "bestForLabel": "Best for"
   },

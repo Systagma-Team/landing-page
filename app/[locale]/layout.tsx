@@ -7,6 +7,7 @@ import { serif, sans, mono } from "@/lib/fonts";
 import { site } from "@/content/site";
 import { SiteFooter } from "@/components/layout/chrome";
 import { SceneEngine } from "@/components/scene/engine";
+import { Analytics } from "@/components/analytics";
 import "../globals.css";
 
 /** Runs before first paint: `js` class, calm mode from storage or the OS setting (see lib/calm.ts), static layout on short viewports. */
@@ -60,6 +61,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
         {/* Only the contact form reads messages on the client */}
         <NextIntlClientProvider messages={{ contact: messages.contact }}>
           <SceneEngine hud={{ chapters: messages.hud.chapters, meta: messages.hud.meta, order: messages.hud.order }} />
+          <Analytics />
           {children}
           <SiteFooter />
         </NextIntlClientProvider>

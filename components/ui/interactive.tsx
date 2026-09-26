@@ -2,6 +2,7 @@
 import { useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
 import { Check, Copy, Menu, Plus, X } from "lucide-react";
 import { setCalm, useCalm } from "@/lib/calm";
+import { track } from "@/lib/analytics";
 import { buttonClass, Roll } from "@/components/ui/button";
 
 type NavLink = { href: string; label: string };
@@ -92,7 +93,7 @@ export function MobileMenu({ links, cta, labels }: { links: NavLink[]; cta: NavL
             </ul>
           </nav>
           <div className="mt-auto flex flex-col gap-6">
-            <a href={cta.href} onClick={close} className={`${buttonClass()} w-full`}>
+            <a href={cta.href} onClick={close} data-cta="menu" className={`${buttonClass()} w-full`}>
               <Roll>{cta.label}</Roll>
             </a>
             <div className="flex items-center justify-between">
@@ -126,7 +127,10 @@ export function AccordionItem({ id, question, children }: { id: string; question
           type="button"
           aria-expanded={open}
           aria-controls={`${id}-panel`}
-          onClick={() => setOpen(!open)}
+          onClick={() => {
+            if (!open) track("faq_open", { id });
+            setOpen(!open);
+          }}
           className="flex w-full items-center justify-between gap-6 py-7 text-left font-serif text-heading-md font-light"
         >
           {question}
@@ -153,6 +157,7 @@ export function CopyButton({ text, label, done }: { text: string; label: string;
         onClick={async () => {
           try {
             await navigator.clipboard.writeText(text);
+            track("email_copy", { location: "contact" });
             setCopied(true);
             setTimeout(() => setCopied(false), 1500);
           } catch {

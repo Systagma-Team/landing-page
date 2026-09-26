@@ -5,6 +5,7 @@ import "lenis/dist/lenis.css";
 import { CHAPTERS, PILLAR_AT, type ChapterId } from "@/content/chapters";
 import { director, FORMATIONS, resolve } from "@/lib/director";
 import { useCalm } from "@/lib/calm";
+import { track } from "@/lib/analytics";
 import type { FieldHandle } from "@/lib/field/renderer";
 
 export type HudCopy = {
@@ -14,6 +15,8 @@ export type HudCopy = {
 };
 
 const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
+// chapter_view (SPEC 12) fires once per chapter per page load; kept outside the effect so calm toggles don't repeat it
+const viewed = new Set<ChapterId>();
 const pad = (n: number, d = 2) => String(Math.round(n)).padStart(d, "0");
 
 /**
@@ -145,6 +148,10 @@ export function SceneEngine({ hud }: { hud: HudCopy }) {
         }
       }
       html.dataset.chapter = active;
+      if (chapter && !viewed.has(active)) {
+        viewed.add(active);
+        track("chapter_view", { id: active });
+      }
       navLinks.forEach((a) => (a.dataset.nav === active ? a.setAttribute("aria-current", "true") : a.removeAttribute("aria-current")));
 
       // Pillars: active item, odometer, rail

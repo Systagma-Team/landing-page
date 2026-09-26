@@ -50,15 +50,15 @@ export function Hero() {
             </h1>
             <p className="mt-8 max-w-[44ch] text-body-lg text-fg-muted">{t.hero.lead}</p>
             <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-              <ButtonLink href="#contact">{t.hero.cta}</ButtonLink>
+              <ButtonLink href="#contact" data-cta="hero">{t.hero.cta}</ButtonLink>
               {wa ? (
-                <ButtonLink href={wa} variant="secondary" external>
+                <ButtonLink href={wa} variant="secondary" external data-cta="hero">
                   <MessageCircle size={18} strokeWidth={1.5} aria-hidden />
                   {t.hero.whatsapp}
                   <span className="sr-only">{t.common.newTab}</span>
                 </ButtonLink>
               ) : (
-                <ButtonLink href="#services" variant="secondary">{t.hero.seeMoves}</ButtonLink>
+                <ButtonLink href="#services" variant="secondary" data-cta="hero">{t.hero.seeServices}</ButtonLink>
               )}
             </div>
             <p className="mt-5 text-body-sm text-fg-subtle">{t.hero.note}</p>
@@ -186,7 +186,8 @@ export function Pillars() {
 }
 
 export function HowWeWork() {
-  const t = useMessages().how;
+  const m = useMessages();
+  const t = m.how;
   const models = Object.values(t.models);
   return (
     <section id="how-we-work" data-chapter="how" aria-labelledby="how-title" className="section relative z-10">
@@ -223,6 +224,14 @@ export function HowWeWork() {
               <p className="text-body-lg text-fg-muted lg:col-span-6 lg:col-start-7">{c.body}</p>
             </div>
           ))}
+        </div>
+        {/* The decision point after the formats and rules: a low-commitment way in, restating the FAQ's own answers */}
+        <div data-field-safe className="mt-16 grid gap-6 border-t border-line-strong pt-12 lg:grid-cols-12 lg:gap-8">
+          <h3 className="font-serif text-heading-md font-light lg:col-span-5">{t.cta.title}</h3>
+          <div className="lg:col-span-6 lg:col-start-7">
+            <p className="text-body-lg text-fg-muted">{t.cta.body}</p>
+            <ButtonLink href="#contact" data-cta="how" className="mt-8">{m.nav.cta}</ButtonLink>
+          </div>
         </div>
       </div>
     </section>
