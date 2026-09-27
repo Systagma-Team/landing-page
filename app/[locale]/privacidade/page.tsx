@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import { isSet, site } from "@/content/site";
-import { alternates } from "@/lib/seo";
+import { pageMetadata } from "@/lib/seo";
 import { SiteHeader } from "@/components/layout/chrome";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/privacidade">): Promise<Metadata> {
   const locale = (await params).locale as Locale;
   const t = await getTranslations({ locale, namespace: "privacy" });
-  return { title: t("title"), description: t("description"), alternates: alternates("/privacidade", locale) };
+  return pageMetadata("/privacidade", locale, t("description"), t("title"));
 }
 
 // Must be reviewed by a lawyer before launch (SPEC 7.1)

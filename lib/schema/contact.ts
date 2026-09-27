@@ -13,18 +13,21 @@ export const contactSchema = z.object({
   locale: z.enum(["pt-BR", "en"]),
   source: z.optional(z.string().check(z.maxLength(40))),
   utm: z.optional(z.string().check(z.maxLength(300))),
+  landing: z.optional(z.string().check(z.maxLength(300))),
 });
 
 export type ContactInput = z.infer<typeof contactSchema>;
 export type ContactField = keyof ContactInput;
 export type ErrorKey = "nameShort" | "emailInvalid" | "needsEmpty" | "messageShort" | "messageLong";
 
+// Every non-success answer returns the submitted values: React resets the form after an action, and they refill it
+type Values = Record<string, unknown>;
 export type ContactState =
   | { status: "idle" }
   | { status: "success"; email?: string }
-  | { status: "invalid"; fieldErrors: Partial<Record<ContactField, string[]>>; values: Record<string, unknown> }
-  | { status: "rate_limited" }
-  | { status: "send_error" };
+  | { status: "invalid"; fieldErrors: Partial<Record<ContactField, string[]>>; values: Values }
+  | { status: "rate_limited"; values: Values }
+  | { status: "send_error"; values: Values };
 
 /** Reads the form's values the same way on client and server. */
 export function readContact(form: FormData) {
@@ -38,5 +41,6 @@ export function readContact(form: FormData) {
     locale: form.get("locale"),
     source: form.get("source") || undefined,
     utm: form.get("utm") || undefined,
+    landing: form.get("landing") || undefined,
   };
 }

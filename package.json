@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "check": "node tests/check.mts"
+    "check": "node --experimental-strip-types tests/check.mts"
   },
   "dependencies": {
     "lenis": "^1.3.26",

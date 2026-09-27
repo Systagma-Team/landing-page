@@ -10,6 +10,16 @@ export const routing = defineRouting({
   pathnames: {
     "/": "/",
     "/privacidade": { "pt-BR": "/privacidade", en: "/privacy" },
+    // Offer pages (content/offers.ts); the four solutions share app/[locale]/solucoes/[slug]
+    "/solucoes/software": { "pt-BR": "/solucoes/software", en: "/solutions/software" },
+    "/solucoes/dados": { "pt-BR": "/solucoes/dados", en: "/solutions/data" },
+    "/solucoes/automacao-e-ia": { "pt-BR": "/solucoes/automacao-e-ia", en: "/solutions/automation-and-ai" },
+    "/solucoes/web": { "pt-BR": "/solucoes/web", en: "/solutions/web" },
+    "/solucoes/dados/power-bi": { "pt-BR": "/solucoes/dados/power-bi", en: "/solutions/data/power-bi" },
+    "/solucoes/automacao-e-ia/integracao-de-sistemas": { "pt-BR": "/solucoes/automacao-e-ia/integracao-de-sistemas", en: "/solutions/automation-and-ai/system-integration" },
+    "/solucoes/automacao-e-ia/inteligencia-artificial": { "pt-BR": "/solucoes/automacao-e-ia/inteligencia-artificial", en: "/solutions/automation-and-ai/artificial-intelligence" },
+    "/consultoria": { "pt-BR": "/consultoria", en: "/consulting" },
+    "/sustentacao-e-evolucao": { "pt-BR": "/sustentacao-e-evolucao", en: "/support-and-evolution" },
   },
 });
 

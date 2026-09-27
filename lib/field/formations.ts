@@ -40,6 +40,7 @@ async function symbolPixels() {
   const img = new Image();
   img.src = "/brand/systagma-symbol.svg";
   await img.decode();
+  await new Promise((r) => setTimeout(r, 0));
   const w = 320;
   const h = Math.round((w * 887) / 548);
   const c = document.createElement("canvas");
@@ -171,15 +172,20 @@ export async function generateAll(n: number) {
     },
   };
 
-  FORMATIONS.forEach((id, f) => {
+  // One formation per task, written straight into the typed array: no per-point allocation, and the main thread
+  // gets a chance to handle input and paint between formations (the field starts during idle time, see the engine)
+  for (const [f, id] of FORMATIONS.entries()) {
     const rnd = mulberry32(0x5157 + f);
-    let i = 0;
-    const base = f * rowsPer * 128 * 4;
+    let o = f * rowsPer * 128 * 4;
     const put = (x: number, y: number, alpha: number, tint: number) => {
-      data.set([x, y, alpha, tint], base + i++ * 4);
+      data[o++] = x;
+      data[o++] = y;
+      data[o++] = alpha;
+      data[o++] = tint;
     };
     gens[id]({ put, rnd, n });
-  });
+    await new Promise((r) => setTimeout(r, 0));
+  }
 
   return { data, rowsPer, meta };
 }

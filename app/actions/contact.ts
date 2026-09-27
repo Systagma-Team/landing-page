@@ -20,7 +20,7 @@ export async function submitContact(_prev: ContactState, form: FormData): Promis
     await sendContactEmails(parsed.data);
   } catch (err) {
     console.error("contact_send_failed", { reason: (err as Error).message }); // no personal data in logs
-    return { status: "send_error" };
+    return { status: "send_error", values };
   }
   return { status: "success", email: parsed.data.email };
 }

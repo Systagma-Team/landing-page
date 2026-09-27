@@ -2,8 +2,11 @@ import type { MetadataRoute } from "next";
 import { getPathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { site } from "@/content/site";
+import { OFFER_HREF } from "@/content/offers";
 
-const pages = ["/", "/privacidade"] as const;
+// Canonical, indexable and commercially valuable pages only; the privacy policy stays crawlable through the footer
+const pages = ["/", ...Object.values(OFFER_HREF)] as const;
+const priority = (href: (typeof pages)[number]) => (href === "/" ? 1 : 0.8);
 
 // One entry per page and locale, each listing every language version (SPEC 10.4)
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -13,7 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     routing.locales.map((locale) => ({
       url: url(href, locale),
       changeFrequency: "monthly" as const,
-      priority: href === "/" ? 1 : 0.3,
+      priority: priority(href),
       alternates: { languages: Object.fromEntries(routing.locales.map((l) => [l, url(href, l)])) },
     })),
   );

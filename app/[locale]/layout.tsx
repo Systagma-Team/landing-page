@@ -5,8 +5,10 @@ import { getMessages, getTranslations, setRequestLocale } from "next-intl/server
 import { routing } from "@/i18n/routing";
 import { serif, sans, mono } from "@/lib/fonts";
 import { site } from "@/content/site";
+import { indexable } from "@/lib/seo";
 import { SiteFooter } from "@/components/layout/chrome";
 import { SceneEngine } from "@/components/scene/engine";
+import { Analytics } from "@/components/analytics";
 import "../globals.css";
 
 /** Runs before first paint: `js` class, calm mode from storage or the OS setting (see lib/calm.ts), static layout on short viewports. */
@@ -34,7 +36,8 @@ export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Pr
       alternateLocale: locale === "pt-BR" ? ["en_US"] : ["pt_BR"],
     },
     twitter: { card: "summary_large_image" },
-    robots: { index: true, follow: true },
+    // noindex until the production domain is configured (lib/seo.ts `indexable`)
+    robots: { index: indexable, follow: indexable },
   };
 }
 
@@ -60,6 +63,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
         {/* Only the contact form reads messages on the client */}
         <NextIntlClientProvider messages={{ contact: messages.contact }}>
           <SceneEngine hud={{ chapters: messages.hud.chapters, meta: messages.hud.meta, order: messages.hud.order }} />
+          <Analytics />
           {children}
           <SiteFooter />
         </NextIntlClientProvider>
