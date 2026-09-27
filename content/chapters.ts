@@ -31,6 +31,9 @@ export const CHAPTERS = [
   { id: "data", anchor: "main", pinned: false, dim: 0.45, keys: [{ at: 0, formation: "analyze" }, { at: 0.85, formation: "lattice", span: 0.25 }] },
   { id: "automation", anchor: "main", pinned: false, dim: 0.45, keys: [{ at: 0, formation: "connect" }, { at: 0.85, formation: "lattice", span: 0.25 }] },
   { id: "web", anchor: "main", pinned: false, dim: 0.45, keys: [{ at: 0, formation: "transform" }, { at: 0.85, formation: "lattice", span: 0.25 }] },
+  { id: "bi", anchor: "main", pinned: false, dim: 0.45, keys: [{ at: 0, formation: "analyze" }, { at: 0.85, formation: "lattice", span: 0.25 }] },
+  { id: "integration", anchor: "main", pinned: false, dim: 0.45, keys: [{ at: 0, formation: "connect" }, { at: 0.85, formation: "lattice", span: 0.25 }] },
+  { id: "ai", anchor: "main", pinned: false, dim: 0.45, keys: [{ at: 0, formation: "symbol" }, { at: 0.85, formation: "lattice", span: 0.25 }] },
   // Consulting: noise put in order, the brand's own story
   { id: "consulting", anchor: "main", pinned: false, dim: 0.45, keys: [{ at: 0, formation: "noise" }, { at: 0.3, formation: "symbol", span: 0.3 }, { at: 0.85, formation: "lattice", span: 0.25 }] },
   { id: "support", anchor: "main", pinned: false, dim: 0.45, keys: [{ at: 0, formation: "current" }, { at: 0.85, formation: "lattice", span: 0.25 }] },

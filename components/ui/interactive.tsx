@@ -31,13 +31,14 @@ export function SolutionsMenu({ label, groups, className }: { label: string; gro
   }, [open]);
 
   return (
-    <div ref={root} className="relative" onBlur={(e) => !root.current?.contains(e.relatedTarget as Node) && setOpen(false)}>
+    // No `relative` here: the panel is placed against the fixed header, centred and never wider than the viewport
+    <div ref={root} onBlur={(e) => !root.current?.contains(e.relatedTarget as Node) && setOpen(false)}>
       <button type="button" aria-expanded={open} aria-controls={panel} onClick={() => setOpen(!open)} className={`${className} gap-1`}>
         {label}
         <ChevronDown size={16} strokeWidth={1.5} aria-hidden className={`transition-transform ${open ? "rotate-180" : ""}`} />
       </button>
-      <div id={panel} hidden={!open} className="absolute top-full left-0 mt-2 w-xl rounded-md border border-line-strong bg-panel p-6 shadow-float">
-        <div className="grid grid-cols-2 gap-8">
+      <div id={panel} hidden={!open} className="absolute top-full left-1/2 mt-2 w-[min(48rem,calc(100vw-2rem))] -translate-x-1/2 rounded-md border border-line-strong bg-panel p-6 shadow-float">
+        <div className="grid grid-cols-3 gap-8">
           {groups.map((g) => (
             <div key={g.label}>
               <p className="hud">{g.label}</p>

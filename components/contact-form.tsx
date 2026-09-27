@@ -6,7 +6,7 @@ import { submitContact } from "@/app/actions/contact";
 import { BUDGETS, NEEDS, STEPS, type Need } from "@/lib/contact-options";
 import type { ContactField, ContactState, ErrorKey } from "@/lib/schema/contact";
 import { director } from "@/lib/director";
-import { readSource, track } from "@/lib/analytics";
+import { readLanding, readSource, track } from "@/lib/analytics";
 import { getPathname } from "@/i18n/navigation";
 import { buttonClass, Roll } from "@/components/ui/button";
 
@@ -43,6 +43,7 @@ function Form({ email, preset, onAgain }: { email: string; preset?: Need; onAgai
   const [startedAt, setStartedAt] = useState("");
   const [utm, setUtm] = useState("");
   const [source, setSource] = useState("scroll"); // the CTA that led here, or "scroll"
+  const [landing, setLanding] = useState(""); // referrer and first page of the session
   const answers = useRef<{ needs: string; budget: string }>({ needs: "", budget: "" }); // for contact_submit, no personal data
 
   // Server answers: jump back to the first step with an error; keep the message counter in step
@@ -151,6 +152,7 @@ function Form({ email, preset, onAgain }: { email: string; preset?: Need; onAgai
         if (startedAt) return;
         setStartedAt(String(Date.now()));
         setSource(readSource() || "scroll");
+        setLanding(readLanding());
         track("contact_start");
         try {
           setUtm(sessionStorage.getItem("utm") ?? "");
@@ -253,6 +255,7 @@ function Form({ email, preset, onAgain }: { email: string; preset?: Need; onAgai
         <input type="hidden" name="startedAt" value={startedAt} />
         <input type="hidden" name="source" value={source} />
         <input type="hidden" name="utm" value={utm} />
+        <input type="hidden" name="landing" value={landing} />
         {/* Honeypot: humans never see or reach it */}
         <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden className="sr-only" />
         <p className="text-caption text-fg-subtle">

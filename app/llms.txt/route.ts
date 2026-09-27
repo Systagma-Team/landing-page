@@ -1,7 +1,7 @@
 import en from "@/messages/en.json";
 import { isSet, site } from "@/content/site";
 import { getPathname } from "@/i18n/navigation";
-import { OFFER_HREF, PILLARS, SERVICES, type OfferKey } from "@/content/offers";
+import { OFFER_HREF, PILLARS, SERVICES, SPECIALTIES, type OfferKey } from "@/content/offers";
 
 export const dynamic = "force-static";
 
@@ -18,6 +18,7 @@ export function GET() {
     "",
     "## Solutions",
     ...PILLARS.map(offer),
+    ...SPECIALTIES.map(offer),
     "",
     "## Services",
     ...SERVICES.map(offer),

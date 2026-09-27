@@ -38,7 +38,7 @@ const byId = (id: string) => CHAPTERS.find((c) => c.id === id)!;
 const home = HOME.map(byId);
 home.slice(1).forEach((c, k) => assert.equal(c.keys[0].formation, home[k].keys.at(-1)!.formation, `${home[k].id} → ${c.id}`));
 // Offer pages end where their contact chapter starts
-for (const id of ["software", "data", "automation", "web", "consulting", "support"])
+for (const id of ["software", "data", "automation", "web", "bi", "integration", "ai", "consulting", "support"])
   assert.equal(byId(id).keys.at(-1)!.formation, byId("contact").keys[0].formation, `${id} → contact`);
 
 // Every need has a label in both locales, including "not sure yet"

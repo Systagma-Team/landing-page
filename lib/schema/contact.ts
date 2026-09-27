@@ -13,6 +13,7 @@ export const contactSchema = z.object({
   locale: z.enum(["pt-BR", "en"]),
   source: z.optional(z.string().check(z.maxLength(40))),
   utm: z.optional(z.string().check(z.maxLength(300))),
+  landing: z.optional(z.string().check(z.maxLength(300))),
 });
 
 export type ContactInput = z.infer<typeof contactSchema>;
@@ -40,5 +41,6 @@ export function readContact(form: FormData) {
     locale: form.get("locale"),
     source: form.get("source") || undefined,
     utm: form.get("utm") || undefined,
+    landing: form.get("landing") || undefined,
   };
 }

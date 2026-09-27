@@ -21,8 +21,14 @@ const csp = [
 const nextConfig: NextConfig = {
   // Dev server reachable through the calderaro.dev tunnel (e.g. systagma.calderaro.dev)
   allowedDevOrigins: ["*.calderaro.dev"],
+  poweredByHeader: false,
   async headers() {
     return [
+      {
+        // Unhashed brand assets load on every page: a day in the browser, revalidated in the background after that
+        source: "/:dir(brand|texture)/:file*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" }],
+      },
       {
         source: "/:path*",
         headers: [

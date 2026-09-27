@@ -23,7 +23,8 @@
     "closeMenu": "Close menu",
     "language": "Language",
     "pt": "Português (Brasil)",
-    "en": "English"
+    "en": "English",
+    "specialties": "Specialties"
   },
   "hero": {
     "lead": "Software, data, automation and AI for companies that have outgrown their spreadsheets. We understand the problem, build the solution and stay with you after delivery.",
@@ -59,7 +60,7 @@
         "q": "Our systems don't talk to each other.",
         "a": "We connect your ERP, CRM, online store and other platforms through APIs, so each piece of information is entered only once.",
         "links": [
-          "automation",
+          "integration",
           "software"
         ]
       },
@@ -67,6 +68,7 @@
         "q": "Our numbers are scattered and nobody trusts the reports.",
         "a": "We bring your systems' data into one organized base, agree on how each indicator is calculated and build dashboards that update themselves.",
         "links": [
+          "bi",
           "data"
         ]
       },
@@ -82,7 +84,7 @@
         "q": "We waste time searching through documents.",
         "a": "We build assistants that search your company's documents and knowledge base, and automations that pull data out of files and forms.",
         "links": [
-          "automation"
+          "ai"
         ]
       }
     ],
@@ -176,17 +178,21 @@
         }
       ],
       "link": "About support and evolution"
-    }
+    },
+    "who": "Who it's for",
+    "faq": "Common questions",
+    "deeper": "Go deeper",
+    "specialties": "Specialties"
   },
   "offers": {
     "software": {
       "name": "Software",
       "summary": "Custom systems, APIs and modernization of existing systems.",
       "meta": {
-        "title": "Custom software development",
+        "title": "Custom software and bespoke business systems",
         "description": "Web systems, business applications, APIs and modernization of existing systems, built around your company's processes and supported after delivery."
       },
-      "h1": "Software that fits the way your company works.",
+      "h1": "Custom software built around the way your company works.",
       "lead": "We turn processes, business rules and spreadsheets into reliable systems, connected to what you already use and ready to grow with the operation.",
       "cta": "Talk about a system",
       "sections": {
@@ -207,6 +213,12 @@
           "q": "Each team works in a different tool.",
           "a": "A central system, or integrations between the systems you already have, keeps information moving without rework."
         }
+      ],
+      "who": [
+        "Companies whose process doesn't fit an off-the-shelf system",
+        "Operations that grew on spreadsheets",
+        "Businesses that need a portal or platform of their own",
+        "Companies with an old system that needs to evolve"
       ],
       "deliver": [
         {
@@ -254,16 +266,30 @@
           "to": "support",
           "text": "After delivery, the system keeps evolving with the operation."
         }
+      ],
+      "faq": [
+        {
+          "q": "Custom software or an off-the-shelf system?",
+          "a": "If an off-the-shelf system fits the process, it's usually the faster path. Custom software makes sense when the process is a differentiator, when several systems need integrating, or when adapting a packaged system gets expensive. A discovery sprint helps decide."
+        },
+        {
+          "q": "How much does custom software cost?",
+          "a": "It depends on scope and format. After a first conversation we send a written proposal with scope, timeline and budget. When the scope is still open, we start with a two-week, fixed-price discovery sprint."
+        },
+        {
+          "q": "Who owns the code?",
+          "a": "Your company. Repositories, cloud accounts, domains and documentation are in your name from the start."
+        }
       ]
     },
     "data": {
       "name": "Data",
       "summary": "Management dashboards, Power BI, data engineering and data science.",
       "meta": {
-        "title": "Data, BI and data engineering",
+        "title": "Data and BI for companies",
         "description": "Management dashboards, Power BI, data engineering and data science: data brought together and organized so you can track reliable indicators and decide."
       },
-      "h1": "Numbers you can trust.",
+      "h1": "Data and indicators you can trust.",
       "lead": "We bring together the data scattered across your systems and spreadsheets, agree on how each indicator is calculated, and deliver dashboards that update without manual work.",
       "cta": "Talk about your data",
       "sections": {
@@ -284,6 +310,11 @@
           "q": "There's no visibility into what's happening in the operation.",
           "a": "Management dashboards show the indicators that matter, with the detail at hand when you need to dig in."
         }
+      ],
+      "who": [
+        "Managers who need to follow indicators without building reports by hand",
+        "Companies with data spread across ERP, CRM and spreadsheets",
+        "Companies that want to forecast demand or understand customers better"
       ],
       "deliver": [
         {
@@ -331,16 +362,30 @@
           "to": "support",
           "text": "Indicators change with the business; we keep adjusting dashboards and data flows."
         }
+      ],
+      "faq": [
+        {
+          "q": "Do I need data engineering or just a dashboard?",
+          "a": "If your data is already organized in one place, a dashboard may be enough. When it comes from several systems and needs preparing, data engineering is what makes the dashboard show reliable numbers."
+        },
+        {
+          "q": "Do you work with Power BI?",
+          "a": "Yes. We build dashboards and reports in Power BI, with the data integrated and refreshed automatically."
+        },
+        {
+          "q": "Does data science make sense for my company?",
+          "a": "It makes sense when there's a clear business question, like forecasting demand or segmenting customers, and historical data to answer it. When the data isn't organized yet, that's usually the first step."
+        }
       ]
     },
     "automation": {
       "name": "Automation & AI",
       "summary": "Process automation, system integration and applied AI.",
       "meta": {
-        "title": "Process automation, integrations and applied AI",
+        "title": "Process automation and applied AI",
         "description": "Process automation, system and API integration, and artificial intelligence applied to documents, requests and your company's everyday tasks."
       },
-      "h1": "Less manual work. Systems that talk.",
+      "h1": "Process automation: less manual work, systems that talk.",
       "lead": "We automate repetitive tasks, connect the systems that don't talk today and apply artificial intelligence where it solves a concrete problem, inside the processes you already have.",
       "cta": "Evaluate an automation",
       "sections": {
@@ -361,6 +406,11 @@
           "q": "Important information is stuck in documents and emails.",
           "a": "We use AI to read, search and extract what matters, and get it to whoever needs it."
         }
+      ],
+      "who": [
+        "Teams that repeat the same tasks every day",
+        "Processes with lots of checking and copying between systems",
+        "Companies that want to use AI in real processes"
       ],
       "deliver": [
         {
@@ -409,16 +459,30 @@
           "to": "support",
           "text": "Integrations need care when systems change; we keep looking after them."
         }
+      ],
+      "faq": [
+        {
+          "q": "Do I need to know which tool to use?",
+          "a": "No. We choose the approach based on the process and the systems involved. You describe the work you want to take off your team."
+        },
+        {
+          "q": "Does automation replace a system?",
+          "a": "Sometimes. Automation handles repetitive tasks between existing systems well. When the process needs its own rules, history and screens, custom software may be the path."
+        },
+        {
+          "q": "What if an automation fails?",
+          "a": "Automations log what they did and alert you when something needs a person. After delivery we keep maintaining them, if that makes sense for you."
+        }
       ]
     },
     "web": {
       "name": "Web",
       "summary": "Corporate websites, landing pages and portals.",
       "meta": {
-        "title": "Websites, landing pages and portals",
+        "title": "Websites and portals for companies",
         "description": "Custom corporate websites, landing pages and portals, with UX/UI, performance and technical SEO, connected to your company's systems when needed."
       },
-      "h1": "A website that matches your company.",
+      "h1": "Professional websites that match your company.",
       "lead": "We design and build custom websites, landing pages and portals: fast, accessible, easy to find and connected to your systems when that matters.",
       "cta": "Talk about your website",
       "sections": {
@@ -439,6 +503,11 @@
           "q": "Leads from the website get lost.",
           "a": "Forms and integrations send each contact straight to your team's inbox or CRM."
         }
+      ],
+      "who": [
+        "Companies whose website doesn't reflect the work they do",
+        "Businesses that need landing pages for products or campaigns",
+        "Companies that want a portal or customer area connected to their systems"
       ],
       "deliver": [
         {
@@ -486,13 +555,317 @@
           "to": "support",
           "text": "Websites need updates and improvements too; we keep looking after them after launch."
         }
+      ],
+      "faq": [
+        {
+          "q": "Will the website show up on Google?",
+          "a": "Performance and technical SEO are part of the project. Search position also depends on content and authority, so we don't promise rankings."
+        },
+        {
+          "q": "Can the website connect to our CRM?",
+          "a": "Yes. Forms and integrations send each contact to your CRM or your team's inbox."
+        },
+        {
+          "q": "Who looks after the website afterwards?",
+          "a": "If it makes sense, we keep going with updates and improvements under support."
+        }
+      ]
+    },
+    "bi": {
+      "name": "Power BI and dashboards",
+      "summary": "Power BI consulting and management dashboards with reliable data.",
+      "meta": {
+        "title": "Power BI consulting and management dashboards",
+        "description": "Power BI consulting and management dashboard development, with data from your ERP, CRM and spreadsheets integrated and updated without manual work."
+      },
+      "h1": "Power BI and dashboards that show the business as it really is.",
+      "lead": "We build management dashboards in Power BI and take care of what comes before them: connecting your systems' data, agreeing on how each indicator is calculated and keeping it all updated without manual work.",
+      "cta": "Talk about your indicators",
+      "sections": {
+        "problems": "Problems we solve",
+        "deliver": "What we deliver",
+        "connects": "How it connects"
+      },
+      "problems": [
+        {
+          "q": "We put the reports together by hand every week.",
+          "a": "We connect the dashboard to the data sources and automate updates, so the report is ready without anyone copying and pasting."
+        },
+        {
+          "q": "We have Power BI, but nobody trusts the dashboard.",
+          "a": "We review where the data comes from and how each indicator is calculated, and document the rules so the number is the same in every report."
+        },
+        {
+          "q": "The data lives in the ERP, the CRM and spreadsheets.",
+          "a": "We bring the sources into one organized base before building the dashboard, so it shows the whole operation, not just part of it."
+        }
+      ],
+      "who": [
+        "Managers who need to follow indicators without building reports by hand",
+        "Companies with data spread across ERP, CRM and spreadsheets",
+        "Teams with different numbers for the same indicator",
+        "Companies that already use Power BI but don't trust the dashboards"
+      ],
+      "deliver": [
+        {
+          "title": "Dashboards and indicators",
+          "body": "Management dashboards by area, with the indicators that matter for decisions and the detail at hand when you need to dig in.",
+          "items": [
+            "Finance, sales and operations dashboards",
+            "Indicators (KPIs) defined with you",
+            "Development in Power BI"
+          ],
+          "tech": ""
+        },
+        {
+          "title": "The data behind the dashboard",
+          "body": "A dashboard is only as reliable as its data. We connect the sources, prepare the data and automate updates.",
+          "items": [
+            "Connections to ERP, CRM, spreadsheets and APIs",
+            "Automatic data refresh",
+            "Documented calculation rules"
+          ],
+          "tech": "Technical terms: Power Query, data modeling, DAX and data pipelines (ETL/ELT)."
+        },
+        {
+          "title": "Adoption and evolution",
+          "body": "Dashboards change with the business. We adjust indicators and help your team use the dashboard day to day.",
+          "items": [
+            "Adjustments when indicators change",
+            "Support for your team to use the dashboard",
+            "New data sources as needed"
+          ],
+          "tech": ""
+        }
+      ],
+      "principle": "",
+      "connects": [
+        {
+          "to": "data",
+          "text": "When the challenge goes beyond the dashboard: data engineering, source integration and data science."
+        },
+        {
+          "to": "integration",
+          "text": "When systems need to exchange data with each other, not just feed the dashboard."
+        },
+        {
+          "to": "support",
+          "text": "After delivery, we keep adjusting dashboards and data sources."
+        }
+      ],
+      "faq": [
+        {
+          "q": "Do I need a Power BI license?",
+          "a": "Power BI Desktop is free for building dashboards. To share them with your team, Microsoft requires paid licenses, and the type depends on how many people need access. We review your team's scenario before the project."
+        },
+        {
+          "q": "Can our ERP data go into the dashboard?",
+          "a": "Usually, yes: through a connector, an API, the database or an automated export, depending on what the system offers. We check this at the start of the project."
+        },
+        {
+          "q": "What if the numbers don't match our current reports?",
+          "a": "That's part of the work: we compare against the reports you already use and document each indicator's calculation rule before publishing the dashboard."
+        }
+      ]
+    },
+    "integration": {
+      "name": "System integration",
+      "summary": "ERP, CRM, online store and other platforms connected through APIs.",
+      "meta": {
+        "title": "System and API integration for companies",
+        "description": "Integration of ERP, CRM, online stores and payment providers through APIs, to end double data entry and keep data consistent across systems."
+      },
+      "h1": "System integration: enter each piece of information only once.",
+      "lead": "We connect your ERP, CRM, online store, payment providers and the other platforms your company uses, so orders, records and stock move between them on their own.",
+      "cta": "Discuss an integration",
+      "sections": {
+        "problems": "Problems we solve",
+        "deliver": "What we deliver",
+        "connects": "How it connects"
+      },
+      "problems": [
+        {
+          "q": "Online store orders are typed into the ERP again.",
+          "a": "We connect the store to the ERP, and each sale updates orders, stock and finance with no retyping."
+        },
+        {
+          "q": "Stock in one system doesn't match the other.",
+          "a": "We sync records and stock between systems, with a defined source of truth for each piece of information."
+        },
+        {
+          "q": "We export spreadsheets from one system to import into another.",
+          "a": "We replace the manual export with an integration that runs on its own and alerts you when something is off."
+        }
+      ],
+      "who": [
+        "Companies whose ERP, online store and CRM aren't connected",
+        "Teams that export and import spreadsheets between systems",
+        "Operations that rely on manual checks across platforms",
+        "Companies with a legacy system that needs to talk to new ones"
+      ],
+      "deliver": [
+        {
+          "title": "API integrations",
+          "body": "The most common way to connect systems: each one talks to the other through a defined interface, with authentication and logging.",
+          "items": [
+            "ERP, CRM and online store integration",
+            "Payment providers and third-party platforms",
+            "Webhooks for real-time events"
+          ],
+          "tech": ""
+        },
+        {
+          "title": "When there's no ready-made API",
+          "body": "Not every system offers an API. In those cases, we use whatever path each system allows.",
+          "items": [
+            "Database integration",
+            "Automated file exchange",
+            "Middleware for legacy systems"
+          ],
+          "tech": ""
+        },
+        {
+          "title": "Integration that keeps running",
+          "body": "Integrations need operating: knowing what went through, what failed and what needs attention.",
+          "items": [
+            "A log of every data exchange",
+            "Alerts and reprocessing when something fails",
+            "Maintenance when one of the systems changes"
+          ],
+          "tech": "Technical terms: REST APIs, webhooks, message queues and middleware."
+        }
+      ],
+      "principle": "",
+      "connects": [
+        {
+          "to": "automation",
+          "text": "When, besides connecting systems, the process steps need automating too."
+        },
+        {
+          "to": "bi",
+          "text": "With systems integrated, the data can feed reliable management dashboards."
+        },
+        {
+          "to": "support",
+          "text": "Integrations need care when systems change; we keep looking after them."
+        }
+      ],
+      "faq": [
+        {
+          "q": "Can you integrate any ERP?",
+          "a": "It depends on what the ERP offers: an API, database access or file exports. We assess this before proposing the integration, and tell you when a path isn't viable."
+        },
+        {
+          "q": "How does an integration project work?",
+          "a": "We map which data moves between systems and when, check how each system allows connections, build the integration with logging and alerts, and follow it in production."
+        },
+        {
+          "q": "Integrate or build a new system?",
+          "a": "When your current systems fit the process, integrating is usually the most direct path. When the process doesn't fit them, a system of your own may be better. A discovery sprint helps decide."
+        }
+      ]
+    },
+    "ai": {
+      "name": "Artificial intelligence",
+      "summary": "AI agents, assistants and document processing, applied.",
+      "meta": {
+        "title": "Applied artificial intelligence for companies",
+        "description": "AI agents and assistants, document processing and AI-powered automation, built into your systems and applied to real business problems."
+      },
+      "h1": "Artificial intelligence applied to your company's processes.",
+      "lead": "We build assistants that consult your company's knowledge, automations that read and classify documents and agents that carry out tasks in your systems, always starting from a concrete problem.",
+      "cta": "Talk about AI in your company",
+      "sections": {
+        "problems": "Problems we solve",
+        "deliver": "What we deliver",
+        "connects": "How it connects"
+      },
+      "problems": [
+        {
+          "q": "We want to use AI but don't know where it helps.",
+          "a": "We identify the processes where AI actually makes a difference, and the ones where a simple automation is enough."
+        },
+        {
+          "q": "The team wastes time searching internal documents.",
+          "a": "An assistant that consults the company's documents and procedures answers in seconds and shows where the answer came from."
+        },
+        {
+          "q": "Requests arrive through several channels and someone sorts them by hand.",
+          "a": "AI reads, classifies and routes requests, leaving people the cases that need a decision."
+        }
+      ],
+      "who": [
+        "Companies with a large volume of documents, emails or requests",
+        "Teams that spend time searching for internal information",
+        "Companies that want to use AI but don't know where to start"
+      ],
+      "deliver": [
+        {
+          "title": "Assistants with your company's knowledge",
+          "body": "Assistants that answer from your company's documents, policies and procedures, with access controlled by role.",
+          "items": [
+            "Smart search across internal documents",
+            "Answers that cite their source",
+            "Access based on each person's role"
+          ],
+          "tech": ""
+        },
+        {
+          "title": "Documents and requests",
+          "body": "AI for the reading tasks that take up your team's time today.",
+          "items": [
+            "Data extraction from documents and forms",
+            "Request classification and triage",
+            "Summaries of documents and conversations"
+          ],
+          "tech": ""
+        },
+        {
+          "title": "Agents and AI automation",
+          "body": "AI that doesn't just answer but carries out process steps inside your systems, with human review where it's needed.",
+          "items": [
+            "Agents connected to systems and automations",
+            "AI in steps of already-automated workflows",
+            "Human review for the decisions that need it"
+          ],
+          "tech": "Technical terms: large language models (LLMs), RAG (retrieval over your knowledge base), embeddings and API integration."
+        }
+      ],
+      "principle": "We start from the problem, not the technology. When a simple rule solves it, we recommend the simple rule. When the case calls for AI, it comes built into the process and your systems, not as a separate tool.",
+      "connects": [
+        {
+          "to": "automation",
+          "text": "Process automation and integrations, with or without AI."
+        },
+        {
+          "to": "consulting",
+          "text": "To find where AI helps your operation before investing."
+        },
+        {
+          "to": "data",
+          "text": "Organized data is what makes an AI assistant useful and reliable."
+        }
+      ],
+      "faq": [
+        {
+          "q": "What happens to our company data?",
+          "a": "Before we start, we define with you which information the AI can use, where it's stored and who can access it. We follow Brazil's LGPD and apply access control in the systems we build."
+        },
+        {
+          "q": "Do we need a big project to start?",
+          "a": "Not necessarily. It's common to start with a well-defined case; a discovery sprint helps choose which one."
+        },
+        {
+          "q": "Does the AI work with the systems we already use?",
+          "a": "That's the goal: building AI into the systems and processes you already have, through APIs or automation, instead of creating an isolated tool."
+        }
       ]
     },
     "consulting": {
       "name": "Consulting",
       "summary": "For when you know the problem but not yet the solution.",
       "meta": {
-        "title": "Technology consulting and discovery",
+        "title": "Technology consulting for companies",
         "description": "For companies that know the problem but not the solution: we understand the operation, assess systems, data and automation, and recommend a path."
       },
       "h1": "Know the problem but not the solution?",
@@ -520,6 +893,11 @@
           "q": "We need a technical second opinion.",
           "a": "We review existing systems, architecture and data, with a technical audit when needed."
         }
+      ],
+      "who": [
+        "Managers who know the problem but not the solution",
+        "Companies deciding whether to adapt, integrate or build",
+        "Teams that want a technical second opinion"
       ],
       "deliver": [
         {
@@ -567,13 +945,27 @@
           "to": "web",
           "text": "When the problem is the company's online presence."
         }
+      ],
+      "faq": [
+        {
+          "q": "How long does the discovery sprint take?",
+          "a": "Two weeks, ending with a scope, a plan and an estimate."
+        },
+        {
+          "q": "Is the discovery sprint fixed-price?",
+          "a": "Yes. The price is agreed before we start."
+        },
+        {
+          "q": "Do I need everything figured out?",
+          "a": "No. A clearly described problem is enough for a first conversation. The discovery sprint exists to turn that into scope."
+        }
       ]
     },
     "support": {
       "name": "Support and evolution",
       "summary": "Maintenance, support and evolution after delivery.",
       "meta": {
-        "title": "Software support and evolution",
+        "title": "Software support, maintenance and evolution",
         "description": "After delivery we stay with the solution: maintenance, technical support, improvements, new features and integrations, including systems we didn't build."
       },
       "h1": "Delivery is the start, not the end.",
@@ -597,6 +989,11 @@
           "q": "The previous vendor left and nobody knows the code.",
           "a": "We take over systems in production after a technical audit of the code, infrastructure and risks."
         }
+      ],
+      "who": [
+        "Companies with systems in production that nobody looks after",
+        "Operations that changed and need the software to keep up",
+        "Companies whose previous vendor left"
       ],
       "deliver": [
         {
@@ -643,6 +1040,20 @@
         {
           "to": "consulting",
           "text": "When a new need appears and the path isn't obvious, we start with a discovery sprint."
+        }
+      ],
+      "faq": [
+        {
+          "q": "Do you take over systems you didn't build?",
+          "a": "Yes. We start with a technical audit of the code, infrastructure and risks, and only then propose a plan."
+        },
+        {
+          "q": "Can we bring the system in-house later?",
+          "a": "Yes. We prepare the documentation and train your team to take the system over."
+        },
+        {
+          "q": "How are support terms defined?",
+          "a": "Scope and budget are agreed in writing before we start, as in every format."
         }
       ]
     }
@@ -907,6 +1318,9 @@
       "web": "Web",
       "consulting": "Consulting",
       "support": "Support",
+      "bi": "Power BI",
+      "integration": "Integration",
+      "ai": "AI",
       "lost": "Error 404"
     },
     "meta": {

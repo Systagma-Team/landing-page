@@ -2,7 +2,7 @@ import type { CSSProperties, ReactNode } from "react";
 import { ArrowUpRight, MessageCircle } from "lucide-react";
 import { useLocale, useMessages, useTranslations } from "next-intl";
 import { isSet, site } from "@/content/site";
-import { OFFER_HREF, PILLARS, SERVICES, type OfferKey } from "@/content/offers";
+import { OFFER_HREF, PILLARS, SERVICES, SPECIALTIES, type OfferKey } from "@/content/offers";
 import type { Need } from "@/lib/contact-options";
 import { getPathname } from "@/i18n/navigation";
 import { whatsappHref } from "@/lib/whatsapp";
@@ -267,6 +267,12 @@ export function Catalog() {
         </div>
         <h3 className="hud mt-16">{t.solutionsLabel}</h3>
         <ul className="mt-4 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">{PILLARS.map(card)}</ul>
+        <p className="mt-6 flex flex-wrap items-center gap-x-6 text-body-sm">
+          <span className="hud">{m.nav.specialties}</span>
+          {SPECIALTIES.map((k) => (
+            <a key={k} href={href(k)} data-cta="catalog" className="link inline-flex min-h-11 items-center">{m.offers[k].name}</a>
+          ))}
+        </p>
         <h3 className="hud mt-12">{t.servicesLabel}</h3>
         <ul className="mt-4 grid gap-px border border-line bg-line sm:grid-cols-2">{SERVICES.map(card)}</ul>
       </div>

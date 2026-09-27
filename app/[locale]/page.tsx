@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
-import { alternates, jsonLd, ldScript } from "@/lib/seo";
+import { jsonLd, ldScript, pageMetadata } from "@/lib/seo";
 import { SiteHeader } from "@/components/layout/chrome";
 import { Catalog, Contact, Faq, Hero, HowWeWork, Manifesto, Pillars, Problems } from "@/components/chapters";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]">): Promise<Metadata> {
   const locale = (await params).locale as Locale;
-  return { alternates: alternates("/", locale) };
+  const { meta } = await getMessages({ locale });
+  return pageMetadata("/", locale, meta.description);
 }
 
 // Problem-aware entry (Problems) before the name; solution-aware entry (Catalog) after the four pillars.
@@ -15,9 +16,11 @@ export async function generateMetadata({ params }: PageProps<"/[locale]">): Prom
 export default async function Home({ params }: PageProps<"/[locale]">) {
   const locale = (await params).locale as Locale;
   setRequestLocale(locale);
-  const { faq } = await getMessages();
+  const { faq, meta, offers } = await getMessages();
   const t = await getTranslations("footer");
-  const ld = jsonLd(locale, t("tagline"), Object.values(faq.items));
+  // The entity: what Systagma does (offer titles) for all of Brazil, plus the visible FAQ
+  const knowsAbout = Object.values(offers).map((o) => o.meta.title);
+  const ld = jsonLd(locale, t("tagline"), meta.description, knowsAbout, Object.values(faq.items));
 
   return (
     <>

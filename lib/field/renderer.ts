@@ -81,6 +81,8 @@ void main() {
   outColor = vec4(col * a, a);
 }`;
 
+const yieldTask = () => new Promise((r) => setTimeout(r, 0));
+
 /** Field zone per breakpoint (SPEC 7.2): x0, x1, y0, y1 in NDC, then scale. */
 function zone(w: number) {
   if (w >= 1024) return [0.05, 0.95, -0.8, 0.8, 0.85];
@@ -122,6 +124,8 @@ export async function startField(canvas: HTMLCanvasElement, count: number, onFai
   const gl = canvas.getContext("webgl2", { antialias: false, alpha: false, powerPreference: "high-performance" });
   if (!gl) return null;
   const { data, rowsPer, meta } = await generateAll(count);
+  // Each setup stage runs in its own task so the page stays responsive while the field starts
+  await yieldTask();
 
   const program = compile(gl);
   gl.useProgram(program);
@@ -131,6 +135,7 @@ export async function startField(canvas: HTMLCanvasElement, count: number, onFai
   gl.bindTexture(gl.TEXTURE_2D, tex);
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+  await yieldTask();
   gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, 128, rowsPer * FORMATIONS.length, 0, gl.RGBA, gl.FLOAT, data);
 
   const seeds = new Float32Array(count);

@@ -35,6 +35,7 @@ export function SceneEngine({ hud }: { hud: HudCopy }) {
     const lenis = calm ? null : new Lenis({ lerp: 0.085, smoothWheel: true, syncTouch: false, autoRaf: false });
     let field: FieldHandle | null = null;
     let stopped = false;
+    let cancelStart = () => {};
 
     // L1: the field — not in calm mode, not without WebGL2, not on Save-Data
     const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
@@ -44,14 +45,25 @@ export function SceneEngine({ hud }: { hud: HudCopy }) {
       const w = innerWidth;
       const lowEnd = navigator.hardwareConcurrency <= 4 && ((navigator as Navigator & { deviceMemory?: number }).deviceMemory ?? 8) <= 4;
       const count = (w >= 1024 ? 6000 : w >= 768 ? 4000 : 2500) / (lowEnd ? 2 : 1);
-      import("@/lib/field/renderer")
-        .then(({ startField }) => startField(canvas.current!, count, () => html.removeAttribute("data-field")))
-        .then((h) => {
-          if (stopped) return h?.stop();
-          field = h;
-          if (h) html.setAttribute("data-field", "");
-        })
-        .catch(() => html.removeAttribute("data-field"));
+      // The field is decorative and fades in: generating it waits for idle time, so first paint and input come first
+      const start = () =>
+        import("@/lib/field/renderer")
+          .then(({ startField }) => (stopped ? null : startField(canvas.current!, count, () => html.removeAttribute("data-field"))))
+          .then((h) => {
+            if (stopped) return h?.stop();
+            field = h;
+            dirty = true; // the HUD readout needs the new field's metadata even if nobody scrolls
+            if (h) html.setAttribute("data-field", "");
+          })
+          .catch(() => html.removeAttribute("data-field"));
+      // Cancel with the API that scheduled it: idle-callback and timer handles are separate id spaces
+      if (typeof requestIdleCallback === "function") {
+        const id = requestIdleCallback(start, { timeout: 2500 });
+        cancelStart = () => cancelIdleCallback(id);
+      } else {
+        const id = window.setTimeout(start, 1200);
+        cancelStart = () => clearTimeout(id);
+      }
     }
 
     // Pointer repulsion (fine pointers only)
@@ -88,10 +100,15 @@ export function SceneEngine({ hud }: { hud: HudCopy }) {
     const onMenu = (e: Event) => ((e as CustomEvent<boolean>).detail ? lenis?.stop() : lenis?.start());
     addEventListener("sys:menu", onMenu);
 
-    // Footer height for the reveal
+    // Footer height for the reveal; any size change (fonts, accordions, the form's steps) also marks the frame dirty
     const footer = $<HTMLElement>(".site-footer");
-    const ro = new ResizeObserver(() => footer && html.style.setProperty("--footer-h", `${footer.offsetHeight}px`));
+    let dirty = true;
+    const ro = new ResizeObserver(() => {
+      dirty = true;
+      if (footer) html.style.setProperty("--footer-h", `${footer.offsetHeight}px`);
+    });
     if (footer) ro.observe(footer);
+    ro.observe(document.body);
 
     const chapters = CHAPTERS.map((c) => ({ ...c, el: document.querySelector<HTMLElement>(`[data-chapter="${c.id}"]`) })).filter(
       (c): c is typeof c & { el: HTMLElement } => !!c.el,
@@ -103,6 +120,8 @@ export function SceneEngine({ hud }: { hud: HudCopy }) {
     const stack = [...document.querySelectorAll<HTMLElement>(".stack-card")];
     const header = $<HTMLElement>(".site-header");
     const converge = $<HTMLElement>("[data-converge]");
+    const papers = [...document.querySelectorAll<HTMLElement>('[data-theme="paper"]')];
+    const safeEls = [...document.querySelectorAll<HTMLElement>("[data-field-safe]")];
     const hudEl = hudRef.current;
     const desktop = matchMedia("(min-width: 1024px)");
     const hudSet = (k: string, v: string) => {
@@ -112,29 +131,68 @@ export function SceneEngine({ hud }: { hud: HudCopy }) {
 
     let active: ChapterId = "hero";
     let lastY = scrollY;
+    let lastKey = "";
     let lastClock = 0;
     let raf = 0;
 
     const loop = (t: number) => {
+      raf = requestAnimationFrame(loop);
       lenis?.raf(t);
+      if (hudEl && desktop.matches && t - lastClock > 1000) {
+        lastClock = t;
+        const time = new Intl.DateTimeFormat("pt-BR", { timeZone: "America/Sao_Paulo", hour: "2-digit", minute: "2-digit", second: "2-digit" }).format();
+        hudSet("clock", `BRASÍLIA ${time}`);
+      }
       const vh = innerHeight;
       const y = scrollY;
+      // Nothing moved and nothing resized: skip the layout reads and style writes (the page is idle most of the time)
+      const key = `${y}|${vh}|${innerWidth}`;
+      const moving = !!lenis?.isScrolling;
+      if (key === lastKey && !dirty && !moving) {
+        director.velocity = 0;
+        return;
+      }
+      lastKey = key;
+      dirty = false;
       director.velocity = lenis ? clamp01(Math.abs(lenis.velocity) / 40) * Math.sign(lenis.velocity) : 0;
 
-      // Chapter progress → CSS --p; the chapter holding the viewport centre drives the field
-      let activeP = 0;
+      // 1. Reads: every layout measurement first, so the writes below never force a synchronous layout
       // Short viewports (landscape phones) can't fit a pinned stage: chapters stack and progress is centre-based
       const unpinned = vh < 640;
+      const rects = chapters.map((c) => c.el.getBoundingClientRect());
+      const stackRects = stack.map((card) => card.getBoundingClientRect());
+      const hh = header?.offsetHeight ?? 72;
+      const overPaper = papers.some((p) => {
+        const r = p.getBoundingClientRect();
+        return r.top < hh && r.bottom > 0;
+      });
+      const heroHalf = (heroSection?.offsetHeight ?? vh) * 0.5;
+      const docH = document.documentElement.scrollHeight;
+      const footerH = footer?.offsetHeight ?? 0;
+      // Safe rectangles: the four text blocks nearest the viewport centre (y flipped for gl_FragCoord)
+      const safe = safeEls
+        .map((el) => el.getBoundingClientRect())
+        .filter((r) => r.bottom > 0 && r.top < vh && r.width > 0)
+        .sort((a, b) => Math.abs(a.top + a.height / 2 - vh / 2) - Math.abs(b.top + b.height / 2 - vh / 2))
+        .slice(0, 4)
+        .map((r) => [r.left, vh - r.bottom, r.right, vh - r.top] as [number, number, number, number]);
+      const convergeRect = converge?.getBoundingClientRect();
+
+      // 2. Writes
       if (html.hasAttribute("data-static") !== unpinned) html.toggleAttribute("data-static", unpinned);
-      for (const c of chapters) {
-        const r = c.el.getBoundingClientRect();
+      // Chapter progress → CSS --p; the chapter holding the viewport centre drives the field
+      let activeP = 0;
+      let servicesP = 0;
+      chapters.forEach((c, i) => {
+        const r = rects[i];
         const p = clamp01(c.pinned && !unpinned ? -r.top / Math.max(1, r.height - vh) : (vh / 2 - r.top) / r.height);
+        if (c.id === "services") servicesP = p;
         c.el.style.setProperty("--p", p.toFixed(4));
         if (r.top <= vh / 2 && r.bottom > vh / 2) {
           active = c.id;
           activeP = p;
         }
-      }
+      });
       const chapter = chapters.find((c) => c.id === active);
       if (chapter) {
         Object.assign(director, resolve([...chapter.keys], activeP), { dim: chapter.dim });
@@ -147,7 +205,7 @@ export function SceneEngine({ hud }: { hud: HudCopy }) {
           director.dim = 1 - 0.6 * overlay;
         }
       }
-      html.dataset.chapter = active;
+      if (html.dataset.chapter !== active) html.dataset.chapter = active;
       if (chapter && !viewed.has(active)) {
         viewed.add(active);
         track("chapter_view", { id: active });
@@ -156,52 +214,35 @@ export function SceneEngine({ hud }: { hud: HudCopy }) {
 
       // Pillars: active item, odometer, rail
       if (pillars) {
-        const p = parseFloat(pillars.closest<HTMLElement>("[data-chapter]")!.style.getPropertyValue("--p") || "0");
-        const k = PILLAR_AT.filter((at) => p >= at).length;
+        const k = PILLAR_AT.filter((at) => servicesP >= at).length;
         if (pillars.dataset.pillar !== String(k)) pillars.dataset.pillar = String(k);
         pillars.style.setProperty("--d", String(Math.max(1, k)));
         PILLAR_AT.forEach((at, i) => {
           const end = PILLAR_AT[i + 1] ?? 1;
-          pillars.style.setProperty(`--f${i}`, clamp01((p - at) / (end - at)).toFixed(3));
+          pillars.style.setProperty(`--f${i}`, clamp01((servicesP - at) / (end - at)).toFixed(3));
         });
       }
 
       // Stacked cards: how far the next card has covered this one
       stack.forEach((card, i) => {
-        const next = stack[i + 1];
-        if (!next) return;
-        const a = card.getBoundingClientRect();
-        const b = next.getBoundingClientRect();
-        card.style.setProperty("--s", clamp01(1 - (b.top - a.top) / a.height).toFixed(3));
+        const a = stackRects[i];
+        const b = stackRects[i + 1];
+        if (b) card.style.setProperty("--s", clamp01(1 - (b.top - a.top) / a.height).toFixed(3));
       });
 
       // Header: hide on the way down after half the hero, show on the way up; panel over paper
-      const heroHalf = (heroSection?.offsetHeight ?? vh) * 0.5;
       if (y > lastY + 2 && y > heroHalf) html.setAttribute("data-header-hidden", "");
       else if (y < lastY - 2 || y <= heroHalf) html.removeAttribute("data-header-hidden");
       lastY = y;
-      const hh = header?.offsetHeight ?? 72;
-      const overPaper = [...document.querySelectorAll('[data-theme="paper"]')].some((p) => {
-        const r = p.getBoundingClientRect();
-        return r.top < hh && r.bottom > 0;
-      });
       html.toggleAttribute("data-over-paper", overPaper);
 
       // Page progress, footer reveal
-      const docH = document.documentElement.scrollHeight;
       html.style.setProperty("--page-p", clamp01(y / Math.max(1, docH - vh)).toFixed(4));
-      if (footer) footer.style.setProperty("--reveal", `${Math.max(0, y + vh - (docH - footer.offsetHeight))}px`);
+      if (footer) footer.style.setProperty("--reveal", `${Math.max(0, y + vh - (docH - footerH))}px`);
 
-      // Safe rectangles: the four text blocks nearest the viewport centre (y flipped for gl_FragCoord)
-      director.safe = [...document.querySelectorAll("[data-field-safe]")]
-        .map((el) => el.getBoundingClientRect())
-        .filter((r) => r.bottom > 0 && r.top < vh && r.width > 0)
-        .sort((a, b) => Math.abs(a.top + a.height / 2 - vh / 2) - Math.abs(b.top + b.height / 2 - vh / 2))
-        .slice(0, 4)
-        .map((r) => [r.left, vh - r.bottom, r.right, vh - r.top]);
-
-      if (converge) {
-        const r = converge.getBoundingClientRect();
+      director.safe = safe;
+      if (convergeRect) {
+        const r = convergeRect;
         director.converge = [((r.left + r.width / 2) / innerWidth) * 2 - 1, 1 - ((r.top + r.height / 2) / vh) * 2];
       }
 
@@ -217,20 +258,14 @@ export function SceneEngine({ hud }: { hud: HudCopy }) {
         // In the hero the readout is the live assembly counter; elsewhere, the formation's metadata
         const readout = active === "hero" ? (order?.textContent ?? "") : tpl && values ? tpl.replace(/\{(\w+)\}/g, (_, k) => pad(values[k] ?? 0)) : "";
         hudSet("readout", readout);
-        if (t - lastClock > 1000) {
-          lastClock = t;
-          const time = new Intl.DateTimeFormat("pt-BR", { timeZone: "America/Sao_Paulo", hour: "2-digit", minute: "2-digit", second: "2-digit" }).format();
-          hudSet("clock", `BRASÍLIA ${time}`);
-        }
       }
-
-      raf = requestAnimationFrame(loop);
     };
     raf = requestAnimationFrame(loop);
 
     return () => {
       stopped = true;
       cancelAnimationFrame(raf);
+      cancelStart();
       lenis?.destroy();
       field?.stop();
       html.removeAttribute("data-field");

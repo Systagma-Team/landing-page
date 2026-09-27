@@ -1,7 +1,7 @@
 import { ArrowUp } from "lucide-react";
 import { useLocale, useMessages, useTranslations } from "next-intl";
 import { isSet, site } from "@/content/site";
-import { OFFER_HREF, PILLARS, SERVICES, type OfferKey } from "@/content/offers";
+import { OFFER_HREF, PILLARS, SERVICES, SPECIALTIES, type OfferKey } from "@/content/offers";
 import { getPathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { whatsappHref } from "@/lib/whatsapp";
@@ -22,13 +22,14 @@ function useSectionLinks() {
   ];
 }
 
-/** The six offers as links, grouped as the commercial architecture: solutions, then services. */
+/** The offers as links, grouped as the commercial architecture: solutions, specialties, then services. */
 function useOfferGroups() {
   const m = useMessages();
   const locale = useLocale();
   const link = (k: OfferKey) => ({ href: getPathname({ href: OFFER_HREF[k], locale }), label: m.offers[k].name, summary: m.offers[k].summary });
   return [
     { label: m.nav.solutions, links: PILLARS.map(link) },
+    { label: m.nav.specialties, links: SPECIALTIES.map(link) },
     { label: m.nav.services, links: SERVICES.map(link) },
   ];
 }
@@ -104,7 +105,7 @@ export function SiteFooter() {
   const t = useTranslations();
   const locale = useLocale();
   const links = useSectionLinks();
-  const [solutions, services] = useOfferGroups();
+  const [solutions, specialties, services] = useOfferGroups();
   const wa = whatsappHref(locale);
   const socials = Object.entries(site.socials).filter(([, url]) => isSet(url));
   const contact = [
@@ -135,7 +136,7 @@ export function SiteFooter() {
         <div className="grid gap-12 lg:grid-cols-12">
           <p className="font-serif text-display-md font-light italic lg:col-span-5">{t("footer.tagline")}</p>
           <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:col-span-7">
-            {column(t("footer.solutions"), solutions.links)}
+            {column(t("footer.solutions"), [...solutions.links, ...specialties.links])}
             {column(t("footer.services"), services.links)}
             {column(t("footer.site"), links)}
             {contact.length > 0 && (

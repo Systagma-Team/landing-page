@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import { rememberSource, track } from "@/lib/analytics";
+import { rememberLanding, rememberSource, track } from "@/lib/analytics";
 
 /** Where a click happened: the CTA's own label (data-cta), else its chapter, the header or the footer. */
 const locationOf = (el: HTMLElement) =>
@@ -9,6 +9,7 @@ const locationOf = (el: HTMLElement) =>
 /** One delegated listener for the click events of SPEC 12: CTAs, email, WhatsApp and the language switcher. */
 export function Analytics() {
   useEffect(() => {
+    rememberLanding();
     const onClick = (e: MouseEvent) => {
       const a = (e.target as Element).closest<HTMLAnchorElement>("a[href]");
       if (!a) return;
