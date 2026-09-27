@@ -269,9 +269,12 @@ export function matchOpportunity(opportunity: OpportunityInput, profile: Profile
     ...profile.evidence.filter((e) => e.type === "CERTIFICATION").flatMap((e) => [e.title, ...e.capabilities]),
     ...profile.documents.filter((d) => d.category === "PROFESSIONAL_CERTIFICATION" || d.category === "TEAM_QUALIFICATION").map((d) => d.title),
   ].map(normalizeText);
+  const seenCerts = new Set<string>();
   for (const req of verifiedRequirements.filter((r) => r.category === "CERTIFICATE")) {
-    const cert = String(req.attributes.certification ?? "");
+    const cert = String(req.attributes.certification ?? req.description);
     const certKey = normalizeText(cert);
+    if (!certKey || seenCerts.has(certKey)) continue;
+    seenCerts.add(certKey);
     const has = profileCertTexts.some((t) => t.includes(certKey));
     if (!has) {
       gaps.push({

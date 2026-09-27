@@ -12,7 +12,6 @@ export class ContrataBrasilAdapter implements ProcurementSourceAdapter {
   readonly name = "Contrata+Brasil";
   readonly collectors = [];
 
-  // eslint-disable-next-line require-yield
   async *fetchOpportunities(): AsyncIterable<SourceRecord> {
     throw new NotSupportedError("Contrata+Brasil: nenhuma interface estruturada pública verificada");
   }
@@ -25,7 +24,6 @@ export class ContrataBrasilAdapter implements ProcurementSourceAdapter {
     return [];
   }
 
-  // eslint-disable-next-line require-yield
   async *fetchProcurementPlans(): AsyncIterable<SourceRecord> {
     throw new NotSupportedError("Contrata+Brasil não publica planos de contratação");
   }

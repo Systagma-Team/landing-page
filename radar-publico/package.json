@@ -14,10 +14,13 @@
     "db:seed": "tsx --env-file-if-exists=.env scripts/seed.ts",
     "user:create": "tsx --env-file-if-exists=.env scripts/create-user.ts",
     "worker": "tsx --env-file-if-exists=.env src/server/jobs/worker.ts",
-    "collect:once": "tsx --env-file-if-exists=.env scripts/collect-once.ts"
+    "collect:once": "tsx --env-file-if-exists=.env scripts/collect-once.ts",
+    "db:seed-demo": "tsx --env-file-if-exists=.env scripts/seed-demo.ts"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.128.0",
     "drizzle-orm": "^0.45.3",
+    "lucide-react": "^1.48.0",
     "next": "16.3.6",
     "nodemailer": "^10.0.10",
     "pg": "^8.23.0",

@@ -161,7 +161,6 @@ export class ComprasGovAdapter implements ProcurementSourceAdapter {
     return [];
   }
 
-  // eslint-disable-next-line require-yield
   async *fetchProcurementPlans(): AsyncIterable<SourceRecord> {
     throw new NotSupportedError("PCA é coletado pelo adapter PNCP");
   }

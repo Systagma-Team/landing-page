@@ -13,6 +13,7 @@ export const QUEUES = {
   digestDaily: "digest-daily",
   digestWeekly: "digest-weekly",
   rematch: "rematch-profiles",
+  ai: "ai-analysis",
 } as const;
 
 export interface QueueSpec {
@@ -39,6 +40,7 @@ export function queueSpecs(): QueueSpec[] {
     { name: QUEUES.dispatch, cron: "* * * * *", options: { retryLimit: 1, retryDelay: 30, retryBackoff: false, expireInSeconds: 300, policy: "stately" } },
     { name: QUEUES.digestDaily, cron: "55 7 * * *", options: { retryLimit: 3, retryDelay: 300, retryBackoff: true, expireInSeconds: 1800, policy: "stately" } },
     { name: QUEUES.digestWeekly, cron: "57 7 * * 1", options: { retryLimit: 3, retryDelay: 300, retryBackoff: true, expireInSeconds: 1800, policy: "stately" } },
+    { name: QUEUES.ai, cron: "25,55 * * * *", options: { retryLimit: 2, retryDelay: 600, retryBackoff: true, expireInSeconds: 3600, policy: "stately" } },
     { name: QUEUES.rematch, options: { retryLimit: 2, retryDelay: 120, retryBackoff: true, expireInSeconds: 3 * 3600, policy: "stately" } },
   ];
 }

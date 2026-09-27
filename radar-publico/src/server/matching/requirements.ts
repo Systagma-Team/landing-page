@@ -295,6 +295,21 @@ export function extractRequirementsByRules(sources: TextSource[]): RequirementIn
   return out;
 }
 
+/** Canonical certification label found in a text (e.g. "ISO 27001"), used to align AI and rule output. */
+export function detectCertificationLabel(text: string): string | null {
+  const n = normalizeWithMap(text).text;
+  for (const cert of CERTIFICATIONS) {
+    const m = new RegExp(cert.re.source).exec(n);
+    if (m) return cert.label(m);
+  }
+  return null;
+}
+
+export function extractCnaeCodes(text: string): string[] {
+  const n = normalizeWithMap(text).text;
+  return Array.from(n.matchAll(/(?<![0-9])(\d{4}) ?(\d) ?(\d{2})(?![0-9])/g)).map((x) => `${x[1]}${x[2]}${x[3]}`);
+}
+
 export function formatCnae(code: string): string {
   const d = onlyDigits(code).padEnd(7, "0");
   return `${d.slice(0, 4)}-${d.slice(4, 5)}/${d.slice(5, 7)}`;

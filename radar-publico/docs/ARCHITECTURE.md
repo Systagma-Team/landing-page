@@ -223,7 +223,7 @@ O detalhe da oportunidade separa visualmente **Análise automática** (painel ne
 
 ## K. Plano MVP / V2 / V3
 
-**MVP (este entregável)**: autenticação + RBAC; perfis MEI e Systagma versionados; conectores PNCP
+**MVP (este entregável — implementado; ver README)**: autenticação + RBAC; perfis MEI e Systagma versionados; conectores PNCP
 (publicação, atualização, propostas abertas, PCA, arquivos) e Compras.gov.br (desligado), Contrata+Brasil
 (registrado, desabilitado); coleta agendada, normalização, deduplicação, detecção de mudanças; taxonomia
 configurável (positiva/negativa); matching separado; score explicável; painel; lista com filtros e busca
@@ -233,7 +233,8 @@ extração de requisitos por regras com citação; radar PCA e radar de inovaç�
 auditoria.
 
 **V2**: download e hash dos editais; extração PDF/DOCX/XLSX (OCR só sem camada de texto); extração de
-requisitos por IA com validação de citação; lacunas de qualificação a partir dos documentos; matching de
+requisitos por IA com validação de citação (**já implementada e desligada por padrão** — hoje opera sobre
+objeto e informações complementares; passa a cobrir os anexos quando a extração de documentos existir); lacunas de qualificação a partir dos documentos; matching de
 capacidade técnica mais rico; itens da compra; notificações mais ricas (Slack nativo, WhatsApp).
 
 **V3**: workspace de proposta (checklists, rascunho — sempre “RASCUNHO — REVISÃO HUMANA”), tarefas,

@@ -2,6 +2,7 @@ import { and, desc, eq } from "drizzle-orm";
 import { schema, type Database } from "@/db";
 import { audit } from "@/server/audit";
 import { hasRole, type Role } from "@/server/auth/roles";
+import { ensureStoredMatch } from "@/server/matching/run";
 
 export interface Actor {
   id: string;
@@ -96,6 +97,8 @@ export async function setWorkflowStatus(
   if (input.to === "INTERESTED" && input.reasonCode && !(input.reasonCode in INTEREST_REASONS)) {
     throw new WorkflowError("Motivo inválido");
   }
+  // The automatic assessment the human is reacting to is always kept.
+  await ensureStoredMatch(db, actor.organizationId, input.opportunityId, input.profileId);
 
   await db.transaction(async (tx) => {
     const [current] = await tx
@@ -201,17 +204,7 @@ export async function overrideMatch(
     throw new WorkflowError("Status de compatibilidade inválido");
   }
 
-  const [match] = await db
-    .select()
-    .from(schema.opportunityMatches)
-    .where(
-      and(
-        eq(schema.opportunityMatches.organizationId, actor.organizationId),
-        eq(schema.opportunityMatches.opportunityId, input.opportunityId),
-        eq(schema.opportunityMatches.profileId, input.profileId),
-        eq(schema.opportunityMatches.isCurrent, true),
-      ),
-    );
+  const match = await ensureStoredMatch(db, actor.organizationId, input.opportunityId, input.profileId);
   const automaticValue =
     input.field === "SCORE"
       ? match?.score ?? null

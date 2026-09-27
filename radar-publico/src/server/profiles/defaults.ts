@@ -240,3 +240,18 @@ export const SYSTAGMA_NEGATIVE_TERMS: { term: string; weight: number; effect: "E
   { term: "videomonitoramento", weight: 1, effect: "EXCLUDE", note: "Segurança eletrônica" },
   { term: "manutenção de computadores", weight: 1.2, effect: "EXCLUDE", note: "Manutenção de hardware" },
 ];
+
+/**
+ * Keyword suggestions for common IT CNAE subclasses (IBGE CNAE 2.3). Used only when the user adds
+ * a CNAE without keywords; they remain editable and are never applied to MEI occupations automatically.
+ */
+export const CNAE_KEYWORD_SUGGESTIONS: Record<string, string[]> = {
+  "6201501": ["desenvolvimento de sistemas", "desenvolvimento de software", "software sob medida", "sistema web", "aplicativo"],
+  "6201502": ["desenvolvimento de sites", "website", "portal", "site institucional"],
+  "6202300": ["software customizável", "customização de software", "implantação de sistema"],
+  "6203100": ["software não customizável", "licenciamento de software"],
+  "6204000": ["consultoria em tecnologia da informação", "consultoria em TI", "consultoria em tecnologia"],
+  "6209100": ["suporte técnico", "manutenção de sistemas", "sustentação", "manutenção evolutiva"],
+  "6311900": ["tratamento de dados", "processamento de dados", "hospedagem", "business intelligence"],
+  "6319400": ["portais", "provedores de conteúdo", "portal de serviços"],
+};

@@ -2,7 +2,6 @@ import { afterAll, beforeEach, describe, expect, it } from "vitest";
 import { and, eq, sql } from "drizzle-orm";
 import { closeDb, schema, type Database } from "@/db";
 import { runCollector } from "@/server/ingestion/collect";
-import { ingestRecord } from "@/server/ingestion/upsert";
 import { processOpportunities } from "@/server/ingestion/pipeline";
 import { matchOpportunities } from "@/server/matching/run";
 import { commitProfileVersion } from "@/server/profiles/service";
@@ -21,14 +20,14 @@ let db: Database;
 let organizationId: string;
 let analyst: Actor;
 
-function usePncp(handler: Parameters<typeof fakeFetch>[0]) {
+function stubPncp(handler: Parameters<typeof fakeFetch>[0]) {
   const f = fakeFetch(handler);
   setAdapter("pncp", new PncpAdapter({ fetchImpl: f.impl, sleep: noSleep, minIntervalMs: 0 }));
   return f;
 }
 
 function standardPncp(overridesFor45: Record<string, unknown> = {}) {
-  return usePncp((url) => {
+  return stubPncp((url) => {
     if (!url.pathname.endsWith("/contratacoes/publicacao")) return { status: 404 };
     const modality = url.searchParams.get("codigoModalidadeContratacao");
     if (modality === "6") return { json: page([contratacao(overridesFor45), licensing]) };
@@ -135,7 +134,7 @@ describe("ingestion", () => {
   });
 
   it("scenario 8: an unavailable source is retried, fails on its own and does not stop other sources", async () => {
-    const down = usePncp(() => ({ status: 503, text: "Service Unavailable" }));
+    const down = stubPncp(() => ({ status: 503, text: "Service Unavailable" }));
     await expect(runCollector(db, "pncp", "publicacao", { now: NOW, log: () => undefined })).rejects.toThrow(/503/);
     expect(down.calls.length).toBe(5); // 1 attempt + 4 retries
     const [src] = await db.select().from(schema.sources).where(eq(schema.sources.key, "pncp"));
@@ -153,7 +152,7 @@ describe("ingestion", () => {
     expect(ok.status).toBe("SUCCESS");
 
     // WAF/HTML responses are treated as failures, not parsed.
-    usePncp(() => ({ status: 200, text: "<html>captcha</html>", contentType: "text/html" }));
+    stubPncp(() => ({ status: 200, text: "<html>captcha</html>", contentType: "text/html" }));
     await expect(runCollector(db, "pncp", "publicacao", { now: NOW, log: () => undefined })).rejects.toThrow(/HTML/);
     await expect(runCollector(db, "pncp", "publicacao", { now: NOW, log: () => undefined })).rejects.toThrow();
     const alerts = await db.select().from(schema.alerts).where(eq(schema.alerts.type, "SOURCE_FAILURE"));
@@ -249,6 +248,19 @@ describe("matching pipeline, overrides and human gate", () => {
     const logs = await db.select().from(schema.auditLogs).where(eq(schema.auditLogs.action, "match.overridden"));
     expect(logs).toHaveLength(1);
     await expect(overrideMatch(db, analyst, { opportunityId: strong.id, profileId: systagma, field: "SCORE", manualValue: 40, reason: "" })).rejects.toThrow(WorkflowError);
+  });
+
+  it("overriding a profile with no stored match first persists the automatic assessment", async () => {
+    await collectAndProcess();
+    const [lic] = await db.select().from(schema.opportunities).where(eq(schema.opportunities.pncpControlNumber, "12345678000190-1-000046/2026"));
+    const systagma = await profileId("systagma");
+    expect(await db.select().from(schema.opportunityMatches).where(eq(schema.opportunityMatches.opportunityId, lic.id))).toHaveLength(0);
+    await overrideMatch(db, analyst, { opportunityId: lic.id, profileId: systagma, field: "SCORE", manualValue: 60, reason: "Inclui implantação não descrita no objeto" });
+    const [stored] = await db.select().from(schema.opportunityMatches).where(eq(schema.opportunityMatches.opportunityId, lic.id));
+    expect(stored.status).toBe("LIKELY_INCOMPATIBLE");
+    const [ov] = await db.select().from(schema.matchOverrides).where(eq(schema.matchOverrides.opportunityId, lic.id));
+    expect(ov.automaticValue).toBe(stored.score);
+    expect(ov.matchId).toBe(stored.id);
   });
 
   it("scenario 10: the platform stops at the human submission gate", async () => {

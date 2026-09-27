@@ -142,6 +142,7 @@ CREATE TABLE "opportunities" (
 	"unit_name" text,
 	"state" text,
 	"city" text,
+	"city_search" text,
 	"city_ibge" text,
 	"estimated_value" numeric(18, 2),
 	"awarded_value" numeric(18, 2),

@@ -1,5 +1,5 @@
 {
-  "id": "a195666b-b7ef-443c-80a4-868503b5c63c",
+  "id": "23f58236-07f1-4025-b7af-82c336687158",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -1107,6 +1107,12 @@
         },
         "city": {
           "name": "city",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "city_search": {
+          "name": "city_search",
           "type": "text",
           "primaryKey": false,
           "notNull": false

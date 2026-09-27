@@ -21,7 +21,8 @@ Base: `https://pncp.gov.br`
 | Contratações por data de publicação | `GET /api/consulta/v1/contratacoes/publicacao` | `dataInicial`, `dataFinal` (yyyyMMdd), `codigoModalidadeContratacao` (obrigatório), `uf`, `codigoMunicipioIbge`, `cnpj`, `codigoUnidadeAdministrativa`, `idUsuario`, `pagina`, `tamanhoPagina` |
 | Contratações por data de atualização | `GET /api/consulta/v1/contratacoes/atualizacao` | mesmos parâmetros de `publicacao` |
 | Contratações com proposta aberta | `GET /api/consulta/v1/contratacoes/proposta` | `dataFinal`, `codigoModalidadeContratacao`, filtros, `pagina`, `tamanhoPagina` |
-| PCA por data de atualização | `GET /api/consulta/v1/pca/atualizacao` | `dataInicio`, `dataFim` **[verificar nomes]**, `pagina`, `tamanhoPagina` |
+| PCA por data de atualização | `GET /api/consulta/v1/pca/atualizacao` | `dataInicio`, `dataFim`, `codigoClassificacaoSuperior` (opcional, configurável), `pagina`, `tamanhoPagina` |
+| Itens de um PCA | `GET /api/pncp/v1/orgaos/{cnpj}/pca/{ano}/{sequencial}/itens` | usado quando o plano vem sem itens |
 | PCA por ano/classe | `GET /api/consulta/v1/pca/` | `anoPca`, `codigoClassificacaoSuperior`, `pagina`, `tamanhoPagina` |
 | Arquivos da compra | `GET /api/pncp/v1/orgaos/{cnpj}/compras/{ano}/{sequencial}/arquivos` | — |
 | Detalhe da compra | `GET /api/consulta/v1/orgaos/{cnpj}/compras/{ano}/{sequencial}` | — |
@@ -103,5 +104,10 @@ municipais, programas de inovação e empresas públicas registrando um novo ada
 - Transcrição do manual (gist): https://gist.github.com/Micael106/04a3e5515057ab11ea8797603682f0bd
 - Cliente open source recente com limites observados: https://github.com/AnxietyLab/pncp-cli
 - Relato do limite de 50 por página: https://github.com/ferinbon-cpu/robo-dados-publicos/issues/502
+- Servidor MCP open source recente sobre as mesmas APIs (mai/2026): https://github.com/Licinexus/licinexus-mcp —
+  confirma `pca/atualizacao` com `dataInicio`/`dataFim` (e `codigoClassificacaoSuperior` opcional), página de
+  10 a 50 em contratações, detalhe em `/api/consulta/v1/orgaos/{cnpj}/compras/{ano}/{seq}`, itens/arquivos em
+  `/api/pncp/v1/...`, itens do PCA em `/api/pncp/v1/orgaos/{cnpj}/pca/{ano}/{seq}/itens` e o formato de plano
+  com `orgaoCnpj`/`sequencialPca`/`itens` (o adapter aceita também o formato do manual).
 - Dados Abertos Compras.gov.br: https://dadosabertos.compras.gov.br/swagger-ui/index.html
 - Contrata+Brasil: https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/contrata-brasil

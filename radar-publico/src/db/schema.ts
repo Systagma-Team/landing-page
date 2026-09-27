@@ -469,6 +469,8 @@ export const opportunities = pgTable(
     unitName: text("unit_name"),
     state: text("state"),
     city: text("city"),
+    /** accent-free lowercase city for filtering */
+    citySearch: text("city_search"),
     cityIbge: text("city_ibge"),
 
     estimatedValue: numeric("estimated_value", { precision: 18, scale: 2 }),
